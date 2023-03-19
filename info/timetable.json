@@ -1,0 +1,76 @@
+{
+    "3": {
+        "1": {
+            "1": { "num": 0, "id": "010", "color": "default" },
+            "2": { "num": 1, "id": "006", "color": "default" },
+            "3": { "num": 2, "id": "005", "color": "default" },
+            "4": { "num": 3, "id": "002", "color": "default" }
+        },
+        "2": {
+            "1": { "num": 1, "id": "004", "color": "default" },
+            "2": { "num": 2, "id": "008", "color": "default" },
+            "3": { "num": 3, "id": "003", "color": "default" },
+            "4": { "num": 4, "id": "009", "color": "default" }
+        },
+        "3": {
+            "1": { "num": 1, "id": "003", "color": "yellow" },
+            "2": { "num": 1, "id": "007", "color": "green" },
+            "3": { "num": 2, "id": "001", "color": "default" },
+            "4": { "num": 3, "id": "001", "color": "default" }
+        },
+        "4": {
+            "1": { "num": 1, "id": "004", "color": "default" },
+            "2": { "num": 2, "id": "005", "color": "default" },
+            "3": { "num": 3, "id": "007", "color": "default" },
+            "4": { "num": 4, "id": "001", "color": "default" }
+        },
+        "5": {
+            "1": { "num": 1, "id": "003", "color": "default" },
+            "2": { "num": 2, "id": "006", "color": "default" },
+            "3": { "num": 3, "id": "002", "color": "default" },
+            "4": { "num": 4, "id": "002", "color": "default" }
+        }
+    },
+    "4": {
+        "1": {
+            "count": 3,
+            "1": { "num": 0, "cab": "418", "id": "14", "color": "default" },
+            "2": { "num": 1, "cab": "0204", "id": "1", "color": "default" },
+            "3": { "num": 2, "cab": "409", "id": "5", "color": "default" },
+            "4": { "num": 3, "cab": "0305", "id": "4", "color": "yellow" },
+            "5": { "num": 3, "cab": "401", "id": "4", "color": "green" }
+        },
+        "2": {
+            "count": 3,
+            "1": { "num": 1, "cab": "0100", "id": "12", "color": "default" },
+            "2": { "num": 2, "cab": "0204", "id": "1", "color": "default" },
+            "3": { "num": 3, "cab": "311/404а", "id": "10", "color": "default" }
+        },
+        "3": {
+            "count": 3,
+            "1": { "num": 1, "cab": "0305", "id": "4", "color": "default" },
+            "2": { "num": 2, "cab": "309", "id": "2", "color": "default" },
+            "3": { "num": 3, "cab": "221", "id": "11", "color": "default" }
+        },
+        "4": {
+            "count": 3,
+            "1": { "num": 1, "cab": "221", "id": "9", "color": "default" },
+            "2": { "num": 2, "cab": "0204", "id": "1", "color": "default" },
+            "3": { "num": 3, "cab": "221", "id": "9", "color": "yellow" },
+            "4": { "num": 3, "cab": "315", "id": "2", "color": "green" }
+        },
+        "5": {
+            "count": 3,
+            "1": { "num": 1, "cab": "0307", "id": "6", "color": "default" },
+            "2": { "num": 2, "cab": "0307", "id": "6", "color": "default" },
+            "3": { "num": 3, "cab": "409", "id": "5", "color": "default" }
+        },
+        "6": {
+            "count": 3,
+            "1": { "num": 1, "cab": "414", "id": "7", "color": "default" },
+            "2": { "num": 2, "cab": "414", "id": "7", "color": "default" },
+            "3": { "num": 3, "cab": "309", "id": "2", "color": "default" }
+        }
+    },
+    "additional": "color of pair: first - YELLOW, after - GREEN"
+}
