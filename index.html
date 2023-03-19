@@ -45,18 +45,18 @@
         </style>
         
         <!-- CSS and icon site -->
-        <link   rel="preload prefetch stylesheet"   href="//lib.plutonny.ru/viewer.css?cache=15.03.2023-v400-b31" as="style">
-        <link   rel="preload prefetch stylesheet"   href="static/load.css?cache=15.03.2023-v400-b31" as="style">
-        <link   rel="preload prefetch stylesheet"   href="static/main.css?cache=15.03.2023-v400-b31" as="style">
-        <link   rel="icon"                          href="static/g-icon.png?cache=15.03.2023-v400-b31">
+        <link   rel="preload prefetch stylesheet"   href="//lib.plutonny.ru/viewer.css?cache=19.03.2023-v401-b32" as="style">
+        <link   rel="preload prefetch stylesheet"   href="static/load.css?cache=19.03.2023-v401-b32" as="style">
+        <link   rel="preload prefetch stylesheet"   href="static/main.css?cache=19.03.2023-v401-b32" as="style">
+        <link   rel="icon"                          href="static/g-icon.png?cache=19.03.2023-v401-b32">
         <link   rel="apple-touch-icon"              href="pwa-icon-apple.png">
 
         <!-- JS files -->
         <script type="text/javascript"              src="//cdn.jsdelivr.net/npm/eruda"></script>
-        <script type="text/javascript"              src="//lib.plutonny.ru/plutonny.js/v1.0.js?cache=15.03.2023-v400-b31"></script>
-        <script type="text/javascript"              src="//lib.plutonny.ru/luxon.js?cache=15.03.2023-v400-b31"></script>
-        <script type="text/javascript"              src="//lib.plutonny.ru/solar.js?cache=15.03.2023-v400-b31"></script>
-        <script type="text/javascript"              src="//lib.plutonny.ru/viewer.js?cache=15.03.2023-v400-b31"></script>
+        <script type="text/javascript"              src="//lib.plutonny.ru/plutonny.js/v1.0.js?cache=19.03.2023-v401-b32"></script>
+        <script type="text/javascript"              src="//lib.plutonny.ru/luxon.js?cache=19.03.2023-v401-b32"></script>
+        <script type="text/javascript"              src="//lib.plutonny.ru/solar.js?cache=19.03.2023-v401-b32"></script>
+        <script type="text/javascript"              src="//lib.plutonny.ru/viewer.js?cache=19.03.2023-v401-b32"></script>
         
         <style  id="root-colors-theme"              >#thMoon, #thSun { display: none; }</style>
 
@@ -87,8 +87,8 @@
         <script id="GlVa" type="text/javascript">
             "use strict";
             
-            var siteVersion = '4.0.0'
-            var siteBuild = '31'
+            var siteVersion = '4.0.1'
+            var siteBuild = '32'
 
             var CURRDATE = new Date()
             var NEXTDAY = new Date(); NEXTDAY.setDate(CURRDATE.getDay() == 6 ? CURRDATE.getDate() + 2 : CURRDATE.getDate() + 1)
@@ -148,7 +148,10 @@
                     }
                     localStorage.removeItem('HOLIDAYSMODE')
                 }
-            }).catch(function (err) { plutonny.console.error('index.html -> preload checker -> holidays', err) })
+            }).catch(function (err) { 
+                plutonny.console.error('index.html -> preload checker -> holidays', err)
+                localStorage.removeItem('HOLIDAYSMODE')
+            })
 
             fetch(`/info/practice.json?t=${CURRDATE.getTime()}`).then(function (response) { return response.json() }).then(function (data) { 
                 for (let i = 1; i <= data['count']; i++) {
@@ -164,7 +167,12 @@
                     localStorage.removeItem('PRACTICEMODE-name')
                     localStorage.removeItem('PRACTICEMODE-date')
                 }
-            }).catch(function (err) { plutonny.console.error('index.html -> preload checker -> holidays', err) })
+            }).catch(function (err) { 
+                plutonny.console.error('index.html -> preload checker -> holidays', err)
+                localStorage.removeItem('PRACTICEMODE')
+                localStorage.removeItem('PRACTICEMODE-name')
+                localStorage.removeItem('PRACTICEMODE-date') 
+                })
 
             if (BETA)  siteVersion += ' beta'
             if (ALPHA) siteVersion += ' alpha'
@@ -1135,10 +1143,21 @@
                 if (localStorage.getItem('HOLIDAYSMODE') == 'summer') plutonny.output('content', holiS())
                 else if (localStorage.getItem('HOLIDAYSMODE') == 'winter') plutonny.output('content', holiW())
                 else {
-                    if (localStorage.getItem('viewChangImport') == 'yes' || (localStorage.getItem('viewChangImport') == 'onlp' && localStorage.getItem('PRACTICEMODE') == 'l')) {
+                    if (localStorage.getItem('PRACTICEMODE') == 'm') plutonny.output('content', pracM())
+                    else if (localStorage.getItem('viewChangImport') == 'yes' || (localStorage.getItem('viewChangImport') == 'onlp' && localStorage.getItem('PRACTICEMODE') == 'l')) {
                         function changOUT(c) {
                             if (c == 0) {
-                                plutonny.output('content', `
+                                plutonny.output('content', CURRDATE.getDay() == 0 ? 
+                                `<div style="display: flex; flex-direction: column; align-items: center;">
+                                    <div style="height: 36px;"></div>
+                                    <img style="height: 120px; width: 120px;" src="/static/dayKS.png">
+                                    <div style="height: 36px;"></div>
+                                    <b style="font-family: 'Montserrat'; text-align: center;">сегодня изменений нет</b>
+                                    <p style="font-family: 'Montserrat'; text-align: center;">можно зачиллиться :)</p>
+                                    <div style="height: 12px;"></div>
+                                    <button onclick="changOUT(1)" style="height: 40px;">завтра</button>
+                                </div>
+                                ` : `
                                     <div style="display: flex; justify-content: space-between; margin: 0 0 8px 0;">
                                         <h2 style="margin: 0;">изменения сегодня:</h2>
                                         <button onclick="changOUT(1)" style="height: 40px;">завтра</button>
@@ -1149,7 +1168,15 @@
                                 `)
                             }
                             if (c == 1) {
-                                plutonny.output('content', `
+                                plutonny.output('content', CURRDATE.getDay() == 6 ? 
+                                `<div style="display: flex; justify-content: space-between; margin: 0 0 8px 0;">
+                                        <h2 style="margin: 0;">изменения в ПН:</h2>
+                                        <button onclick="changOUT(0)" style="height: 40px;">сегодня</button>
+                                    </div>
+                                    <iframe src="https://view.officeapps.live.com/op/embed.aspx?src=${changesTable.pathTo}${changesTable.fileNameTomorrow}${changesTable.fileType}" frameborder="0"
+                                        style="width: 100%; height: 600px;"></iframe>
+                                    <button style="width: 100%; font-family: 'Montserrat'; margin: 8px 0 0 0;" onclick="window.location.href = '/?/pair/'">все предметы</button>
+                                ` : `
                                     <div style="display: flex; justify-content: space-between; margin: 0 0 8px 0;">
                                         <h2 style="margin: 0;">изменения завтра:</h2>
                                         <button onclick="changOUT(0)" style="height: 40px;">сегодня</button>
@@ -1160,7 +1187,7 @@
                                 `)
                             }
                         }
-                        changOUT(CURRDATE.getDay() == 0 ? 1 : 0)
+                        changOUT(0)
                     }
                     else if (localStorage.getItem('viewChangImport') == 'no') {
                         if (localStorage.getItem('PRACTICEMODE') == 'l') plutonny.output('content', pracL())
@@ -1229,6 +1256,7 @@
                                                     <div style="height: 36px;"></div>
                                                     <b style="font-family: 'Montserrat'; text-align: center;">сегодня пар нет</b>
                                                     <p style="font-family: 'Montserrat'; text-align: center;">можно зачиллиться :)</p>
+                                                    <div style="height: 12px;"></div>
                                                 </div>
                                                 `
                                             }
@@ -1286,7 +1314,15 @@
                                             `)
                                         }
                                         if (c == 1) {
-                                            plutonny.output('content', `
+                                            plutonny.output('content', CURRDATE.getDay() == 6 ? 
+                                            `<div style="display: flex; justify-content: space-between; margin: 0 0 16px 0;">
+                                                    <h2 style="margin: 0;">пары в ПН:</h2>
+                                                    <button onclick="pairOUT(0)" style="height: 40px;">сегодня</button>
+                                                </div>
+                                                ${fco(1, 'noactive')}
+                                                <button style="width: 100%; font-family: 'Montserrat'; margin: 8px 0 0 0;" onclick="window.location.href = '/?/changes/tomorrow/'">изменения на завтра</button>
+                                                <button style="width: 100%; font-family: 'Montserrat'; margin: 8px 0 0 0;" onclick="window.location.href = '/?/pair/'">все предметы</button>
+                                            ` : `
                                                 <div style="display: flex; justify-content: space-between; margin: 0 0 16px 0;">
                                                     <h2 style="margin: 0;">пары завтра:</h2>
                                                     <button onclick="pairOUT(0)" style="height: 40px;">сегодня</button>
@@ -1299,7 +1335,7 @@
                                     }).catch(function (err) { plutonny.console.error('index.html -> home -> JSON (subjects)', err); pageCantLoad() })
                                 }).catch(function (err) { plutonny.console.error('index.html -> home -> JSON (timetable)', err); pageCantLoad() })
                             }
-                            pairOUT(CURRDATE.getDay() == 0 ? 1 : 0)
+                            pairOUT(0)
                         }
                     }
                     else pageCantLoad()
@@ -2720,6 +2756,19 @@
                         plutonny.output('title-page', 'КСК-11 | список обновлений')
                         UI.navbar('other')
                         plutonny.output('content', `
+                        <h1>4.0.1</h1>
+                        <li>исправление багов</li>
+                        <li>более понятный вывод пар и изменений в субботу и воскресенье</li>
+
+                        <h1>4.0.0</h1>
+                        <li>новый дизайн</li>
+                        <li>таймер пары</li>
+                        <li>выделение текущей пары</li>
+                        <li>удобные изменения</li>
+                        <li>поддержка</li>
+                        <li>больше настроек</li>
+                        <li>больше мелких фишек для удобства использования</li>
+
                         <h1>3.1.0</h1>
                         <li>оптимизация кода</li>
                         <li>исправление багов</li>
@@ -2790,7 +2839,6 @@
                 if (localStorage.getItem(`noDisplayUpdate${siteVersion}`) != 'true') { 
                     if (document.getElementById('update-modal') == null) document.body.innerHTML += '<div id="update-modal" class="update-modal"><div>'
                         /* SMALL UPDATES */
-                        /*
                         plutonny.output('update-modal', `
                         <div id="mini-update-modal" class="mini-update-modal">
                             <style>
@@ -2801,10 +2849,10 @@
                                 <div style="display: flex; justify-content: center; align-items: center;border-radius: 100px; width: 30px; height: 30px; background-color: #0000ff55;"><span style="color: #0000ff;" class="material-symbols-rounded">exclamation</span></div>
                                 <p style="margin: 0 0 0 8px; word-break: break-all;">вышло обновление</p>
                             </div>
-                            <a style="margin: 0; word-break: break-all; text-decoration: none; color: blue;" href="/?/other/updates/">изменения</a>
+                            <a style="margin: 0; word-break: break-all; text-decoration: none; color: blue;" href="/?/updates/old/">изменения</a>
                         </div>`)
-                        */
                         /* BIG UPDATES */
+                        /*
                         UX.modal(`
                             <style>.max-modal { width: 100% !important; }</style>
                             <div style="margin: 0 18px; max-height: 90%; overflow-y: auto; background-color: var(--bg-color); border: none; border-radius: 24px; box-shadow: 0px 0px 8px var(--box-shadow-color);">
@@ -2816,7 +2864,7 @@
                                 <button style="width: 128px; margin: 4px 16px 16px 16px;" onclick="window.location.href = '/?/updates/'">подробнее</button>
                             </div>
                             </div>
-                        `)
+                        `)*/
                     localStorage.setItem(`noDisplayUpdate${siteVersion}`, true)
                     caches.delete('csc11-v4-byPlutonny')
                     caches.delete('csc11-byPlutonny')
