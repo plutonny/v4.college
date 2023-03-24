@@ -45,18 +45,18 @@
         </style>
         
         <!-- CSS and icon site -->
-        <link   rel="preload prefetch stylesheet"   href="//lib.plutonny.ru/viewer.css?cache=19.03.2023-v401-b32" as="style">
-        <link   rel="preload prefetch stylesheet"   href="static/load.css?cache=19.03.2023-v401-b32" as="style">
-        <link   rel="preload prefetch stylesheet"   href="static/main.css?cache=19.03.2023-v401-b32" as="style">
-        <link   rel="icon"                          href="static/g-icon.png?cache=19.03.2023-v401-b32">
+        <link   rel="preload prefetch stylesheet"   href="//lib.plutonny.ru/viewer.css?cache=24.03.2023-v401-b33" as="style">
+        <link   rel="preload prefetch stylesheet"   href="static/load.css?cache=24.03.2023-v401-b33" as="style">
+        <link   rel="preload prefetch stylesheet"   href="static/main.css?cache=24.03.2023-v401-b33" as="style">
+        <link   rel="icon"                          href="static/g-icon.png?cache=24.03.2023-v401-b33">
         <link   rel="apple-touch-icon"              href="pwa-icon-apple.png">
 
         <!-- JS files -->
         <script type="text/javascript"              src="//cdn.jsdelivr.net/npm/eruda"></script>
-        <script type="text/javascript"              src="//lib.plutonny.ru/plutonny.js/v1.0.js?cache=19.03.2023-v401-b32"></script>
-        <script type="text/javascript"              src="//lib.plutonny.ru/luxon.js?cache=19.03.2023-v401-b32"></script>
-        <script type="text/javascript"              src="//lib.plutonny.ru/solar.js?cache=19.03.2023-v401-b32"></script>
-        <script type="text/javascript"              src="//lib.plutonny.ru/viewer.js?cache=19.03.2023-v401-b32"></script>
+        <script type="text/javascript"              src="//lib.plutonny.ru/plutonny.js/v1.0.js?cache=24.03.2023-v401-b33"></script>
+        <script type="text/javascript"              src="//lib.plutonny.ru/luxon.js?cache=24.03.2023-v401-b33"></script>
+        <script type="text/javascript"              src="//lib.plutonny.ru/solar.js?cache=24.03.2023-v401-b33"></script>
+        <script type="text/javascript"              src="//lib.plutonny.ru/viewer.js?cache=24.03.2023-v401-b33"></script>
         
         <style  id="root-colors-theme"              >#thMoon, #thSun { display: none; }</style>
 
@@ -87,8 +87,8 @@
         <script id="GlVa" type="text/javascript">
             "use strict";
             
-            var siteVersion = '4.0.1'
-            var siteBuild = '32'
+            var siteVersion = '4.0.2'
+            var siteBuild = '33'
 
             var CURRDATE = new Date()
             var NEXTDAY = new Date(); NEXTDAY.setDate(CURRDATE.getDay() == 6 ? CURRDATE.getDate() + 2 : CURRDATE.getDate() + 1)
@@ -197,31 +197,21 @@
             /**
              * UX
              *  | -- theme
-             *  |    | -- get()
-             *  |    | -- load()
-             *  |    | -- change()
-             *  |    | -- defailt()
-             *  |    | -- table()
-             *  | -- capitalize()
-             *  | -- modal()
-             *  | -- changer()
-             *  | -- copy()
-             *  | -- timetable
-             *  |    | -- alert
-             *  |    |    | -- monday (0..6) [[],[]]
-             *  |    |    | -- other (1..6) [[],[]]
-             *  |    |    | -- UIed
-             *  |    |    |    | -- monday (0..6) []
-             *  |    |    |    | -- other (1..6) []
-             *  |    |    |    | -- cel (1..5) []
-             *  |    | -- currentPairNum()
-             *  |    | -- currentPairAddit()
-             *  |    | -- pairTimerHTML()
+             *  |    | -- light
+             *  |    | -- dark
+             *  |    | -- get()       [true - dark theme, false - light theme]
+             *  |    | -- load()      [null]
+             *  |    | -- change()    [null]
+             *  |    | -- defailt()   [null]
+             *  |    | -- table()     [null]
+             *  | -- capitalize(text) [capitalazed text]
+             *  | -- modal(content)   (need div id="modal")
+             *  | -- changer(num)     (used in button pages (example /timetable/alerts and /timetable/week)
+             *  |                      USED ONLY IN UI.header -> HTMLafter
+             *  |                      need: changerClassDIV{num}; changerClassBUTTON{num}; changerClassCSS)
+             *  | -- copy(text)       [null]
              */
             var UX = {
-                /**
-                 *  theme.get() - (true - dark theme, false - light theme)
-                 */
                 theme: {
                     light: `:root {
                         --text-color:                 #101520 !important;
@@ -281,32 +271,23 @@
                         if (localStorage.getItem('THEME') == 'light') return false
                         if (localStorage.getItem('THEME') == 'dark')  return true
                     },
-
                     change: function() {
                         localStorage.setItem('THEME', UX.theme.get() ? 'light' : 'dark')
                         UX.theme.load()
                     }, 
-
                     load: async function() {
                         document.getElementById('root-colors-theme').innerHTML = UX.theme.get() ? `${UX.theme.dark} #thMoon { display: none; }` : `${UX.theme.light} #thSun { display: none; }`
                         await plutonny.sleep(65)
                         document.getElementById('theme-color').content = UX.theme.get() ? '#181818' : '#e9e9e9'
                     },
-
                     default: async function() {
                         document.getElementById('root-colors-theme').innerHTML = `#thSun, #thMoon { display: none; }`; await plutonny.sleep(65); document.getElementById('theme-color').content = '#202020'
                     },
-                    
                     table: async function() {
                         document.getElementById('root-colors-theme').innerHTML = `${UX.theme.light} #thSun, #thMoon { display: none; }`; await plutonny.sleep(65); document.getElementById('theme-color').content = '#e9e9e9'
                     }
                 },
                 capitalize: function(text) { return text.charAt(0).toUpperCase() + text.slice(1) },
-
-                /**
-                 *  div id="modal" need
-                 *      "content" - HTML code for output on fullscreen
-                 */
                 modal: async function(content) {
                     try {
                         await plutonny.sleep(200)
@@ -326,275 +307,11 @@
                         return false
                     }
                 },
-                /**
-                 * used in button pages (example /timetable/alerts and /timetable/week)
-                 * USED ONLY IN UI.header -> HTMLafter
-                 * need:
-                 *      changerClassDIV{num}
-                 *      changerClassBUTTON{num}
-                 *      changerClassCSS
-                 */
                 changer: function(num) {
                     plutonny.output(`changerClassCSS`, `.changerClassBUTTON${num} { background: var(--button-color-active-header) !important; } .changerClassDIV${num} { display: initial !important; }`)
                 },
                 copy: function(text) {
                     navigator.clipboard.writeText(text)
-                },
-                timetable: {
-                    alert: {
-                        monday: {
-                            0: [[ 830      ], [ 915      ]],
-                            1: [[ 920, 1005], [1015, 1100]],
-                            2: [[1110, 1155], [1205, 1250]],
-                            3: [[1330, 1415], [1425, 1510]],
-                            4: [[1520, 1605], [1615, 1700]],
-                            5: [[1710, 1755], [1805, 1850]],
-                            6: [[1900, 1945], [1955, 2040]]
-                        },
-                        other: {
-                            1: [[ 830,  915], [ 925, 1010]],
-                            2: [[1020, 1105], [1115, 1200]],
-                            3: [[1240, 1325], [1335, 1420]],
-                            4: [[1430, 1515], [1525, 1610]],
-                            5: [[1620, 1705], [1715, 1800]],
-                            6: [[1810, 1855], [1905, 1950]]
-                        },
-                        UIed: {
-                            monday: {
-                                0: ['08:30'         , '09:15'         ],
-                                1: ['09:20', '10:05', '10:15', '11:00'],
-                                2: ['11:10', '11:55', '12:05', '12:50'],
-                                3: ['13:30', '14:15', '14:25', '15:10'],
-                                4: ['15:20', '16:05', '16:15', '17:00'],
-                                5: ['17:10', '17:55', '18:05', '18:50'],
-                                6: ['19:00', '19:45', '19:55', '20:40']
-                            },
-                            other: {
-                                1: ['08:30', '09:15', '09:25', '10:10'],
-                                2: ['10:20', '11:05', '11:15', '12:00'],
-                                3: ['12:40', '13:25', '13:35', '14:20'],
-                                4: ['14:30', '15:15', '15:25', '16:10'],
-                                5: ['16:20', '17:05', '17:15', '18:00'],
-                                6: ['18:10', '18:55', '19:05', '19:50']
-                            },
-                            cel: {
-                                1: ['08:30', '09:45'],
-                                2: ['09:55', '11:10'],
-                                3: ['11:40', '12:55'],
-                                4: ['13:05', '14:20'],
-                                5: ['14:30', '15:45']
-                            },
-                        }
-                    },
-                    /**
-                     *  -1  : pairs not started
-                     * 0..6 : num of pair
-                     *  -2  : pairs are end
-                     */
-                    currentPairNum: function() {
-                        let date = new Date()
-                        let formatTime = parseInt(String(date.getHours()) + (date.getMinutes() < 10 ? '0' + String(date.getMinutes()) : String(date.getMinutes())))
-                        
-                        if (date.getDay() == 1) {
-                            if (formatTime <= UX.timetable.alert.monday[0][0][0]) return -1 
-                            if (UX.timetable.alert.monday[0][0][0] <= formatTime && formatTime <= UX.timetable.alert.monday[0][1][0]) return 0 
-                            for (let i = 1; i <= 6; i++) if (UX.timetable.alert.monday[i][0][0] <= formatTime && formatTime <= UX.timetable.alert.monday[i][1][1]) return i
-                            return -2
-                        } else {
-                            if (formatTime <= UX.timetable.alert.other[1][0][0]) return -1
-                            for (let i = 1; i <= 6; i++) if (UX.timetable.alert.other[i][0][0] <= formatTime && formatTime <= UX.timetable.alert.other[i][1][1]) return i
-                            return -2
-                        }
-                    },
-                    /**
-                     *  -1  : pairs not started
-                     *  -2  : pairs are end
-                     *      f - first falf
-                     *      a - turn before pair
-                     *      p - turn in pair
-                     *      s - second half
-                     *  monday:
-                     *      0f
-                     *      1a, 1f, 1p, 1s
-                     *      2a, 2f, 2p, 2s
-                     *      3a, 3f, 3p, 3s
-                     *      4a, 4f, 4p, 4s
-                     *      5a, 5f, 5p, 5s
-                     *      6a, 6f, 6p, 6s
-                     * monday:
-                     *          1f, 1p, 1s
-                     *      2a, 2f, 2p, 2s
-                     *      3a, 3f, 3p, 3s
-                     *      4a, 4f, 4p, 4s
-                     *      5a, 5f, 5p, 5s
-                     *      6a, 6f, 6p, 6s
-                     */
-                    currentPairAddit: function() {
-                        let date = new Date()
-                        let formatTime = parseInt(String(date.getHours()) + (date.getMinutes() < 10 ? '0' + String(date.getMinutes()) : String(date.getMinutes())))
-                        
-                        if (date.getDay() == 1) {
-                            if (formatTime <= UX.timetable.alert.monday[0][0][0]) return -1 
-                            if (UX.timetable.alert.monday[0][0][0] <= formatTime && formatTime <= UX.timetable.alert.monday[0][1][0]) return '0f'
-                            
-                            if (UX.timetable.alert.monday[0][1][0] <= formatTime && formatTime <= UX.timetable.alert.monday[1][0][0]) return '1a'
-
-                            if (UX.timetable.alert.monday[1][0][0] <= formatTime && formatTime <= UX.timetable.alert.monday[1][0][1]) return '1f'
-                            if (UX.timetable.alert.monday[1][0][1] <= formatTime && formatTime <= UX.timetable.alert.monday[1][1][0]) return '1p'
-                            if (UX.timetable.alert.monday[1][1][0] <= formatTime && formatTime <= UX.timetable.alert.monday[1][1][1]) return '1s'
-
-                            if (UX.timetable.alert.monday[1][1][1] <= formatTime && formatTime <= UX.timetable.alert.monday[2][0][0]) return '2a'
-
-                            if (UX.timetable.alert.monday[2][0][0] <= formatTime && formatTime <= UX.timetable.alert.monday[2][0][1]) return '2f'
-                            if (UX.timetable.alert.monday[2][0][1] <= formatTime && formatTime <= UX.timetable.alert.monday[2][1][0]) return '2p'
-                            if (UX.timetable.alert.monday[2][1][0] <= formatTime && formatTime <= UX.timetable.alert.monday[2][1][1]) return '2s'
-
-                            if (UX.timetable.alert.monday[2][1][1] <= formatTime && formatTime <= UX.timetable.alert.monday[3][0][0]) return '3a'
-
-                            if (UX.timetable.alert.monday[3][0][0] <= formatTime && formatTime <= UX.timetable.alert.monday[3][0][1]) return '3f'
-                            if (UX.timetable.alert.monday[3][0][1] <= formatTime && formatTime <= UX.timetable.alert.monday[3][1][0]) return '3p'
-                            if (UX.timetable.alert.monday[3][1][0] <= formatTime && formatTime <= UX.timetable.alert.monday[3][1][1]) return '3s'
-
-                            if (UX.timetable.alert.monday[3][1][1] <= formatTime && formatTime <= UX.timetable.alert.monday[4][0][0]) return '4a'
-
-                            if (UX.timetable.alert.monday[4][0][0] <= formatTime && formatTime <= UX.timetable.alert.monday[4][0][1]) return '4f'
-                            if (UX.timetable.alert.monday[4][0][1] <= formatTime && formatTime <= UX.timetable.alert.monday[4][1][0]) return '4p'
-                            if (UX.timetable.alert.monday[4][1][0] <= formatTime && formatTime <= UX.timetable.alert.monday[4][1][1]) return '4s'
-
-                            if (UX.timetable.alert.monday[4][1][1] <= formatTime && formatTime <= UX.timetable.alert.monday[5][0][0]) return '5a'
-
-                            if (UX.timetable.alert.monday[5][0][0] <= formatTime && formatTime <= UX.timetable.alert.monday[5][0][1]) return '5f'
-                            if (UX.timetable.alert.monday[5][0][1] <= formatTime && formatTime <= UX.timetable.alert.monday[5][1][0]) return '5p'
-                            if (UX.timetable.alert.monday[5][1][0] <= formatTime && formatTime <= UX.timetable.alert.monday[5][1][1]) return '5s'
-
-                            if (UX.timetable.alert.monday[5][1][1] <= formatTime && formatTime <= UX.timetable.alert.monday[6][0][0]) return '6a'
-
-                            if (UX.timetable.alert.monday[6][0][0] <= formatTime && formatTime <= UX.timetable.alert.monday[6][0][1]) return '6f'
-                            if (UX.timetable.alert.monday[6][0][1] <= formatTime && formatTime <= UX.timetable.alert.monday[6][1][0]) return '6p'
-                            if (UX.timetable.alert.monday[6][1][0] <= formatTime && formatTime <= UX.timetable.alert.monday[6][1][1]) return '6s'
-
-                            return -2
-                        } 
-                        else {
-                            if (formatTime <= UX.timetable.alert.other[1][0][0]) return -1
-                            
-                            if (UX.timetable.alert.other[1][0][0] <= formatTime && formatTime <= UX.timetable.alert.other[1][0][1]) return '1f'
-                            if (UX.timetable.alert.other[1][0][1] <= formatTime && formatTime <= UX.timetable.alert.other[1][1][0]) return '1p'
-                            if (UX.timetable.alert.other[1][1][0] <= formatTime && formatTime <= UX.timetable.alert.other[1][1][1]) return '1s'
-
-                            if (UX.timetable.alert.other[1][1][1] <= formatTime && formatTime <= UX.timetable.alert.other[2][0][0]) return '2a'
-
-                            if (UX.timetable.alert.other[2][0][0] <= formatTime && formatTime <= UX.timetable.alert.other[2][0][1]) return '2f'
-                            if (UX.timetable.alert.other[2][0][1] <= formatTime && formatTime <= UX.timetable.alert.other[2][1][0]) return '2p'
-                            if (UX.timetable.alert.other[2][1][0] <= formatTime && formatTime <= UX.timetable.alert.other[2][1][1]) return '2s'
-
-                            if (UX.timetable.alert.other[2][1][1] <= formatTime && formatTime <= UX.timetable.alert.other[3][0][0]) return '3a'
-
-                            if (UX.timetable.alert.other[3][0][0] <= formatTime && formatTime <= UX.timetable.alert.other[3][0][1]) return '3f'
-                            if (UX.timetable.alert.other[3][0][1] <= formatTime && formatTime <= UX.timetable.alert.other[3][1][0]) return '3p'
-                            if (UX.timetable.alert.other[3][1][0] <= formatTime && formatTime <= UX.timetable.alert.other[3][1][1]) return '3s'
-
-                            if (UX.timetable.alert.other[3][1][1] <= formatTime && formatTime <= UX.timetable.alert.other[4][0][0]) return '4a'
-
-                            if (UX.timetable.alert.other[4][0][0] <= formatTime && formatTime <= UX.timetable.alert.other[4][0][1]) return '4f'
-                            if (UX.timetable.alert.other[4][0][1] <= formatTime && formatTime <= UX.timetable.alert.other[4][1][0]) return '4p'
-                            if (UX.timetable.alert.other[4][1][0] <= formatTime && formatTime <= UX.timetable.alert.other[4][1][1]) return '4s'
-
-                            if (UX.timetable.alert.other[4][1][1] <= formatTime && formatTime <= UX.timetable.alert.other[5][0][0]) return '5a'
-
-                            if (UX.timetable.alert.other[5][0][0] <= formatTime && formatTime <= UX.timetable.alert.other[5][0][1]) return '5f'
-                            if (UX.timetable.alert.other[5][0][1] <= formatTime && formatTime <= UX.timetable.alert.other[5][1][0]) return '5p'
-                            if (UX.timetable.alert.other[5][1][0] <= formatTime && formatTime <= UX.timetable.alert.other[5][1][1]) return '5s'
-
-                            if (UX.timetable.alert.other[5][1][1] <= formatTime && formatTime <= UX.timetable.alert.other[6][0][0]) return '6a'
-
-                            if (UX.timetable.alert.other[6][0][0] <= formatTime && formatTime <= UX.timetable.alert.other[6][0][1]) return '6f'
-                            if (UX.timetable.alert.other[6][0][1] <= formatTime && formatTime <= UX.timetable.alert.other[6][1][0]) return '6p'
-                            if (UX.timetable.alert.other[6][1][0] <= formatTime && formatTime <= UX.timetable.alert.other[6][1][1]) return '6s'
-
-                            return -2
-                        }
-                    },
-                    pairTimerHTML: function() {
-                        fetch(`/info/timetable.json?t=${CURRDATE.getTime()}`).then(function (response) { return response.json() }).then(function (data) {
-                            if (WEEKEND.includes(CURRDATE.getDay())) plutonny.output('pairTimerHTML', 'сегодня пар нет')
-                            else {
-                                function pth() {
-                                    let date = new Date()
-                                    if (parseInt(UX.timetable.currentPairAddit()[0]) > data[NUMSEMESTR][date.getDay()].count || UX.timetable.currentPairAddit() == -2) plutonny.output('pairTimerHTML', 'пары кончились')
-                                    else if (UX.timetable.currentPairAddit() == -1) plutonny.output('pairTimerHTML', `пары не начались`)
-                                    else {
-                                        let de = `${date.getFullYear()}-${(date.getMonth() + 1) < 10 ? `0${date.getMonth() + 1}` : date.getMonth() + 1}-${(date.getDate()) < 10 ? `0${date.getDate()}` : date.getDate()}T`
-                                        if (date.getDay() == 1) {
-                                            if (UX.timetable.currentPairAddit() == '0f') { let x = new Date(`${de}${UX.timetable.alert.UIed.monday[0][1]}:00`); plutonny.output('pairTimerHTML', `до конца КЧ<br>${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)}`) }
-                                            
-                                            if (UX.timetable.currentPairAddit() == '1a') { let x = new Date(`${de}${UX.timetable.alert.UIed.monday[1][0]}:00`); plutonny.output('pairTimerHTML', `до начала 1&nbsp;пары<br>${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)}`) }
-                                            if (UX.timetable.currentPairAddit() == '1f') { let x = new Date(`${de}${UX.timetable.alert.UIed.monday[1][1]}:00`); plutonny.output('pairTimerHTML', `до конца 1&nbsp;пол.<br>${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)}`) }
-                                            if (UX.timetable.currentPairAddit() == '1p') { let x = new Date(`${de}${UX.timetable.alert.UIed.monday[1][2]}:00`); plutonny.output('pairTimerHTML', `до конца 10м-ки<br>${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)}`) }
-                                            if (UX.timetable.currentPairAddit() == '1s') { let x = new Date(`${de}${UX.timetable.alert.UIed.monday[1][3]}:00`); plutonny.output('pairTimerHTML', `до конца 2&nbsp;пол.<br>${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)}`) }
-
-                                            if (UX.timetable.currentPairAddit() == '2a') { let x = new Date(`${de}${UX.timetable.alert.UIed.monday[2][0]}:00`); plutonny.output('pairTimerHTML', `до начала 2&nbsp;пары<br>${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)}`) }
-                                            if (UX.timetable.currentPairAddit() == '2f') { let x = new Date(`${de}${UX.timetable.alert.UIed.monday[2][1]}:00`); plutonny.output('pairTimerHTML', `до конца 1&nbsp;пол.<br>${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)}`) }
-                                            if (UX.timetable.currentPairAddit() == '2p') { let x = new Date(`${de}${UX.timetable.alert.UIed.monday[2][2]}:00`); plutonny.output('pairTimerHTML', `до конца 10м-ки<br>${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)}`) }
-                                            if (UX.timetable.currentPairAddit() == '2s') { let x = new Date(`${de}${UX.timetable.alert.UIed.monday[2][3]}:00`); plutonny.output('pairTimerHTML', `до конца 2&nbsp;пол.<br>${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)}`) }
-
-                                            if (UX.timetable.currentPairAddit() == '3a') { let x = new Date(`${de}${UX.timetable.alert.UIed.monday[3][0]}:00`); plutonny.output('pairTimerHTML', `до начала 3&nbsp;пары<br>${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)}`) }
-                                            if (UX.timetable.currentPairAddit() == '3f') { let x = new Date(`${de}${UX.timetable.alert.UIed.monday[3][1]}:00`); plutonny.output('pairTimerHTML', `до конца 1&nbsp;пол.<br>${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)}`) }
-                                            if (UX.timetable.currentPairAddit() == '3p') { let x = new Date(`${de}${UX.timetable.alert.UIed.monday[3][2]}:00`); plutonny.output('pairTimerHTML', `до конца 10м-ки<br>${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)}`) }
-                                            if (UX.timetable.currentPairAddit() == '3s') { let x = new Date(`${de}${UX.timetable.alert.UIed.monday[3][3]}:00`); plutonny.output('pairTimerHTML', `до конца 2&nbsp;пол.<br>${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)}`) }
-
-                                            if (UX.timetable.currentPairAddit() == '4a') { let x = new Date(`${de}${UX.timetable.alert.UIed.monday[4][0]}:00`); plutonny.output('pairTimerHTML', `до начала 4&nbsp;пары<br>${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)}`) }
-                                            if (UX.timetable.currentPairAddit() == '4f') { let x = new Date(`${de}${UX.timetable.alert.UIed.monday[4][1]}:00`); plutonny.output('pairTimerHTML', `до конца 1&nbsp;пол.<br>${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)}`) }
-                                            if (UX.timetable.currentPairAddit() == '4p') { let x = new Date(`${de}${UX.timetable.alert.UIed.monday[4][2]}:00`); plutonny.output('pairTimerHTML', `до конца 10м-ки<br>${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)}`) }
-                                            if (UX.timetable.currentPairAddit() == '4s') { let x = new Date(`${de}${UX.timetable.alert.UIed.monday[4][3]}:00`); plutonny.output('pairTimerHTML', `до конца 2&nbsp;пол.<br>${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)}`) }
-
-                                            if (UX.timetable.currentPairAddit() == '5a') { let x = new Date(`${de}${UX.timetable.alert.UIed.monday[5][0]}:00`); plutonny.output('pairTimerHTML', `до начала 5&nbsp;пары<br>${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)}`) }
-                                            if (UX.timetable.currentPairAddit() == '5f') { let x = new Date(`${de}${UX.timetable.alert.UIed.monday[5][1]}:00`); plutonny.output('pairTimerHTML', `до конца 1&nbsp;пол.<br>${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)}`) }
-                                            if (UX.timetable.currentPairAddit() == '5p') { let x = new Date(`${de}${UX.timetable.alert.UIed.monday[5][2]}:00`); plutonny.output('pairTimerHTML', `до конца 10м-ки<br>${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)}`) }
-                                            if (UX.timetable.currentPairAddit() == '5s') { let x = new Date(`${de}${UX.timetable.alert.UIed.monday[5][3]}:00`); plutonny.output('pairTimerHTML', `до конца 2&nbsp;пол.<br>${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)}`) }
-
-                                            if (UX.timetable.currentPairAddit() == '6a') { let x = new Date(`${de}${UX.timetable.alert.UIed.monday[6][0]}:00`); plutonny.output('pairTimerHTML', `до начала 6&nbsp;пары<br>${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)}`) }
-                                            if (UX.timetable.currentPairAddit() == '6f') { let x = new Date(`${de}${UX.timetable.alert.UIed.monday[6][1]}:00`); plutonny.output('pairTimerHTML', `до конца 1&nbsp;пол.<br>${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)}`) }
-                                            if (UX.timetable.currentPairAddit() == '6p') { let x = new Date(`${de}${UX.timetable.alert.UIed.monday[6][2]}:00`); plutonny.output('pairTimerHTML', `до конца 10м-ки<br>${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)}`) }
-                                            if (UX.timetable.currentPairAddit() == '6s') { let x = new Date(`${de}${UX.timetable.alert.UIed.monday[6][3]}:00`); plutonny.output('pairTimerHTML', `до конца 2&nbsp;пол.<br>${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)}`) }
-                                        } else {
-                                            if (UX.timetable.currentPairAddit() == '1f') { let x = new Date(`${de}${UX.timetable.alert.UIed.other[1][1]}:00`); plutonny.output('pairTimerHTML', `до конца 1&nbsp;пол.<br>${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)}`) }
-                                            if (UX.timetable.currentPairAddit() == '1p') { let x = new Date(`${de}${UX.timetable.alert.UIed.other[1][2]}:00`); plutonny.output('pairTimerHTML', `до конца 10м-ки<br>${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)}`) }
-                                            if (UX.timetable.currentPairAddit() == '1s') { let x = new Date(`${de}${UX.timetable.alert.UIed.other[1][3]}:00`); plutonny.output('pairTimerHTML', `до конца 2&nbsp;пол.<br>${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)}`) }
-
-                                            if (UX.timetable.currentPairAddit() == '2a') { let x = new Date(`${de}${UX.timetable.alert.UIed.other[2][0]}:00`); plutonny.output('pairTimerHTML', `до начала 2&nbsp;пары<br>${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)}`) }
-                                            if (UX.timetable.currentPairAddit() == '2f') { let x = new Date(`${de}${UX.timetable.alert.UIed.other[2][1]}:00`); plutonny.output('pairTimerHTML', `до конца 1&nbsp;пол.<br>${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)}`) }
-                                            if (UX.timetable.currentPairAddit() == '2p') { let x = new Date(`${de}${UX.timetable.alert.UIed.other[2][2]}:00`); plutonny.output('pairTimerHTML', `до конца 10м-ки<br>${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)}`) }
-                                            if (UX.timetable.currentPairAddit() == '2s') { let x = new Date(`${de}${UX.timetable.alert.UIed.other[2][3]}:00`); plutonny.output('pairTimerHTML', `до конца 2&nbsp;пол.<br>${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)}`) }
-
-                                            if (UX.timetable.currentPairAddit() == '3a') { let x = new Date(`${de}${UX.timetable.alert.UIed.other[3][0]}:00`); plutonny.output('pairTimerHTML', `до начала 3&nbsp;пары<br>${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)}`) }
-                                            if (UX.timetable.currentPairAddit() == '3f') { let x = new Date(`${de}${UX.timetable.alert.UIed.other[3][1]}:00`); plutonny.output('pairTimerHTML', `до конца 1&nbsp;пол.<br>${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)}`) }
-                                            if (UX.timetable.currentPairAddit() == '3p') { let x = new Date(`${de}${UX.timetable.alert.UIed.other[3][2]}:00`); plutonny.output('pairTimerHTML', `до конца 10м-ки<br>${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)}`) }
-                                            if (UX.timetable.currentPairAddit() == '3s') { let x = new Date(`${de}${UX.timetable.alert.UIed.other[3][3]}:00`); plutonny.output('pairTimerHTML', `до конца 2&nbsp;пол.<br>${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)}`) }
-
-                                            if (UX.timetable.currentPairAddit() == '4a') { let x = new Date(`${de}${UX.timetable.alert.UIed.other[4][0]}:00`); plutonny.output('pairTimerHTML', `до начала 4&nbsp;пары<br>${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)}`) }
-                                            if (UX.timetable.currentPairAddit() == '4f') { let x = new Date(`${de}${UX.timetable.alert.UIed.other[4][1]}:00`); plutonny.output('pairTimerHTML', `до конца 1&nbsp;пол.<br>${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)}`) }
-                                            if (UX.timetable.currentPairAddit() == '4p') { let x = new Date(`${de}${UX.timetable.alert.UIed.other[4][2]}:00`); plutonny.output('pairTimerHTML', `до конца 10м-ки<br>${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)}`) }
-                                            if (UX.timetable.currentPairAddit() == '4s') { let x = new Date(`${de}${UX.timetable.alert.UIed.other[4][3]}:00`); plutonny.output('pairTimerHTML', `до конца 2&nbsp;пол.<br>${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)}`) }
-
-                                            if (UX.timetable.currentPairAddit() == '5a') { let x = new Date(`${de}${UX.timetable.alert.UIed.other[5][0]}:00`); plutonny.output('pairTimerHTML', `до начала 5&nbsp;пары<br>${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)}`) }
-                                            if (UX.timetable.currentPairAddit() == '5f') { let x = new Date(`${de}${UX.timetable.alert.UIed.other[5][1]}:00`); plutonny.output('pairTimerHTML', `до конца 1&nbsp;пол.<br>${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)}`) }
-                                            if (UX.timetable.currentPairAddit() == '5p') { let x = new Date(`${de}${UX.timetable.alert.UIed.other[5][2]}:00`); plutonny.output('pairTimerHTML', `до конца 10м-ки<br>${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)}`) }
-                                            if (UX.timetable.currentPairAddit() == '5s') { let x = new Date(`${de}${UX.timetable.alert.UIed.other[5][3]}:00`); plutonny.output('pairTimerHTML', `до конца 2&nbsp;пол.<br>${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)}`) }
-
-                                            if (UX.timetable.currentPairAddit() == '6a') { let x = new Date(`${de}${UX.timetable.alert.UIed.other[6][0]}:00`); plutonny.output('pairTimerHTML', `до начала 6&nbsp;пары<br>${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)}`) }
-                                            if (UX.timetable.currentPairAddit() == '6f') { let x = new Date(`${de}${UX.timetable.alert.UIed.other[6][1]}:00`); plutonny.output('pairTimerHTML', `до конца 1&nbsp;пол.<br>${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)}`) }
-                                            if (UX.timetable.currentPairAddit() == '6p') { let x = new Date(`${de}${UX.timetable.alert.UIed.other[6][2]}:00`); plutonny.output('pairTimerHTML', `до конца 10м-ки<br>${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)}`) }
-                                            if (UX.timetable.currentPairAddit() == '6s') { let x = new Date(`${de}${UX.timetable.alert.UIed.other[6][3]}:00`); plutonny.output('pairTimerHTML', `до конца 2&nbsp;пол.<br>${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)}`) }
-                                        }
-                                    }
-                                } pth()
-                                var pairInterval = setInterval(function() {
-                                    pth()
-                                }, 10000)
-                            }
-                        }).catch(function (err) { plutonny.console.error('index.html -> UX.timetable.pairTimerHTML() -> JSON (timetable)', err) })
-                    }
                 }
             }
             UX.theme.load()
@@ -604,31 +321,31 @@
         <script id="UsIn" type="text/javascript">
             /**
              * UI
-             *  | -- header()
-             *  | -- navbar()
-             *  | -- cIcon()
-             *  | -- rus()
+             *  | -- header(settings)     (settings = {
+             *  |                             textCenter: str,
+             *  |                             buttonTheme: bool,
+             *  |                             buttonBack: bool,
+             *  |                             enableHR: bool,
+             *  |                             HTMLAfter: str (HTML format)
+             *  |                         })
+             *  | -- navbar(navbarActive) (navbarActive = home; grades; other)
+             *  | -- cIcon(settings)      (settings = {
+             *  |                             size: int,
+             *  |                             border: int,
+             *  |                             color: "#HEX",
+             *  |                             icon: "in Google symbols",
+             *  |                             font: int
+             *  |                         })
+             *  | -- rus(format, number)  (format = 'week'; 'day'; 'hour'; 'minute'; 'minuteS'; 'second'; 'milisecond'
+             *  |                          number = any)
              *  | -- MODAL
              *  |    | -- settings (in page creator -> settings)
              *  |    |    | -- theme()
              *  |    |    | -- greetingsType()
              *  |    |    | -- viewChangImport()
-             *  |    | -- pair
-             *  | -- timetable
-             *  |    | -- default()
-             *  |    | -- colored()
-             *  |    | -- week()
+             *  |    | -- pair(id)        [null]
              */
             var UI = {
-                /**
-                 *  settings = {
-                 *      textCenter: str,
-                 *      buttonTheme: bool,
-                 *      buttonBack: bool,
-                 *      enableHR: bool,
-                 *      HTMLAfter: str (HTML format)
-                 *  }
-                 */
                 header: function(settings) {
                     try {
                         let inj = '';
@@ -684,25 +401,12 @@
 
                     }
                 },
-                /**
-                 * navbarActive = 
-                 *      home; grades; other
-                 */
                 navbar: function(navbarActive) {
                     plutonny.output('navbarActiveButton', `
                         .${navbarActive}ANavbar { color: var(--text-color) !important; }
                         .${navbarActive}AIcon { background-color: var(--week-ui-color); }
                     `)
                 },
-                /**
-                 *  settings = {
-                 *      size: int,
-                 *      border: int,
-                 *      color: "#HEX",
-                 *      icon: "in Google symbols",
-                 *      font: int
-                 *  }
-                 */
                 cIcon: function(settings) {
                     return `
                         <div style="user-select: none; height: ${settings.size}px; width: ${settings.size}px; display: flex; align-content: center; justify-content: center; align-items: center; background-color: ${settings.color}40; border-radius: ${settings.border}px">
@@ -710,10 +414,6 @@
                         </div>
                     `
                 },
-                /**
-                 * format = 'week'; 'day'; 'hour'; 'minute'; 'second'; 'milisecond'
-                 * number = any
-                 */
                 rus: function(format, number) {
                     try {
                         var n    = Math.floor(number % 10)
@@ -746,9 +446,7 @@
                                 if (u3) return number + ' минуты'
                                 break
                             case 'minuteS':
-                                if (u1 || u4) return number + ' мин.'
-                                if (u2) return number + ' мин.'
-                                if (u3) return number + ' мин.'
+                                return number + ' мин.'
                                 break
                             case 'second':
                                 if (u1 || u4) return number + ' секунд'
@@ -800,106 +498,370 @@
                             }).catch(function (err) { plutonny.console.error('index.html -> UI.MODAL.pair -> JSON (timetable)', err) })
                         }).catch(function (err) { plutonny.console.error('index.html -> UI.MODAL.pair -> JSON (subjects)', err) })
                     }
-                },
-                timetable: {
-                    /**
-                     * settings = {
-                     *      id: int,
-                     *      name: "str",
-                     *      teacher: "str",
-                     *      icon: "result from UI.cIcon()",
-                     *      cab: "str",
-                     *      time: "str",
-                     *      active: bool
-                     * }
-                     */
-                    default: function(settings) {
-                        return `
-                            <div onclick="UI.MODAL.pair(${settings.id})" style="${settings.active ? 'border: 2px solid #FF000099;' : ''}display: flex; flex-direction: row; flex-wrap: nowrap; width: calc(100% - 16px); background: var(--button-color); border-radius: 18px; margin: 0 0 16px 0; padding: 0 8px;">
-                                <div style="width: 36px; margin: 8px 8px 0 0;">${settings.icon}</div>
-                                <div style="padding: 12px 0; display: flex; flex-direction: column; justify-content: center;">
-                                    <b style="margin: 0; font-family: 'Montserrat';">${settings.name}</b>
-                                    <div style="height: 6px;"></div>
-                                    <p style="margin: 0; font-family: 'Montserrat';">${settings.teacher}</p>
-                                </div>
-                                <div style="margin-right: auto;"></div>
-                                <div style="padding: 8px 4px 8px 0; display: flex; flex-direction: column; justify-content: space-evenly;">
-                                    <div style="display: flex; flex-direction: row; justify-content: flex-end;">
-                                        <span style="font-size: 18px; color: var(--icon-color);" class="material-symbols-rounded">sensor_door</span>
-                                        <div style="width: 4px;"></div>
-                                        <p style="margin: 0; font-family: 'Montserrat'; font-size: 14px; text-align: right;">${settings.cab}</p>
-                                    </div>
-                                    <div style="height: 8px;"></div>
-                                    <div style="display: flex; flex-direction: row; width: 104px; justify-content: flex-end;">
-                                        <span style="font-size: 18px; color: var(--icon-color);" class="material-symbols-rounded">schedule</span>
-                                        <div style="width: 4px;"></div>
-                                        <p style="margin: 0; font-family: 'Montserrat'; font-size: 14px; text-align: right;">${settings.time}</p>
-                                    </div>
-                                </div>
-                            </div>
-                        `
-                    },
-                    /**
-                     * col = 'yellow' or 'green'
-                     * settings = {
-                     *      id: int,
-                     *      name: "str",
-                     *      teacher: "str",
-                     *      icon: "result from UI.cIcon()",
-                     *      cab: "str",
-                     *      time: "str",
-                     *      active: bool
-                     * }
-                     */
-                    colored: function(col, settings) {
-                        return `
-                            <div onclick="UI.MODAL.pair(${settings.id})" style="${settings.active ? 'border: 2px solid #FF000099;' : ''}display: flex; flex-direction: row; flex-wrap: nowrap; width: calc(100% - 16px); background: rgb(2,0,36); background: linear-gradient(90deg, var(--button-color) 50%, var(--ui-${col}) 100%); border-radius: 18px; margin: 0 0 16px 0; padding: 0 8px;">
-                                <div style="width: 36px; margin: 8px 8px 0 0;">${settings.icon}</div>
-                                <div style="padding: 12px 0; display: flex; flex-direction: column; justify-content: center;">
-                                    <b style="margin: 0; font-family: 'Montserrat';">${settings.name}</b>
-                                    <div style="height: 6px;"></div>
-                                    <p style="margin: 0; font-family: 'Montserrat';">${settings.teacher}</p>
+                }
+            }
+        </script>
 
-                                </div>
-                                <div style="margin-right: auto;"></div>
-                                <div style="padding: 8px 4px 8px 0; display: flex; flex-direction: column; justify-content: space-evenly;">
-                                    <div style="display: flex; flex-direction: row; justify-content: flex-end;">
-                                        <span style="font-size: 18px; color: var(--icon-color);" class="material-symbols-rounded">sensor_door</span>
-                                        <div style="width: 4px;"></div>
-                                        <p style="margin: 0; font-family: 'Montserrat'; font-size: 14px; text-align: right;">${settings.cab}</p>
-                                    </div>
-                                    <div style="height: 8px;"></div>
-                                    <div style="display: flex; flex-direction: row; width: 104px; justify-content: flex-end;">
-                                        <span style="font-size: 18px; color: var(--icon-color);" class="material-symbols-rounded">schedule</span>
-                                        <div style="width: 4px;"></div>
-                                        <p style="margin: 0; font-family: 'Montserrat'; font-size: 14px; text-align: right;">${settings.time}</p>
-                                    </div>
-                                </div>
-                            </div>
-                        `
+        <!-- timetable scripts -->
+        <script id="TiSc" type="text/javascript">
+            /* UI
+             *  | -- timetable
+             *  |    | -- default(settings) (settings = {
+             *  |    |                            id: int,
+             *  |    |                            name: "str",
+             *  |    |                            teacher: "str",
+             *  |    |                            icon: "result from UI.cIcon()",
+             *  |    |                            cab: "str",
+             *  |    |                            time: "str",
+             *  |    |                            active: bool
+             *  |    |                       })
+             *  |    | -- colored(settings) (col = 'yellow' or 'green'
+             *  |    |                       settings = {
+             *  |    |                            id: int,
+             *  |    |                            name: "str",
+             *  |    |                            teacher: "str",
+             *  |    |                            icon: "result from UI.cIcon()",
+             *  |    |                            cab: "str",
+             *  |    |                            time: "str",
+             *  |    |                            active: bool
+             *  |    |                       })
+             *  |    | -- week(settings) (settings = {
+             *  |    |                         id: int,
+             *  |    |                         name: "str",
+             *  |    |                         teacher: "str",
+             *  |    |                         color: "str",
+             *  |    |                         icon: "result from UI.cIcon()",
+             *  |    |                         active: bool
+             *  |    |                    })
+            */
+            /* UX
+             *  | -- timetable
+             *  |    | -- alert
+             *  |    |    | -- monday (0..6) [[],[]]
+             *  |    |    | -- other (1..6) [[],[]]
+             *  |    |    | -- UIed
+             *  |    |    |    | -- monday (0..6) []
+             *  |    |    |    | -- other (1..6) []
+             *  |    |    |    | -- cel (1..5) []
+             *  |    | -- currentPairNum()   ( -1  : pairs not started
+             *  |    |                        0..6 : num of pair
+             *  |    |                         -2  : pairs are end)
+             *  |    | -- currentPairAddit() (  -1  : pairs not started
+             *  |    |                          -2  : pairs are end
+             *  |    |                        f - first falf
+             *  |    |                        a - turn before pair
+             *  |    |                        p - turn in pair
+             *  |    |                        s - second half
+             *  |    |                        monday:
+             *  |    |                            0f
+             *  |    |                            1a, 1f, 1p, 1s
+             *  |    |                            2a, 2f, 2p, 2s
+             *  |    |                            3a, 3f, 3p, 3s
+             *  |    |                            4a, 4f, 4p, 4s
+             *  |    |                            5a, 5f, 5p, 5s
+             *  |    |                            6a, 6f, 6p, 6s
+             *  |    |                        other:
+             *  |    |                                1f, 1p, 1s
+             *  |    |                            2a, 2f, 2p, 2s
+             *  |    |                            3a, 3f, 3p, 3s
+             *  |    |                            4a, 4f, 4p, 4s
+             *  |    |                            5a, 5f, 5p, 5s
+             *  |    |                            6a, 6f, 6p, 6s)
+             *  |    | -- pairTimerHTML()    [null] (need tag id="pairTimerHTML")
+             */
+            UX.timetable = {
+                alert: {
+                    monday: {
+                        0: [[ 830      ], [ 915      ]],
+                        1: [[ 920, 1005], [1015, 1100]],
+                        2: [[1110, 1155], [1205, 1250]],
+                        3: [[1330, 1415], [1425, 1510]],
+                        4: [[1520, 1605], [1615, 1700]],
+                        5: [[1710, 1755], [1805, 1850]],
+                        6: [[1900, 1945], [1955, 2040]]
                     },
-                    /**
-                     * settings = {
-                     *      id: int,
-                     *      name: "str",
-                     *      teacher: "str",
-                     *      color: "str",
-                     *      icon: "result from UI.cIcon()",
-                     *      active: bool
-                     * }
-                     */
-                    week: function(settings) {
-                        return `
-                        <div onclick="UI.MODAL.pair(${settings.id})" style="${settings.active ? 'border: 2px solid #FF000099;' : ''}display: flex; flex-direction: row; flex-wrap: nowrap; width: calc(50% - 16px); background: var(--ui-${settings.color}); border-radius: 18px; margin: 0 0 16px 0; padding: 0 8px;">
-                            <div style="width: 28px; margin: 8px 8px 0 0;">${settings.icon}</div>
+                    other: {
+                        1: [[ 830,  915], [ 925, 1010]],
+                        2: [[1020, 1105], [1115, 1200]],
+                        3: [[1240, 1325], [1335, 1420]],
+                        4: [[1430, 1515], [1525, 1610]],
+                        5: [[1620, 1705], [1715, 1800]],
+                        6: [[1810, 1855], [1905, 1950]]
+                    },
+                    UIed: {
+                        monday: {
+                            0: ['08:30'         , '09:15'         ],
+                            1: ['09:20', '10:05', '10:15', '11:00'],
+                            2: ['11:10', '11:55', '12:05', '12:50'],
+                            3: ['13:30', '14:15', '14:25', '15:10'],
+                            4: ['15:20', '16:05', '16:15', '17:00'],
+                            5: ['17:10', '17:55', '18:05', '18:50'],
+                            6: ['19:00', '19:45', '19:55', '20:40']
+                        },
+                        other: {
+                            1: ['08:30', '09:15', '09:25', '10:10'],
+                            2: ['10:20', '11:05', '11:15', '12:00'],
+                            3: ['12:40', '13:25', '13:35', '14:20'],
+                            4: ['14:30', '15:15', '15:25', '16:10'],
+                            5: ['16:20', '17:05', '17:15', '18:00'],
+                            6: ['18:10', '18:55', '19:05', '19:50']
+                        },
+                        cel: {
+                            1: ['08:30', '09:45'],
+                            2: ['09:55', '11:10'],
+                            3: ['11:40', '12:55'],
+                            4: ['13:05', '14:20'],
+                            5: ['14:30', '15:45']
+                        },
+                    }
+                },
+                currentPairNum: function() {
+                    let date = new Date()
+                    let formatTime = parseInt(String(date.getHours()) + (date.getMinutes() < 10 ? '0' + String(date.getMinutes()) : String(date.getMinutes())))
+                    
+                    if (date.getDay() == 1) {
+                        if (formatTime <= UX.timetable.alert.monday[0][0][0]) return -1 
+                        if (UX.timetable.alert.monday[0][0][0] <= formatTime && formatTime <= UX.timetable.alert.monday[0][1][0]) return 0 
+                        for (let i = 1; i <= 6; i++) if (UX.timetable.alert.monday[i][0][0] <= formatTime && formatTime <= UX.timetable.alert.monday[i][1][1]) return i
+                        return -2
+                    } else {
+                        if (formatTime <= UX.timetable.alert.other[1][0][0]) return -1
+                        for (let i = 1; i <= 6; i++) if (UX.timetable.alert.other[i][0][0] <= formatTime && formatTime <= UX.timetable.alert.other[i][1][1]) return i
+                        return -2
+                    }
+                },
+                currentPairAddit: function() {
+                    let date = new Date()
+                    let formatTime = parseInt(String(date.getHours()) + (date.getMinutes() < 10 ? '0' + String(date.getMinutes()) : String(date.getMinutes())))
+                    
+                    if (date.getDay() == 1) {
+                        if (formatTime <= UX.timetable.alert.monday[0][0][0]) return -1 
+                        if (UX.timetable.alert.monday[0][0][0] <= formatTime && formatTime <= UX.timetable.alert.monday[0][1][0]) return '0f'
+                        
+                        if (UX.timetable.alert.monday[0][1][0] <= formatTime && formatTime <= UX.timetable.alert.monday[1][0][0]) return '1a'
+
+                        if (UX.timetable.alert.monday[1][0][0] <= formatTime && formatTime <= UX.timetable.alert.monday[1][0][1]) return '1f'
+                        if (UX.timetable.alert.monday[1][0][1] <= formatTime && formatTime <= UX.timetable.alert.monday[1][1][0]) return '1p'
+                        if (UX.timetable.alert.monday[1][1][0] <= formatTime && formatTime <= UX.timetable.alert.monday[1][1][1]) return '1s'
+
+                        if (UX.timetable.alert.monday[1][1][1] <= formatTime && formatTime <= UX.timetable.alert.monday[2][0][0]) return '2a'
+
+                        if (UX.timetable.alert.monday[2][0][0] <= formatTime && formatTime <= UX.timetable.alert.monday[2][0][1]) return '2f'
+                        if (UX.timetable.alert.monday[2][0][1] <= formatTime && formatTime <= UX.timetable.alert.monday[2][1][0]) return '2p'
+                        if (UX.timetable.alert.monday[2][1][0] <= formatTime && formatTime <= UX.timetable.alert.monday[2][1][1]) return '2s'
+
+                        if (UX.timetable.alert.monday[2][1][1] <= formatTime && formatTime <= UX.timetable.alert.monday[3][0][0]) return '3a'
+
+                        if (UX.timetable.alert.monday[3][0][0] <= formatTime && formatTime <= UX.timetable.alert.monday[3][0][1]) return '3f'
+                        if (UX.timetable.alert.monday[3][0][1] <= formatTime && formatTime <= UX.timetable.alert.monday[3][1][0]) return '3p'
+                        if (UX.timetable.alert.monday[3][1][0] <= formatTime && formatTime <= UX.timetable.alert.monday[3][1][1]) return '3s'
+
+                        if (UX.timetable.alert.monday[3][1][1] <= formatTime && formatTime <= UX.timetable.alert.monday[4][0][0]) return '4a'
+
+                        if (UX.timetable.alert.monday[4][0][0] <= formatTime && formatTime <= UX.timetable.alert.monday[4][0][1]) return '4f'
+                        if (UX.timetable.alert.monday[4][0][1] <= formatTime && formatTime <= UX.timetable.alert.monday[4][1][0]) return '4p'
+                        if (UX.timetable.alert.monday[4][1][0] <= formatTime && formatTime <= UX.timetable.alert.monday[4][1][1]) return '4s'
+
+                        if (UX.timetable.alert.monday[4][1][1] <= formatTime && formatTime <= UX.timetable.alert.monday[5][0][0]) return '5a'
+
+                        if (UX.timetable.alert.monday[5][0][0] <= formatTime && formatTime <= UX.timetable.alert.monday[5][0][1]) return '5f'
+                        if (UX.timetable.alert.monday[5][0][1] <= formatTime && formatTime <= UX.timetable.alert.monday[5][1][0]) return '5p'
+                        if (UX.timetable.alert.monday[5][1][0] <= formatTime && formatTime <= UX.timetable.alert.monday[5][1][1]) return '5s'
+
+                        if (UX.timetable.alert.monday[5][1][1] <= formatTime && formatTime <= UX.timetable.alert.monday[6][0][0]) return '6a'
+
+                        if (UX.timetable.alert.monday[6][0][0] <= formatTime && formatTime <= UX.timetable.alert.monday[6][0][1]) return '6f'
+                        if (UX.timetable.alert.monday[6][0][1] <= formatTime && formatTime <= UX.timetable.alert.monday[6][1][0]) return '6p'
+                        if (UX.timetable.alert.monday[6][1][0] <= formatTime && formatTime <= UX.timetable.alert.monday[6][1][1]) return '6s'
+
+                        return -2
+                    } 
+                    else {
+                        if (formatTime <= UX.timetable.alert.other[1][0][0]) return -1
+                        
+                        if (UX.timetable.alert.other[1][0][0] <= formatTime && formatTime <= UX.timetable.alert.other[1][0][1]) return '1f'
+                        if (UX.timetable.alert.other[1][0][1] <= formatTime && formatTime <= UX.timetable.alert.other[1][1][0]) return '1p'
+                        if (UX.timetable.alert.other[1][1][0] <= formatTime && formatTime <= UX.timetable.alert.other[1][1][1]) return '1s'
+
+                        if (UX.timetable.alert.other[1][1][1] <= formatTime && formatTime <= UX.timetable.alert.other[2][0][0]) return '2a'
+
+                        if (UX.timetable.alert.other[2][0][0] <= formatTime && formatTime <= UX.timetable.alert.other[2][0][1]) return '2f'
+                        if (UX.timetable.alert.other[2][0][1] <= formatTime && formatTime <= UX.timetable.alert.other[2][1][0]) return '2p'
+                        if (UX.timetable.alert.other[2][1][0] <= formatTime && formatTime <= UX.timetable.alert.other[2][1][1]) return '2s'
+
+                        if (UX.timetable.alert.other[2][1][1] <= formatTime && formatTime <= UX.timetable.alert.other[3][0][0]) return '3a'
+
+                        if (UX.timetable.alert.other[3][0][0] <= formatTime && formatTime <= UX.timetable.alert.other[3][0][1]) return '3f'
+                        if (UX.timetable.alert.other[3][0][1] <= formatTime && formatTime <= UX.timetable.alert.other[3][1][0]) return '3p'
+                        if (UX.timetable.alert.other[3][1][0] <= formatTime && formatTime <= UX.timetable.alert.other[3][1][1]) return '3s'
+
+                        if (UX.timetable.alert.other[3][1][1] <= formatTime && formatTime <= UX.timetable.alert.other[4][0][0]) return '4a'
+
+                        if (UX.timetable.alert.other[4][0][0] <= formatTime && formatTime <= UX.timetable.alert.other[4][0][1]) return '4f'
+                        if (UX.timetable.alert.other[4][0][1] <= formatTime && formatTime <= UX.timetable.alert.other[4][1][0]) return '4p'
+                        if (UX.timetable.alert.other[4][1][0] <= formatTime && formatTime <= UX.timetable.alert.other[4][1][1]) return '4s'
+
+                        if (UX.timetable.alert.other[4][1][1] <= formatTime && formatTime <= UX.timetable.alert.other[5][0][0]) return '5a'
+
+                        if (UX.timetable.alert.other[5][0][0] <= formatTime && formatTime <= UX.timetable.alert.other[5][0][1]) return '5f'
+                        if (UX.timetable.alert.other[5][0][1] <= formatTime && formatTime <= UX.timetable.alert.other[5][1][0]) return '5p'
+                        if (UX.timetable.alert.other[5][1][0] <= formatTime && formatTime <= UX.timetable.alert.other[5][1][1]) return '5s'
+
+                        if (UX.timetable.alert.other[5][1][1] <= formatTime && formatTime <= UX.timetable.alert.other[6][0][0]) return '6a'
+
+                        if (UX.timetable.alert.other[6][0][0] <= formatTime && formatTime <= UX.timetable.alert.other[6][0][1]) return '6f'
+                        if (UX.timetable.alert.other[6][0][1] <= formatTime && formatTime <= UX.timetable.alert.other[6][1][0]) return '6p'
+                        if (UX.timetable.alert.other[6][1][0] <= formatTime && formatTime <= UX.timetable.alert.other[6][1][1]) return '6s'
+
+                        return -2
+                    }
+                },
+                pairTimerHTML: function() {
+                    fetch(`/info/timetable.json?t=${CURRDATE.getTime()}`).then(function (response) { return response.json() }).then(function (data) {
+                        if (WEEKEND.includes(CURRDATE.getDay())) plutonny.output('pairTimerHTML', 'сегодня пар нет')
+                        else {
+                            function pth() {
+                                let date = new Date()
+                                if (parseInt(UX.timetable.currentPairAddit()[0]) > data[NUMSEMESTR][date.getDay()].count || UX.timetable.currentPairAddit() == -2) plutonny.output('pairTimerHTML', 'пары кончились')
+                                else if (UX.timetable.currentPairAddit() == -1) plutonny.output('pairTimerHTML', `пары не начались`)
+                                else {
+                                    let de = `${date.getFullYear()}-${(date.getMonth() + 1) < 10 ? `0${date.getMonth() + 1}` : date.getMonth() + 1}-${(date.getDate()) < 10 ? `0${date.getDate()}` : date.getDate()}T`
+                                    if (date.getDay() == 1) {
+                                        if (UX.timetable.currentPairAddit() == '0f') { let x = new Date(`${de}${UX.timetable.alert.UIed.monday[0][1]}:00`); plutonny.output('pairTimerHTML', `до конца КЧ<br>${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)}`) }
+                                        
+                                        if (UX.timetable.currentPairAddit() == '1a') { let x = new Date(`${de}${UX.timetable.alert.UIed.monday[1][0]}:00`); plutonny.output('pairTimerHTML', `до начала 1&nbsp;пары<br>${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)}`) }
+                                        if (UX.timetable.currentPairAddit() == '1f') { let x = new Date(`${de}${UX.timetable.alert.UIed.monday[1][1]}:00`); plutonny.output('pairTimerHTML', `до конца 1&nbsp;пол.<br>${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)}`) }
+                                        if (UX.timetable.currentPairAddit() == '1p') { let x = new Date(`${de}${UX.timetable.alert.UIed.monday[1][2]}:00`); plutonny.output('pairTimerHTML', `до конца 10м-ки<br>${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)}`) }
+                                        if (UX.timetable.currentPairAddit() == '1s') { let x = new Date(`${de}${UX.timetable.alert.UIed.monday[1][3]}:00`); plutonny.output('pairTimerHTML', `до конца 2&nbsp;пол.<br>${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)}`) }
+
+                                        if (UX.timetable.currentPairAddit() == '2a') { let x = new Date(`${de}${UX.timetable.alert.UIed.monday[2][0]}:00`); plutonny.output('pairTimerHTML', `до начала 2&nbsp;пары<br>${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)}`) }
+                                        if (UX.timetable.currentPairAddit() == '2f') { let x = new Date(`${de}${UX.timetable.alert.UIed.monday[2][1]}:00`); plutonny.output('pairTimerHTML', `до конца 1&nbsp;пол.<br>${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)}`) }
+                                        if (UX.timetable.currentPairAddit() == '2p') { let x = new Date(`${de}${UX.timetable.alert.UIed.monday[2][2]}:00`); plutonny.output('pairTimerHTML', `до конца 10м-ки<br>${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)}`) }
+                                        if (UX.timetable.currentPairAddit() == '2s') { let x = new Date(`${de}${UX.timetable.alert.UIed.monday[2][3]}:00`); plutonny.output('pairTimerHTML', `до конца 2&nbsp;пол.<br>${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)}`) }
+
+                                        if (UX.timetable.currentPairAddit() == '3a') { let x = new Date(`${de}${UX.timetable.alert.UIed.monday[3][0]}:00`); plutonny.output('pairTimerHTML', `до начала 3&nbsp;пары<br>${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)}`) }
+                                        if (UX.timetable.currentPairAddit() == '3f') { let x = new Date(`${de}${UX.timetable.alert.UIed.monday[3][1]}:00`); plutonny.output('pairTimerHTML', `до конца 1&nbsp;пол.<br>${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)}`) }
+                                        if (UX.timetable.currentPairAddit() == '3p') { let x = new Date(`${de}${UX.timetable.alert.UIed.monday[3][2]}:00`); plutonny.output('pairTimerHTML', `до конца 10м-ки<br>${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)}`) }
+                                        if (UX.timetable.currentPairAddit() == '3s') { let x = new Date(`${de}${UX.timetable.alert.UIed.monday[3][3]}:00`); plutonny.output('pairTimerHTML', `до конца 2&nbsp;пол.<br>${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)}`) }
+
+                                        if (UX.timetable.currentPairAddit() == '4a') { let x = new Date(`${de}${UX.timetable.alert.UIed.monday[4][0]}:00`); plutonny.output('pairTimerHTML', `до начала 4&nbsp;пары<br>${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)}`) }
+                                        if (UX.timetable.currentPairAddit() == '4f') { let x = new Date(`${de}${UX.timetable.alert.UIed.monday[4][1]}:00`); plutonny.output('pairTimerHTML', `до конца 1&nbsp;пол.<br>${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)}`) }
+                                        if (UX.timetable.currentPairAddit() == '4p') { let x = new Date(`${de}${UX.timetable.alert.UIed.monday[4][2]}:00`); plutonny.output('pairTimerHTML', `до конца 10м-ки<br>${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)}`) }
+                                        if (UX.timetable.currentPairAddit() == '4s') { let x = new Date(`${de}${UX.timetable.alert.UIed.monday[4][3]}:00`); plutonny.output('pairTimerHTML', `до конца 2&nbsp;пол.<br>${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)}`) }
+
+                                        if (UX.timetable.currentPairAddit() == '5a') { let x = new Date(`${de}${UX.timetable.alert.UIed.monday[5][0]}:00`); plutonny.output('pairTimerHTML', `до начала 5&nbsp;пары<br>${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)}`) }
+                                        if (UX.timetable.currentPairAddit() == '5f') { let x = new Date(`${de}${UX.timetable.alert.UIed.monday[5][1]}:00`); plutonny.output('pairTimerHTML', `до конца 1&nbsp;пол.<br>${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)}`) }
+                                        if (UX.timetable.currentPairAddit() == '5p') { let x = new Date(`${de}${UX.timetable.alert.UIed.monday[5][2]}:00`); plutonny.output('pairTimerHTML', `до конца 10м-ки<br>${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)}`) }
+                                        if (UX.timetable.currentPairAddit() == '5s') { let x = new Date(`${de}${UX.timetable.alert.UIed.monday[5][3]}:00`); plutonny.output('pairTimerHTML', `до конца 2&nbsp;пол.<br>${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)}`) }
+
+                                        if (UX.timetable.currentPairAddit() == '6a') { let x = new Date(`${de}${UX.timetable.alert.UIed.monday[6][0]}:00`); plutonny.output('pairTimerHTML', `до начала 6&nbsp;пары<br>${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)}`) }
+                                        if (UX.timetable.currentPairAddit() == '6f') { let x = new Date(`${de}${UX.timetable.alert.UIed.monday[6][1]}:00`); plutonny.output('pairTimerHTML', `до конца 1&nbsp;пол.<br>${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)}`) }
+                                        if (UX.timetable.currentPairAddit() == '6p') { let x = new Date(`${de}${UX.timetable.alert.UIed.monday[6][2]}:00`); plutonny.output('pairTimerHTML', `до конца 10м-ки<br>${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)}`) }
+                                        if (UX.timetable.currentPairAddit() == '6s') { let x = new Date(`${de}${UX.timetable.alert.UIed.monday[6][3]}:00`); plutonny.output('pairTimerHTML', `до конца 2&nbsp;пол.<br>${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)}`) }
+                                    } else {
+                                        if (UX.timetable.currentPairAddit() == '1f') { let x = new Date(`${de}${UX.timetable.alert.UIed.other[1][1]}:00`); plutonny.output('pairTimerHTML', `до конца 1&nbsp;пол.<br>${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)}`) }
+                                        if (UX.timetable.currentPairAddit() == '1p') { let x = new Date(`${de}${UX.timetable.alert.UIed.other[1][2]}:00`); plutonny.output('pairTimerHTML', `до конца 10м-ки<br>${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)}`) }
+                                        if (UX.timetable.currentPairAddit() == '1s') { let x = new Date(`${de}${UX.timetable.alert.UIed.other[1][3]}:00`); plutonny.output('pairTimerHTML', `до конца 2&nbsp;пол.<br>${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)}`) }
+
+                                        if (UX.timetable.currentPairAddit() == '2a') { let x = new Date(`${de}${UX.timetable.alert.UIed.other[2][0]}:00`); plutonny.output('pairTimerHTML', `до начала 2&nbsp;пары<br>${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)}`) }
+                                        if (UX.timetable.currentPairAddit() == '2f') { let x = new Date(`${de}${UX.timetable.alert.UIed.other[2][1]}:00`); plutonny.output('pairTimerHTML', `до конца 1&nbsp;пол.<br>${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)}`) }
+                                        if (UX.timetable.currentPairAddit() == '2p') { let x = new Date(`${de}${UX.timetable.alert.UIed.other[2][2]}:00`); plutonny.output('pairTimerHTML', `до конца 10м-ки<br>${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)}`) }
+                                        if (UX.timetable.currentPairAddit() == '2s') { let x = new Date(`${de}${UX.timetable.alert.UIed.other[2][3]}:00`); plutonny.output('pairTimerHTML', `до конца 2&nbsp;пол.<br>${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)}`) }
+
+                                        if (UX.timetable.currentPairAddit() == '3a') { let x = new Date(`${de}${UX.timetable.alert.UIed.other[3][0]}:00`); plutonny.output('pairTimerHTML', `до начала 3&nbsp;пары<br>${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)}`) }
+                                        if (UX.timetable.currentPairAddit() == '3f') { let x = new Date(`${de}${UX.timetable.alert.UIed.other[3][1]}:00`); plutonny.output('pairTimerHTML', `до конца 1&nbsp;пол.<br>${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)}`) }
+                                        if (UX.timetable.currentPairAddit() == '3p') { let x = new Date(`${de}${UX.timetable.alert.UIed.other[3][2]}:00`); plutonny.output('pairTimerHTML', `до конца 10м-ки<br>${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)}`) }
+                                        if (UX.timetable.currentPairAddit() == '3s') { let x = new Date(`${de}${UX.timetable.alert.UIed.other[3][3]}:00`); plutonny.output('pairTimerHTML', `до конца 2&nbsp;пол.<br>${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)}`) }
+
+                                        if (UX.timetable.currentPairAddit() == '4a') { let x = new Date(`${de}${UX.timetable.alert.UIed.other[4][0]}:00`); plutonny.output('pairTimerHTML', `до начала 4&nbsp;пары<br>${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)}`) }
+                                        if (UX.timetable.currentPairAddit() == '4f') { let x = new Date(`${de}${UX.timetable.alert.UIed.other[4][1]}:00`); plutonny.output('pairTimerHTML', `до конца 1&nbsp;пол.<br>${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)}`) }
+                                        if (UX.timetable.currentPairAddit() == '4p') { let x = new Date(`${de}${UX.timetable.alert.UIed.other[4][2]}:00`); plutonny.output('pairTimerHTML', `до конца 10м-ки<br>${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)}`) }
+                                        if (UX.timetable.currentPairAddit() == '4s') { let x = new Date(`${de}${UX.timetable.alert.UIed.other[4][3]}:00`); plutonny.output('pairTimerHTML', `до конца 2&nbsp;пол.<br>${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)}`) }
+
+                                        if (UX.timetable.currentPairAddit() == '5a') { let x = new Date(`${de}${UX.timetable.alert.UIed.other[5][0]}:00`); plutonny.output('pairTimerHTML', `до начала 5&nbsp;пары<br>${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)}`) }
+                                        if (UX.timetable.currentPairAddit() == '5f') { let x = new Date(`${de}${UX.timetable.alert.UIed.other[5][1]}:00`); plutonny.output('pairTimerHTML', `до конца 1&nbsp;пол.<br>${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)}`) }
+                                        if (UX.timetable.currentPairAddit() == '5p') { let x = new Date(`${de}${UX.timetable.alert.UIed.other[5][2]}:00`); plutonny.output('pairTimerHTML', `до конца 10м-ки<br>${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)}`) }
+                                        if (UX.timetable.currentPairAddit() == '5s') { let x = new Date(`${de}${UX.timetable.alert.UIed.other[5][3]}:00`); plutonny.output('pairTimerHTML', `до конца 2&nbsp;пол.<br>${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)}`) }
+
+                                        if (UX.timetable.currentPairAddit() == '6a') { let x = new Date(`${de}${UX.timetable.alert.UIed.other[6][0]}:00`); plutonny.output('pairTimerHTML', `до начала 6&nbsp;пары<br>${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)}`) }
+                                        if (UX.timetable.currentPairAddit() == '6f') { let x = new Date(`${de}${UX.timetable.alert.UIed.other[6][1]}:00`); plutonny.output('pairTimerHTML', `до конца 1&nbsp;пол.<br>${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)}`) }
+                                        if (UX.timetable.currentPairAddit() == '6p') { let x = new Date(`${de}${UX.timetable.alert.UIed.other[6][2]}:00`); plutonny.output('pairTimerHTML', `до конца 10м-ки<br>${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)}`) }
+                                        if (UX.timetable.currentPairAddit() == '6s') { let x = new Date(`${de}${UX.timetable.alert.UIed.other[6][3]}:00`); plutonny.output('pairTimerHTML', `до конца 2&nbsp;пол.<br>${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)}`) }
+                                    }
+                                }
+                            } pth()
+                            var pairInterval = setInterval(function() {
+                                pth()
+                            }, 10000)
+                        }
+                    }).catch(function (err) { plutonny.console.error('index.html -> UX.timetable.pairTimerHTML() -> JSON (timetable)', err) })
+                }
+            }
+            UI.timetable = {
+                default: function(settings) {
+                    return `
+                        <div onclick="UI.MODAL.pair(${settings.id})" style="${settings.active ? 'border: 2px solid #FF000099;' : ''}display: flex; flex-direction: row; flex-wrap: nowrap; width: calc(100% - 16px); background: var(--button-color); border-radius: 18px; margin: 0 0 16px 0; padding: 0 8px;">
+                            <div style="width: 36px; margin: 8px 8px 0 0;">${settings.icon}</div>
                             <div style="padding: 12px 0; display: flex; flex-direction: column; justify-content: center;">
-                                <b style="margin: 0; font-size: 14px; font-family: 'Montserrat';">${settings.name}</b>
+                                <b style="margin: 0; font-family: 'Montserrat';">${settings.name}</b>
                                 <div style="height: 6px;"></div>
-                                <p style="margin: 0; font-size: 14px; font-family: 'Montserrat';">${settings.teacher}</p>
+                                <p style="margin: 0; font-family: 'Montserrat';">${settings.teacher}</p>
+                            </div>
+                            <div style="margin-right: auto;"></div>
+                            <div style="padding: 8px 4px 8px 0; display: flex; flex-direction: column; justify-content: space-evenly;">
+                                <div style="display: flex; flex-direction: row; justify-content: flex-end;">
+                                    <span style="font-size: 18px; color: var(--icon-color);" class="material-symbols-rounded">sensor_door</span>
+                                    <div style="width: 4px;"></div>
+                                    <p style="margin: 0; font-family: 'Montserrat'; font-size: 14px; text-align: right;">${settings.cab}</p>
+                                </div>
+                                <div style="height: 8px;"></div>
+                                <div style="display: flex; flex-direction: row; width: 104px; justify-content: flex-end;">
+                                    <span style="font-size: 18px; color: var(--icon-color);" class="material-symbols-rounded">schedule</span>
+                                    <div style="width: 4px;"></div>
+                                    <p style="margin: 0; font-family: 'Montserrat'; font-size: 14px; text-align: right;">${settings.time}</p>
+                                </div>
                             </div>
                         </div>
-                        `
-                    }
+                    `
+                },
+                colored: function(col, settings) {
+                    return `
+                        <div onclick="UI.MODAL.pair(${settings.id})" style="${settings.active ? 'border: 2px solid #FF000099;' : ''}display: flex; flex-direction: row; flex-wrap: nowrap; width: calc(100% - 16px); background: rgb(2,0,36); background: linear-gradient(90deg, var(--button-color) 50%, var(--ui-${col}) 100%); border-radius: 18px; margin: 0 0 16px 0; padding: 0 8px;">
+                            <div style="width: 36px; margin: 8px 8px 0 0;">${settings.icon}</div>
+                            <div style="padding: 12px 0; display: flex; flex-direction: column; justify-content: center;">
+                                <b style="margin: 0; font-family: 'Montserrat';">${settings.name}</b>
+                                <div style="height: 6px;"></div>
+                                <p style="margin: 0; font-family: 'Montserrat';">${settings.teacher}</p>
+
+                            </div>
+                            <div style="margin-right: auto;"></div>
+                            <div style="padding: 8px 4px 8px 0; display: flex; flex-direction: column; justify-content: space-evenly;">
+                                <div style="display: flex; flex-direction: row; justify-content: flex-end;">
+                                    <span style="font-size: 18px; color: var(--icon-color);" class="material-symbols-rounded">sensor_door</span>
+                                    <div style="width: 4px;"></div>
+                                    <p style="margin: 0; font-family: 'Montserrat'; font-size: 14px; text-align: right;">${settings.cab}</p>
+                                </div>
+                                <div style="height: 8px;"></div>
+                                <div style="display: flex; flex-direction: row; width: 104px; justify-content: flex-end;">
+                                    <span style="font-size: 18px; color: var(--icon-color);" class="material-symbols-rounded">schedule</span>
+                                    <div style="width: 4px;"></div>
+                                    <p style="margin: 0; font-family: 'Montserrat'; font-size: 14px; text-align: right;">${settings.time}</p>
+                                </div>
+                            </div>
+                        </div>
+                    `
+                },
+                week: function(settings) {
+                    return `
+                    <div onclick="UI.MODAL.pair(${settings.id})" style="${settings.active ? 'border: 2px solid #FF000099;' : ''}display: flex; flex-direction: row; flex-wrap: nowrap; width: calc(50% - 16px); background: var(--ui-${settings.color}); border-radius: 18px; margin: 0 0 16px 0; padding: 0 8px;">
+                        <div style="width: 28px; margin: 8px 8px 0 0;">${settings.icon}</div>
+                        <div style="padding: 12px 0; display: flex; flex-direction: column; justify-content: center;">
+                            <b style="margin: 0; font-size: 14px; font-family: 'Montserrat';">${settings.name}</b>
+                            <div style="height: 6px;"></div>
+                            <p style="margin: 0; font-size: 14px; font-family: 'Montserrat';">${settings.teacher}</p>
+                        </div>
+                    </div>
+                    `
                 }
             }
         </script>
@@ -1113,8 +1075,8 @@
                     textCenter: headerGretings, 
                     buttonTheme: true, 
                     buttonBack: false, 
-                    enableHR: !(localStorage.getItem('HOLIDAYSMODE') == 'summer'), 
-                    HTMLAfter: localStorage.getItem('HOLIDAYSMODE') == 'summer' ? '' : `
+                    enableHR: !(localStorage.getItem('HOLIDAYSMODE') == 'summer' || localStorage.getItem('HOLIDAYSMODE') == 'winter'), 
+                    HTMLAfter: (localStorage.getItem('HOLIDAYSMODE') == 'summer' || localStorage.getItem('HOLIDAYSMODE') == 'winter') ? '' : `
                         <div style="display: flex; flex-direction: row; align-items: stretch; justify-content: center; min-height: 120px;">
                                 <button class="header" style="display: flex; flex-direction: column; padding: 12px; min-height: 120px; width: calc(50% - 9px); margin: 6px 3px 6px 6px; border-radius: 20px;" onclick="window.location.href = '/?/timetable/alerts/'">
                                     <div style="height: 36px; width: 36px;">
@@ -1189,7 +1151,7 @@
                         }
                         changOUT(0)
                     }
-                    else if (localStorage.getItem('viewChangImport') == 'no') {
+                    else if (localStorage.getItem('viewChangImport') == 'no' || (localStorage.getItem('viewChangImport') == 'onlp' && localStorage.getItem('PRACTICEMODE') != 'l')) {
                         if (localStorage.getItem('PRACTICEMODE') == 'l') plutonny.output('content', pracL())
                         else if (localStorage.getItem('PRACTICEMODE') == 'm') plutonny.output('content', pracM())
                         else {
@@ -2830,6 +2792,7 @@
                 try { document.getElementById('UsEx').remove() } catch {} 
                 try { document.getElementById('UsIn').remove() } catch {} 
                 try { document.getElementById('SeWo').remove() } catch {} 
+                try { document.getElementById('TiSc').remove() } catch {} 
             })
         </script>
 
