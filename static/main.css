@@ -23,14 +23,31 @@
     --yellow:                     #aaaa00;
     --week-color:                 #55555555;
     --week-ui-color:              #55555555;
+    
+    --UI-icon-neutral:            #ffffff  ;
+    --UI-icon-neutral-op:         #ffffff40;
+    --UI-icon-blue:               #2B6ABC  ;
+    --UI-icon-blue-op:            #2B6ABC40;
+    --UI-icon-green:              #00ff00  ;
+    --UI-icon-green-op:           #00ff0040;
+    --UI-icon-red:                #ff0000  ;
+    --UI-icon-red-op:             #ff000040;
+    --UI-icon-yellow:             #ffff00  ;
+    --UI-icon-yellow-op:          #ffff0040;
+    --UI-icon-violet:             #ff00ff  ;
+    --UI-icon-violet-op:          #ff00ff40;
+    --UI-icon-breeze:             #00ffff  ;
+    --UI-icon-breeze-op:          #00ffff40;
+    --UI-icon-dark:               #909090  ;
+    --UI-icon-dark-op:            #90909040;
 }
 
 /* Scrollbar disable only to Chrome users */
 ::-webkit-scrollbar { width: 0px; height: 0px; }
 
 /* Styles for all pages */
-html, body { margin: 0; overflow-x: hidden; transition: 350ms; }
-h1, h2, h3, h4, h5, h6, p, a, b, td, div, li, button, br, input, label { z-index: 2; transition: 200ms; font-family: 'Nunito'; word-wrap: break-word; letter-spacing: 0.02em; }
+html, body { margin: 0; overflow-x: hidden; transition: 350ms all; }
+h1, h2, h3, h4, h5, h6, p, a, b, td, div, li, button, br, input, label { z-index: 2; transition: 200ms all; font-family: 'Nunito'; word-wrap: break-word; letter-spacing: 0.02em; }
 /* Colors */
 html, body { background: var(--bg-color); }
 h1, h2, h3, h4, h5, h6, p, a, b, td, div, li, button, br, input, label { color: var(--text-color); }
