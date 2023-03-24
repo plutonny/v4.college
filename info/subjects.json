@@ -111,8 +111,7 @@
             "learn_hours_aud": 120,
             "offset": true,
             "exam": false,
-            "light_color": "0000ff",
-            "dark_color": "2B6ABC",
+            "color": "blue",
             "icon": "construction"
         },
         "2": {
@@ -124,8 +123,7 @@
             "learn_hours_aud": 100,
             "offset": true,
             "exam": false,
-            "light_color": "0000ff",
-            "dark_color": "2B6ABC",
+            "color": "blue",
             "icon": "microwave"
         },
         "3": {
@@ -137,8 +135,7 @@
             "learn_hours_aud": 80,
             "offset": false,
             "exam": true,
-            "light_color": "707070",
-            "dark_color": "ffffff",
+            "color": "neutral",
             "icon": "school"
         },
         "4": {
@@ -150,8 +147,7 @@
             "learn_hours_aud": 80,
             "offset": false,
             "exam": true,
-            "light_color": "20ae20",
-            "dark_color": "00ff00",
+            "color": "green",
             "icon": "devices"
         },
         "5": {
@@ -163,8 +159,7 @@
             "learn_hours_aud": 80,
             "offset": false,
             "exam": true,
-            "light_color": "ff0000",
-            "dark_color": "ff0000",
+            "color": "red",
             "icon": "function"
         },
         "6": {
@@ -176,8 +171,7 @@
             "learn_hours_aud": 80,
             "offset": true,
             "exam": false,
-            "light_color": "d29d08",
-            "dark_color": "ffff00",
+            "color": "yellow",
             "icon": "brush"
         },
         "7": {
@@ -189,8 +183,7 @@
             "learn_hours_aud": 80,
             "offset": true,
             "exam": false,
-            "light_color": "ff0000",
-            "dark_color": "ff0000",
+            "color": "red",
             "icon": "functions"
         },
         "8": {
@@ -202,8 +195,7 @@
             "learn_hours_aud": 72,
             "offset": true,
             "exam": false,
-            "light_color": "707070",
-            "dark_color": "ffffff",
+            "color": "neutral",
             "icon": "school"
         },
         "9": {
@@ -215,8 +207,7 @@
             "learn_hours_aud": 60,
             "offset": true,
             "exam": false,
-            "light_color": "b21eb2",
-            "dark_color": "ff00ff",
+            "color": "violet",
             "icon": "design_services"
         },
         "10": {
@@ -228,8 +219,7 @@
             "learn_hours_aud": 40,
             "offset": true,
             "exam": false,
-            "light_color": "b21eb2",
-            "dark_color": "ff00ff",
+            "color": "violet",
             "icon": "translate"
         },
         "11": {
@@ -241,8 +231,7 @@
             "learn_hours_aud": 40,
             "offset": false,
             "exam": false,
-            "light_color": "d29d08",
-            "dark_color": "ffff00",
+            "color": "yellow",
             "icon": "architecture"
         },
         "12": {
@@ -254,8 +243,7 @@
             "learn_hours_aud": 40,
             "offset": false,
             "exam": false,
-            "light_color": "20ae20",
-            "dark_color": "00ff00",
+            "color": "green",
             "icon": "directions_walk"
         },
         "13": {
@@ -267,8 +255,7 @@
             "learn_hours_aud": 36,
             "offset": true,
             "exam": false,
-            "light_color": "707070",
-            "dark_color": "ffffff",
+            "color": "neutral",
             "icon": "school"
         },
         "14": {
@@ -280,8 +267,7 @@
             "learn_hours_aud": "-",
             "offset": false,
             "exam": false,
-            "light_color": "707070",
-            "dark_color": "ffffff",
+            "color": "neutral",
             "icon": "school"
         },
         "count": 14

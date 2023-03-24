@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="ru">
     <head>
+
         <meta                                       charset="UTF-8">
         <meta   http-equiv="Permissions-Policy"     content="interest-cohort=()">
         <meta   http-equiv="Cache-Control"          content="no-cache">
@@ -229,8 +230,25 @@
                         --icon-color:                 #707070 !important;
                         --ui-green:                   #7cf779 !important;
                         --ui-yellow:                  #f3ee67 !important;
-                        --week-color:                 var(--ui-${WEEK.name.EN})    !important;
+                        --week-color:                 var(--ui-${WEEK.name.EN}) !important;
                         --week-ui-color:              var(--ui-${WEEK.name.EN}) !important;
+
+                        --UI-icon-neutral:            #707070   !important;
+                        --UI-icon-neutral-op:         #70707040 !important;
+                        --UI-icon-blue:               #0000ff   !important;
+                        --UI-icon-blue-op:            #0000ff40 !important;
+                        --UI-icon-green:              #20ae20   !important;
+                        --UI-icon-green-op:           #20ae2040 !important;
+                        --UI-icon-red:                #ff0000   !important;
+                        --UI-icon-red-op:             #ff000040 !important;
+                        --UI-icon-yellow:             #d29d08   !important;
+                        --UI-icon-yellow-op:          #d29d0840 !important;
+                        --UI-icon-violet:             #b21eb2   !important;
+                        --UI-icon-violet-op:          #b21eb240 !important;
+                        --UI-icon-breeze:             #14a1a1   !important;
+                        --UI-icon-breeze-op:          #14a1a140 !important;
+                        --UI-icon-dark:               #000000   !important;
+                        --UI-icon-dark-op:            #00000040 !important;
                     }`,
                     dark: `:root {
                         --text-color:                 #f4f4f4 !important;
@@ -250,6 +268,23 @@
                         --ui-yellow:                  #454306 !important;
                         --week-color:                 var(--${WEEK.name.EN})    !important;
                         --week-ui-color:              var(--ui-${WEEK.name.EN}) !important;
+
+                        --UI-icon-neutral:            #ffffff   !important;
+                        --UI-icon-neutral-op:         #ffffff40 !important;
+                        --UI-icon-blue:               #2B6ABC   !important;
+                        --UI-icon-blue-op:            #2B6ABC40 !important;
+                        --UI-icon-green:              #00ff00   !important;
+                        --UI-icon-green-op:           #00ff0040 !important;
+                        --UI-icon-red:                #ff0000   !important;
+                        --UI-icon-red-op:             #ff000040 !important;
+                        --UI-icon-yellow:             #ffff00   !important;
+                        --UI-icon-yellow-op:          #ffff0040 !important;
+                        --UI-icon-violet:             #ff00ff   !important;
+                        --UI-icon-violet-op:          #ff00ff40 !important;
+                        --UI-icon-breeze:             #00ffff   !important;
+                        --UI-icon-breeze-op:          #00ffff40 !important;
+                        --UI-icon-dark:               #909090   !important;
+                        --UI-icon-dark-op:            #90909040 !important;
                     }`,
                     get: function() {
                         if (localStorage.getItem('THEME-type') == 'alight') localStorage.setItem('THEME', 'light')
@@ -408,9 +443,18 @@
                     `)
                 },
                 cIcon: function(settings) {
+                    let colinj = {}
+                    if (settings.color[0] == '#') colinj = {
+                        icon: settings.color, 
+                        button: `${settings.color}40`
+                    }
+                    else colinj = {
+                        icon: `var(--UI-icon-${settings.color})`, 
+                        button: `var(--UI-icon-${settings.color}-op)`
+                    }
                     return `
-                        <div style="user-select: none; height: ${settings.size}px; width: ${settings.size}px; display: flex; align-content: center; justify-content: center; align-items: center; background-color: ${settings.color}40; border-radius: ${settings.border}px">
-                            <span style="color: ${settings.color}; font-size: ${settings.font}px;" class="material-symbols-rounded">${settings.icon}</span>
+                        <div style="user-select: none; height: ${settings.size}px; width: ${settings.size}px; display: flex; align-content: center; justify-content: center; align-items: center; background-color: ${colinj.button}; border-radius: ${settings.border}px">
+                            <span style="color: ${colinj.icon}; font-size: ${settings.font}px;" class="material-symbols-rounded">${settings.icon}</span>
                         </div>
                     `
                 },
@@ -506,16 +550,7 @@
         <script id="TiSc" type="text/javascript">
             /* UI
              *  | -- timetable
-             *  |    | -- default(settings) (settings = {
-             *  |    |                            id: int,
-             *  |    |                            name: "str",
-             *  |    |                            teacher: "str",
-             *  |    |                            icon: "result from UI.cIcon()",
-             *  |    |                            cab: "str",
-             *  |    |                            time: "str",
-             *  |    |                            active: bool
-             *  |    |                       })
-             *  |    | -- colored(settings) (col = 'yellow' or 'green'
+             *  |    | -- default(settings) (col = 'yellow'; 'green'; 'default'
              *  |    |                       settings = {
              *  |    |                            id: int,
              *  |    |                            name: "str",
@@ -798,35 +833,11 @@
                 }
             }
             UI.timetable = {
-                default: function(settings) {
+                default: function(col, settings) {
                     return `
-                        <div onclick="UI.MODAL.pair(${settings.id})" style="${settings.active ? 'border: 2px solid #FF000099;' : ''}display: flex; flex-direction: row; flex-wrap: nowrap; width: calc(100% - 16px); background: var(--button-color); border-radius: 18px; margin: 0 0 16px 0; padding: 0 8px;">
-                            <div style="width: 36px; margin: 8px 8px 0 0;">${settings.icon}</div>
-                            <div style="padding: 12px 0; display: flex; flex-direction: column; justify-content: center;">
-                                <b style="margin: 0; font-family: 'Montserrat';">${settings.name}</b>
-                                <div style="height: 6px;"></div>
-                                <p style="margin: 0; font-family: 'Montserrat';">${settings.teacher}</p>
-                            </div>
-                            <div style="margin-right: auto;"></div>
-                            <div style="padding: 8px 4px 8px 0; display: flex; flex-direction: column; justify-content: space-evenly;">
-                                <div style="display: flex; flex-direction: row; justify-content: flex-end;">
-                                    <span style="font-size: 18px; color: var(--icon-color);" class="material-symbols-rounded">sensor_door</span>
-                                    <div style="width: 4px;"></div>
-                                    <p style="margin: 0; font-family: 'Montserrat'; font-size: 14px; text-align: right;">${settings.cab}</p>
-                                </div>
-                                <div style="height: 8px;"></div>
-                                <div style="display: flex; flex-direction: row; width: 104px; justify-content: flex-end;">
-                                    <span style="font-size: 18px; color: var(--icon-color);" class="material-symbols-rounded">schedule</span>
-                                    <div style="width: 4px;"></div>
-                                    <p style="margin: 0; font-family: 'Montserrat'; font-size: 14px; text-align: right;">${settings.time}</p>
-                                </div>
-                            </div>
-                        </div>
-                    `
-                },
-                colored: function(col, settings) {
-                    return `
-                        <div onclick="UI.MODAL.pair(${settings.id})" style="${settings.active ? 'border: 2px solid #FF000099;' : ''}display: flex; flex-direction: row; flex-wrap: nowrap; width: calc(100% - 16px); background: rgb(2,0,36); background: linear-gradient(90deg, var(--button-color) 50%, var(--ui-${col}) 100%); border-radius: 18px; margin: 0 0 16px 0; padding: 0 8px;">
+                        <div onclick="UI.MODAL.pair(${settings.id})" style="${settings.active ? 'border: 2px solid #FF000099;' : ''}display: flex; flex-direction: row; flex-wrap: nowrap; width: calc(100% - 16px); 
+                        ${col == 'default' ? `background: var(--button-color); ` : `background: rgb(2,0,36); background: linear-gradient(90deg, var(--button-color) 50%, var(--ui-${col}) 100%); `}
+                        border-radius: 18px; margin: 0 0 16px 0; padding: 0 8px;">
                             <div style="width: 36px; margin: 8px 8px 0 0;">${settings.icon}</div>
                             <div style="padding: 12px 0; display: flex; flex-direction: column; justify-content: center;">
                                 <b style="margin: 0; font-family: 'Montserrat';">${settings.name}</b>
@@ -880,6 +891,7 @@
 
     </head>
     <body>
+
         <noscript style="color: white; font-size: 36px;">Включите JavaScript чтобы пользоваться сайтом</noscript>
 
         <div class="modal" id="modal"></div>
@@ -1080,7 +1092,7 @@
                         <div style="display: flex; flex-direction: row; align-items: stretch; justify-content: center; min-height: 120px;">
                                 <button class="header" style="display: flex; flex-direction: column; padding: 12px; min-height: 120px; width: calc(50% - 9px); margin: 6px 3px 6px 6px; border-radius: 20px;" onclick="window.location.href = '/?/timetable/alerts/'">
                                     <div style="height: 36px; width: 36px;">
-                                        ${UI.cIcon({size: 36, border: 10, color: "#ff0000", icon: "schedule", font: 24})}
+                                        ${UI.cIcon({size: 36, border: 10, color: "red", icon: "schedule", font: 24})}
                                     </div>
                                     <p style="margin: 12px 0px 0px 0px; text-align: left; font-size: 18px; font-family: 'Montserrat';" id="pairTimerHTML">
                                         расп-е звонков
@@ -1088,7 +1100,7 @@
                                 </button>
                                 <button class="header" style="display: flex; flex-direction: column; padding: 12px; min-height: 120px; width: calc(50% - 9px); margin: 6px 6px 6px 3px; border-radius: 20px;" onclick="window.location.href = '/?/timetable/week/'">
                                     <div style="height: 36px; width: 36px;">
-                                        ${UI.cIcon({size: 36, border: 10, color: "#0000ff", icon: "calendar_month", font: 24})}
+                                        ${UI.cIcon({size: 36, border: 10, color: "blue", icon: "calendar_month", font: 24})}
                                     </div>
                                     <p style="margin: 12px 0px 0px 0px; text-align: left; font-size: 18px; font-family: 'Montserrat';">
                                         ${localStorage.getItem('HOLIDAYSMODE') == 'summer' || localStorage.getItem('HOLIDAYSMODE') == 'winter' || localStorage.getItem('PRACTICEMODE') == 'l' || localStorage.getItem('PRACTICEMODE') == 'm' ? 
@@ -1164,43 +1176,43 @@
                                                 for (let j in tim[NUMSEMESTR][i]) {
                                                     if (j != 'count') {
                                                         if (tim[NUMSEMESTR][i][j]['num'] == 0) {
-                                                            inj += UI.timetable.default({
+                                                            inj += UI.timetable.default(tim[NUMSEMESTR][i][j]['color'], {
                                                                 id: tim[NUMSEMESTR][i][j]['id'],
                                                                 name: subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['name'],
                                                                 teacher: subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['teacher'].split(' ')[0],
-                                                                icon: UI.cIcon({size: 36, border: 10, color: UX.theme.get() ? `#${subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['dark_color']}` : `#${subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['light_color']}`, icon: subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['icon'], font: 24}),
+                                                                icon: UI.cIcon({size: 36, border: 10, color: subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['color'], icon: subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['icon'], font: 24}),
                                                                 cab: tim[NUMSEMESTR][i][j]['cab'],
                                                                 time: `${UX.timetable.alert.UIed.monday[0][0]}-${UX.timetable.alert.UIed.monday[0][1]}`,
                                                                 active: UX.timetable.currentPairNum() == 0 && a == 'active' && a != 'noactive'
                                                             })
                                                         }
                                                         else if (tim[NUMSEMESTR][i][j]['color'] == 'default')
-                                                            inj += UI.timetable.default({
+                                                            inj += UI.timetable.default(tim[NUMSEMESTR][i][j]['color'], {
                                                                 id: tim[NUMSEMESTR][i][j]['id'],
                                                                 name: subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['name'],
                                                                 teacher: subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['teacher'].split(' ')[0],
-                                                                icon: UI.cIcon({size: 36, border: 10, color: UX.theme.get() ? `#${subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['dark_color']}` : `#${subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['light_color']}`, icon: subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['icon'], font: 24}),
+                                                                icon: UI.cIcon({size: 36, border: 10, color: subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['color'], icon: subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['icon'], font: 24}),
                                                                 cab: tim[NUMSEMESTR][i][j]['cab'],
                                                                 time: `${UX.timetable.alert.UIed.monday[tim[NUMSEMESTR][i][j]['num']][0]}-${UX.timetable.alert.UIed.monday[tim[NUMSEMESTR][i][j]['num']][3]}`,
                                                                 active: UX.timetable.currentPairNum() == tim[NUMSEMESTR][i][j]['num'] && a == 'active' && a != 'noactive'
                                                             })
                                                         else if ((tim[NUMSEMESTR][i][j]['color'] == 'yellow' && CURRDATE.getDay() != 0 && WEEK.name.EN == 'yellow') || (tim[NUMSEMESTR][i][j]['color'] == 'yellow' && CURRDATE.getDay() == 0 && WEEK.name.alt.EN == 'yellow')) {
-                                                            inj += UI.timetable.colored('yellow', {
+                                                            inj += UI.timetable.default('yellow', {
                                                                 id: tim[NUMSEMESTR][i][j]['id'],
                                                                 name: subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['name'],
                                                                 teacher: subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['teacher'].split(' ')[0],
-                                                                icon: UI.cIcon({size: 36, border: 10, color: UX.theme.get() ? `#${subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['dark_color']}` : `#${subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['light_color']}`, icon: subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['icon'], font: 24}),
+                                                                icon: UI.cIcon({size: 36, border: 10, color: subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['color'], icon: subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['icon'], font: 24}),
                                                                 cab: tim[NUMSEMESTR][i][j]['cab'],
                                                                 time: `${UX.timetable.alert.UIed.monday[tim[NUMSEMESTR][i][j]['num']][0]}-${UX.timetable.alert.UIed.monday[tim[NUMSEMESTR][i][j]['num']][3]}`,
                                                                 active: UX.timetable.currentPairNum() == tim[NUMSEMESTR][i][j]['num'] && a == 'active' && a != 'noactive'
                                                             })
                                                         }
                                                         else if ((tim[NUMSEMESTR][i][j]['color'] == 'green' && CURRDATE.getDay() != 0 && WEEK.name.EN == 'green') || (tim[NUMSEMESTR][i][j]['color'] == 'green' && CURRDATE.getDay() == 0 && WEEK.name.alt.EN == 'green')) {
-                                                            inj += UI.timetable.colored('green', {
+                                                            inj += UI.timetable.default('green', {
                                                                 id: tim[NUMSEMESTR][i][j]['id'],
                                                                 name: subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['name'],
                                                                 teacher: subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['teacher'].split(' ')[0],
-                                                                icon: UI.cIcon({size: 36, border: 10, color: UX.theme.get() ? `#${subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['dark_color']}` : `#${subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['light_color']}`, icon: subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['icon'], font: 24}),
+                                                                icon: UI.cIcon({size: 36, border: 10, color: subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['color'], icon: subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['icon'], font: 24}),
                                                                 cab: tim[NUMSEMESTR][i][j]['cab'],
                                                                 time: `${UX.timetable.alert.UIed.monday[tim[NUMSEMESTR][i][j]['num']][0]}-${UX.timetable.alert.UIed.monday[tim[NUMSEMESTR][i][j]['num']][3]}`,
                                                                 active: UX.timetable.currentPairNum() == tim[NUMSEMESTR][i][j]['num'] && a == 'active' && a != 'noactive'
@@ -1227,32 +1239,32 @@
                                                 for (let j in tim[NUMSEMESTR][i]) {
                                                     if (j != 'count') {
                                                         if (tim[NUMSEMESTR][i][j]['color'] == 'default')
-                                                            inj += UI.timetable.default({
+                                                            inj += UI.timetable.default(tim[NUMSEMESTR][i][j]['color'], {
                                                                 id: tim[NUMSEMESTR][i][j]['id'],
                                                                 name: subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['name'],
                                                                 teacher: subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['teacher'].split(' ')[0],
-                                                                icon: UI.cIcon({size: 36, border: 10, color: UX.theme.get() ? `#${subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['dark_color']}` : `#${subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['light_color']}`, icon: subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['icon'], font: 24}),
+                                                                icon: UI.cIcon({size: 36, border: 10, color: subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['color'], icon: subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['icon'], font: 24}),
                                                                 cab: tim[NUMSEMESTR][i][j]['cab'],
                                                                 time: `${UX.timetable.alert.UIed.other[tim[NUMSEMESTR][i][j]['num']][0]}-${UX.timetable.alert.UIed.other[tim[NUMSEMESTR][i][j]['num']][3]}`,
                                                                 active: UX.timetable.currentPairNum() == tim[NUMSEMESTR][i][j]['num'] && a == 'active' && a != 'noactive'
                                                             })
                                                         else if (tim[NUMSEMESTR][i][j]['color'] == 'yellow' && WEEK.name.EN == 'yellow') {
-                                                            inj += UI.timetable.colored('yellow', {
+                                                            inj += UI.timetable.default('yellow', {
                                                                 id: tim[NUMSEMESTR][i][j]['id'],
                                                                 name: subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['name'],
                                                                 teacher: subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['teacher'].split(' ')[0],
-                                                                icon: UI.cIcon({size: 36, border: 10, color: UX.theme.get() ? `#${subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['dark_color']}` : `#${subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['light_color']}`, icon: subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['icon'], font: 24}),
+                                                                icon: UI.cIcon({size: 36, border: 10, color:subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['color'], icon: subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['icon'], font: 24}),
                                                                 cab: tim[NUMSEMESTR][i][j]['cab'],
                                                                 time: `${UX.timetable.alert.UIed.other[tim[NUMSEMESTR][i][j]['num']][0]}-${UX.timetable.alert.UIed.other[tim[NUMSEMESTR][i][j]['num']][3]}`,
                                                                 active: UX.timetable.currentPairNum() == tim[NUMSEMESTR][i][j]['num'] && a == 'active' && a != 'noactive'
                                                             })
                                                         }
                                                         else if (tim[NUMSEMESTR][i][j]['color'] == 'green' && WEEK.name.EN == 'green') {
-                                                            inj += UI.timetable.colored('green', {
+                                                            inj += UI.timetable.default('green', {
                                                                 id: tim[NUMSEMESTR][i][j]['id'],
                                                                 name: subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['name'],
                                                                 teacher: subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['teacher'].split(' ')[0],
-                                                                icon: UI.cIcon({size: 36, border: 10, color: UX.theme.get() ? `#${subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['dark_color']}` : `#${subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['light_color']}`, icon: subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['icon'], font: 24}),
+                                                                icon: UI.cIcon({size: 36, border: 10, color: subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['color'], icon: subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['icon'], font: 24}),
                                                                 cab: tim[NUMSEMESTR][i][j]['cab'],
                                                                 time: `${UX.timetable.alert.UIed.other[tim[NUMSEMESTR][i][j]['num']][0]}-${UX.timetable.alert.UIed.other[tim[NUMSEMESTR][i][j]['num']][3]}`,
                                                                 active: UX.timetable.currentPairNum() == tim[NUMSEMESTR][i][j]['num'] && a == 'active' && a != 'noactive'
@@ -1371,21 +1383,21 @@
                                         for (let j in tim[NUMSEMESTR][i]) {
                                             if (j != 'count') {
                                                 if (tim[NUMSEMESTR][i][j]['num'] == 0) {
-                                                    inj[1] += UI.timetable.default({
+                                                    inj[1] += UI.timetable.default(tim[NUMSEMESTR][i][j]['color'], {
                                                         id: tim[NUMSEMESTR][i][j]['id'],
                                                         name: subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['name'],
                                                         teacher: subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['teacher'].split(' ')[0],
-                                                        icon: UI.cIcon({size: 36, border: 10, color: UX.theme.get() ? `#${subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['dark_color']}` : `#${subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['light_color']}`, icon: subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['icon'], font: 24}),
+                                                        icon: UI.cIcon({size: 36, border: 10, color: subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['color'], icon: subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['icon'], font: 24}),
                                                         cab: tim[NUMSEMESTR][i][j]['cab'],
                                                         time: `${UX.timetable.alert.UIed.monday[0][0]}-${UX.timetable.alert.UIed.monday[0][1]}`
                                                     })
                                                 }
                                                 else if (tim[NUMSEMESTR][i][j]['color'] == 'default')
-                                                    inj[1] += UI.timetable.default({
+                                                    inj[1] += UI.timetable.default(tim[NUMSEMESTR][i][j]['color'], {
                                                         id: tim[NUMSEMESTR][i][j]['id'],
                                                         name: subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['name'],
                                                         teacher: subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['teacher'].split(' ')[0],
-                                                        icon: UI.cIcon({size: 36, border: 10, color: UX.theme.get() ? `#${subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['dark_color']}` : `#${subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['light_color']}`, icon: subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['icon'], font: 24}),
+                                                        icon: UI.cIcon({size: 36, border: 10, color: subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['color'], icon: subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['icon'], font: 24}),
                                                         cab: tim[NUMSEMESTR][i][j]['cab'],
                                                         time: `${UX.timetable.alert.UIed.monday[tim[NUMSEMESTR][i][j]['num']][0]}-${UX.timetable.alert.UIed.monday[tim[NUMSEMESTR][i][j]['num']][3]}`
                                                     })
@@ -1397,7 +1409,7 @@
                                                             name: subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['name'],
                                                             teacher: subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['teacher'].split(' ')[0],
                                                             color: tim[NUMSEMESTR][i][j]['color'],
-                                                            icon: UI.cIcon({size: 28, border: 10, color: UX.theme.get() ? `#${subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['dark_color']}` : `#${subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['light_color']}`, icon: subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['icon'], font: 20}),
+                                                            icon: UI.cIcon({size: 28, border: 10, color: subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['color'], icon: subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['icon'], font: 20}),
                                                         })}
                                                         </div>
                                                         `
@@ -1409,7 +1421,7 @@
                                                                 name: subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['name'],
                                                                 teacher: subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['teacher'].split(' ')[0],
                                                                 color: tim[NUMSEMESTR][i][j]['color'],
-                                                                icon: UI.cIcon({size: 28, border: 10, color: UX.theme.get() ? `#${subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['dark_color']}` : `#${subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['light_color']}`, icon: subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['icon'], font: 20}),
+                                                                icon: UI.cIcon({size: 28, border: 10, color: subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['color'], icon: subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['icon'], font: 20}),
                                                             })}
                                                             
                                                     `
@@ -1429,11 +1441,11 @@
                                         for (let j in tim[NUMSEMESTR][i]) {
                                             if (j != 'count') {
                                                 if (tim[NUMSEMESTR][i][j]['color'] == 'default')
-                                                    inj[1] += UI.timetable.default({
+                                                    inj[1] += UI.timetable.default(tim[NUMSEMESTR][i][j]['color'], {
                                                         id: tim[NUMSEMESTR][i][j]['id'],
                                                         name: subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['name'],
                                                         teacher: subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['teacher'].split(' ')[0],
-                                                        icon: UI.cIcon({size: 36, border: 10, color: UX.theme.get() ? `#${subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['dark_color']}` : `#${subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['light_color']}`, icon: subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['icon'], font: 24}),
+                                                        icon: UI.cIcon({size: 36, border: 10, color: subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['color'], icon: subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['icon'], font: 24}),
                                                         cab: tim[NUMSEMESTR][i][j]['cab'],
                                                         time: `${UX.timetable.alert.UIed.other[tim[NUMSEMESTR][i][j]['num']][0]}-${UX.timetable.alert.UIed.other[tim[NUMSEMESTR][i][j]['num']][3]}`
                                                     })
@@ -1445,7 +1457,7 @@
                                                             name: subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['name'],
                                                             teacher: subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['teacher'].split(' ')[0],
                                                             color: tim[NUMSEMESTR][i][j]['color'],
-                                                            icon: UI.cIcon({size: 28, border: 10, color: UX.theme.get() ? `#${subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['dark_color']}` : `#${subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['light_color']}`, icon: subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['icon'], font: 20}),
+                                                            icon: UI.cIcon({size: 28, border: 10, color: subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['color'], icon: subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['icon'], font: 20}),
                                                         })}
                                                     </div>
                                                     `
@@ -1457,7 +1469,7 @@
                                                                 name: subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['name'],
                                                                 teacher: subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['teacher'].split(' ')[0],
                                                                 color: tim[NUMSEMESTR][i][j]['color'],
-                                                                icon: UI.cIcon({size: 28, border: 10, color: UX.theme.get() ? `#${subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['dark_color']}` : `#${subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['light_color']}`, icon: subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['icon'], font: 20}),
+                                                                icon: UI.cIcon({size: 28, border: 10, color: subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['color'], icon: subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['icon'], font: 20}),
                                                             })}
                                                             
                                                     `
@@ -1598,7 +1610,7 @@
                                 ${UI.cIcon({
                                     size: 36,
                                     border: 14,
-                                    color: `#${UX.theme.get() ? data[NUMSEMESTR][i]['dark_color'] : data[NUMSEMESTR][i]['light_color']}`,
+                                    color: data[NUMSEMESTR][i]['color'],
                                     icon: data[NUMSEMESTR][i]['icon'],
                                     font: 24
                                 })}
@@ -1637,7 +1649,7 @@
                                         ${UI.cIcon({
                                             size: 64,
                                             border: 18,
-                                            color: `#${UX.theme.get() ? data[NUMSEMESTR][URLDIR[2]]['dark_color'] : data[NUMSEMESTR][URLDIR[2]]['light_color']}`,
+                                            color: data[NUMSEMESTR][URLDIR[2]]['color'],
                                             icon: data[NUMSEMESTR][URLDIR[2]]['icon'],
                                             font: 36
                                         })}
@@ -1687,7 +1699,7 @@
                         inj += `
                         <div style="height: 24px;"></div>
                         <button style="width: 100%; height: 64px; background: var(--button-color-header) !important; border: 2px solid var(--button-color); border-radius: 100px; padding: 8px 6px !important; display: flex; flex-direction: row; flex-wrap: nowrap; align-items: center; justify-content: space-between;" onclick="window.location.assign('//grades.college.plutonny.ru/GRADES.zip')">
-                            ${UI.cIcon({size: 48, border: 24, color: '#ff0000', icon: 'folder_zip', font: 24})}
+                            ${UI.cIcon({size: 48, border: 24, color: 'red', icon: 'folder_zip', font: 24})}
                             <div style="margin-right: auto;"></div>
                             <div>
                                 <p style="margin: 0; font-family: 'Montserrat';">загрузить архив с фото</p>
@@ -1782,7 +1794,7 @@
                             <div style="display: flex; flex-direction: row; flex-wrap: wrap; align-items: stretch; justify-content: center;">
                                     <button class="header" style="display: flex; flex-direction: column; padding: 12px; min-height: 120px; width: calc(50% - 9px); margin: 6px 3px 3px 6px; border-radius: 20px;" onclick="window.location.href = 'https://qiwi.com/n/PLUTONNY236'">
                                         <div style="height: 36px; width: 36px;">
-                                            ${UI.cIcon({size: 36, border: 10, color: UX.theme.get() ? '#ffff00' : "#dfad1e", icon: "paid", font: 24})}
+                                            ${UI.cIcon({size: 36, border: 10, color: "yellow", icon: "paid", font: 24})}
                                         </div>
                                         <p style="margin: 12px 0px 0px 0px; text-align: left; font-size: 18px; font-family: 'Montserrat';" id="pairTimerHTML">донат</p>
                                     </button>
@@ -1794,13 +1806,13 @@
                                     </button>
                                     <button class="header" style="display: flex; flex-direction: column; padding: 12px; min-height: 120px; width: calc(50% - 9px); margin: 3px 3px 6px 6px; border-radius: 20px;" onclick="window.location.href = '/?/support/'">
                                         <div style="height: 36px; width: 36px;">
-                                            ${UI.cIcon({size: 36, border: 10, color: UX.theme.get() ? '#00ff00' : "#20ae20", icon: "support", font: 24})}
+                                            ${UI.cIcon({size: 36, border: 10, color: "green", icon: "support", font: 24})}
                                         </div>
                                         <p style="margin: 12px 0px 0px 0px; text-align: left; font-size: 18px; font-family: 'Montserrat';" id="pairTimerHTML">поддержка</p>
                                     </button>
                                     <button class="header" style="display: flex; flex-direction: column; padding: 12px; min-height: 120px; width: calc(50% - 9px); margin: 3px 6px 6px 3px; border-radius: 20px;" onclick="window.location.href = '/?/other/info/'">
                                         <div style="height: 36px; width: 36px;">
-                                            ${UI.cIcon({size: 36, border: 10, color: UX.theme.get() ? "#ffffff" : "#707070", icon: "info", font: 24})}
+                                            ${UI.cIcon({size: 36, border: 10, color: "neutral", icon: "info", font: 24})}
                                         </div>
                                         <p style="margin: 12px 0px 0px 0px; text-align: left; font-size: 18px; font-family: 'Montserrat';">версия: ${siteVersion}b${siteBuild}</p>
                                     </button>
@@ -1813,43 +1825,43 @@
                         <div>
                             <button style="text-align: left; font-family: 'Montserrat'; width: 100%; height: 46px; margin: 0 0 12px 0; padding: 0 0 0 5px; display: flex; flex-direction: row; align-items: center; justify-content: flex-start;" 
                                 onclick="window.location.href = '/?/other/attendance/'">
-                                <div style="width: 36px;">${UI.cIcon({size: 36, border: 100, color: UX.theme.get() ? '#ffff00' : "#ff912b", icon: 'calendar_month', font: 24})}</div>
+                                <div style="width: 36px;">${UI.cIcon({size: 36, border: 100, color: "yellow", icon: 'calendar_month', font: 24})}</div>
                                 <div style="width: 8px;"></div>
                                 посещаемость
                             </button>
                             <button style="text-align: left; font-family: 'Montserrat'; width: 100%; height: 46px; margin: 0 0 12px 0; padding: 0 0 0 5px; display: flex; flex-direction: row; align-items: center; justify-content: flex-start;" 
                                 onclick="window.location.href = '/?/other/planle/'">
-                                <div style="width: 36px;">${UI.cIcon({size: 36, border: 100, color: UX.theme.get() ? '#2B6ABC' : '#0000ff', icon: 'table', font: 24})}</div>
+                                <div style="width: 36px;">${UI.cIcon({size: 36, border: 100, color: 'blue', icon: 'table', font: 24})}</div>
                                 <div style="width: 8px;"></div>
                                 учебный план
                             </button>
                             <button style="text-align: left; font-family: 'Montserrat'; width: 100%; height: 46px; margin: 0 0 12px 0; padding: 0 0 0 5px; display: flex; flex-direction: row; align-items: center; justify-content: flex-start;" 
                                 onclick="window.location.href = '/?/other/plangr/'">
-                                <div style="width: 36px;">${UI.cIcon({size: 36, border: 100, color: '#ff0000', icon: 'local_library', font: 24})}</div>
+                                <div style="width: 36px;">${UI.cIcon({size: 36, border: 100, color: 'red', icon: 'local_library', font: 24})}</div>
                                 <div style="width: 8px;"></div>
                                 учебный график
                             </button>
                             <button style="text-align: left; font-family: 'Montserrat'; width: 100%; height: 46px; margin: 0 0 12px 0; padding: 0 0 0 5px; display: flex; flex-direction: row; align-items: center; justify-content: flex-start;" 
                                 onclick="window.location.href = '/?/other/mailgroup/'">
-                                <div style="width: 36px;">${UI.cIcon({size: 36, border: 100, color: UX.theme.get() ? '#ff00ff' : "#b21eb2", icon: 'mail', font: 24})}</div>
+                                <div style="width: 36px;">${UI.cIcon({size: 36, border: 100, color: "violet", icon: 'mail', font: 24})}</div>
                                 <div style="width: 8px;"></div>
                                 почта группы
                             </button>
                             <button style="text-align: left; font-family: 'Montserrat'; width: 100%; height: 46px; margin: 0 0 12px 0; padding: 0 0 0 5px; display: flex; flex-direction: row; align-items: center; justify-content: flex-start;" 
                                 onclick="window.location.href = '/?/other/links/'">
-                                <div style="width: 36px;">${UI.cIcon({size: 36, border: 100, color: UX.theme.get() ? '#ffff00' : "#ff912b", icon: 'link', font: 24})}</div>
+                                <div style="width: 36px;">${UI.cIcon({size: 36, border: 100, color: "yellow", icon: 'link', font: 24})}</div>
                                 <div style="width: 8px;"></div>
                                 полезные ссылки
                             </button>
                             <button style="text-align: left; font-family: 'Montserrat'; width: 100%; height: 46px; margin: 0 0 12px 0; padding: 0 0 0 5px; display: flex; flex-direction: row; align-items: center; justify-content: flex-start;" 
                                 onclick="window.location.href = '/?/updates/'">
-                                <div style="width: 36px;">${UI.cIcon({size: 36, border: 100, color: UX.theme.get() ? '#00ffff' : "#14a1a1", icon: 'update', font: 24})}</div>
+                                <div style="width: 36px;">${UI.cIcon({size: 36, border: 100, color: "breeze", icon: 'update', font: 24})}</div>
                                 <div style="width: 8px;"></div>
                                 список обновлений
                             </button>
                             <button style="text-align: left; font-family: 'Montserrat'; width: 100%; height: 46px; margin: 0 0 12px 0; padding: 0 0 0 5px; display: flex; flex-direction: row; align-items: center; justify-content: flex-start;" 
                                 onclick="window.location.href = '/?/settings/'">
-                                <div style="width: 36px;">${UI.cIcon({size: 36, border: 100, color: UX.theme.get() ? "#ffffff" : "#707070", icon: 'settings', font: 24})}</div>
+                                <div style="width: 36px;">${UI.cIcon({size: 36, border: 100, color: "neutral", icon: 'settings', font: 24})}</div>
                                 <div style="width: 8px;"></div>
                                 настройки
                             </button>
@@ -2026,25 +2038,25 @@
                         plutonny.output('content', `
                         <button style="text-align: left; font-family: 'Montserrat'; width: 100%; height: 46px; margin: 0 0 12px 0; padding: 0 0 0 5px; display: flex; flex-direction: row; align-items: center; justify-content: flex-start;" 
                             onclick="window.location.href = 'https://arcotel.ru'">
-                            <div style="width: 36px;">${UI.cIcon({size: 36, border: 100, color: UX.theme.get() ? '#ffff00' : "#ff912b", icon: 'school', font: 24})}</div>
+                            <div style="width: 36px;">${UI.cIcon({size: 36, border: 100, color: "yellow", icon: 'school', font: 24})}</div>
                             <div style="width: 8px;"></div>
                             сайт колледжа
                         </button>
                         <button style="text-align: left; font-family: 'Montserrat'; width: 100%; height: 46px; margin: 0 0 12px 0; padding: 0 0 0 5px; display: flex; flex-direction: row; align-items: center; justify-content: flex-start;" 
                             onclick="window.location.href = 'https://arcotel.ru/studentam/raspisanie-i-grafiki'">
-                            <div style="width: 36px;">${UI.cIcon({size: 36, border: 100, color: '#ff0000', icon: 'event_available', font: 24})}</div>
+                            <div style="width: 36px;">${UI.cIcon({size: 36, border: 100, color: 'red', icon: 'event_available', font: 24})}</div>
                             <div style="width: 8px;"></div>
                             страница расписания колледжа
                         </button>
                         <button style="text-align: left; font-family: 'Montserrat'; width: 100%; height: 46px; margin: 0 0 12px 0; padding: 0 0 0 5px; display: flex; flex-direction: row; align-items: center; justify-content: flex-start;" 
                             onclick="window.location.href = 'https://arcotel.ru/09-02-01-rp'">
-                            <div style="width: 36px;">${UI.cIcon({size: 36, border: 100, color: UX.theme.get() ? '#2B6ABC' : '#0000ff', icon: 'table', font: 24})}</div>
+                            <div style="width: 36px;">${UI.cIcon({size: 36, border: 100, color: 'blue', icon: 'table', font: 24})}</div>
                             <div style="width: 8px;"></div>
                             учебный план
                         </button>
                         <button style="text-align: left; font-family: 'Montserrat'; width: 100%; height: 46px; margin: 0 0 12px 0; padding: 0 0 0 5px; display: flex; flex-direction: row; align-items: center; justify-content: flex-start;" 
                             onclick="window.location.href = 'https://arcotel.ru/studentam/metodicheskaya-literatura'">
-                            <div style="width: 36px;">${UI.cIcon({size: 36, border: 100, color: UX.theme.get() ? '#00ff00' : "#20ae20", icon: 'priority_high', font: 24})}</div>
+                            <div style="width: 36px;">${UI.cIcon({size: 36, border: 100, color: "green", icon: 'priority_high', font: 24})}</div>
                             <div style="width: 8px;"></div>
                             методическая литература
                         </button>
@@ -2130,15 +2142,15 @@
                             }
                             let dbset = [
                                 ['по системной', `сейчас: ${dark.matches ? 'темная' : 'светлая'}`, 
-                                '#ff00ff', '#b21eb2', 'smartphone', 'system'],
+                                'violet', '', 'smartphone', 'system'],
                                 ['по кнопке', `сверху страницы`, 
-                                '#00ff00', '#20ae20', 'ads_click', 'button'],
+                                'green', '', 'ads_click', 'button'],
                                 ['по закату/<br>рассвету', `светлая ${SunCalc.getTimes(CURRDATE, 64.4, 40.4).sunrise.getHours()}:${SunCalc.getTimes(CURRDATE, 64.4, 40.4).sunrise.getMinutes() < 10 ? `0${SunCalc.getTimes(CURRDATE, 64.4, 40.4).sunrise.getMinutes()}` : SunCalc.getTimes(CURRDATE, 64.4, 40.4).sunrise.getMinutes()}-${SunCalc.getTimes(CURRDATE, 64.4, 40.4).sunset.getHours()}:${SunCalc.getTimes(CURRDATE, 64.4, 40.4).sunset.getMinutes() < 10 ? `0${SunCalc.getTimes(CURRDATE, 64.4, 40.4).sunset.getMinutes()}` : SunCalc.getTimes(CURRDATE, 64.4, 40.4).sunset.getMinutes()}`, 
-                                '#ffff00', '#d29d08', 'schedule', 'sun'],
+                                'yellow', '', 'schedule', 'sun'],
                                 ['всегда светлая', ``, 
-                                '#ffffff', '#707070', 'light_mode', 'alight'],
+                                'neutral', '', 'light_mode', 'alight'],
                                 ['всегда темная', ``, 
-                                '#909090', '#000000', 'dark_mode', 'adark'],
+                                'dark', '', 'dark_mode', 'adark'],
                             ]
                             let inj = ''
                             for (let i = 1; i <= 5; i++) inj += `
@@ -2155,7 +2167,7 @@
                                     ${UI.cIcon({
                                         size: 48, 
                                         border: 24, 
-                                        color: UX.theme.get() ? dbset[i-1][2] : dbset[i-1][3], 
+                                        color: dbset[i-1][2], 
                                         icon: dbset[i-1][4], 
                                         font: 24
                                     })}
@@ -2187,9 +2199,9 @@
                             }
                             let dbset = [
                                 ['официальное', `"добрый день/вечер"`, 
-                                '#2B6ABC', '#0000ff', 'apartment', 'official'],
+                                'blue', '', 'apartment', 'official'],
                                 ['неофициальное', `"привет"`, 
-                                '#ff0000', '#ff0000', 'volunteer_activism', 'unofficial'],
+                                'red', '', 'volunteer_activism', 'unofficial'],
                             ]
                             let inj = ''
                             for (let i = 1; i <= 2; i++) inj += `
@@ -2206,7 +2218,7 @@
                                     ${UI.cIcon({
                                         size: 48, 
                                         border: 24, 
-                                        color: UX.theme.get() ? dbset[i-1][2] : dbset[i-1][3], 
+                                        color: dbset[i-1][2], 
                                         icon: dbset[i-1][4], 
                                         font: 24
                                     })}
@@ -2239,11 +2251,11 @@
                             }
                             let dbset = [
                                 ['расписание', ``, 
-                                '#ff0000', '#ff0000', 'local_library', 'no'],
+                                'red', '', 'local_library', 'no'],
                                 ['изменения<br>только на УП', ``, 
-                                '#ffff00', '#d29d08', 'history_edu', 'onlp'],
+                                'yellow', '', 'history_edu', 'onlp'],
                                 ['изменения', ``, 
-                                '#2B6ABC', '#0000ff', 'change_circle', 'yes'],
+                                'blue', '', 'change_circle', 'yes'],
                             ]
                             let inj = ''
                             for (let i = 1; i <= 3; i++) inj += `
@@ -2260,7 +2272,7 @@
                                     ${UI.cIcon({
                                         size: 48, 
                                         border: 24, 
-                                        color: UX.theme.get() ? dbset[i-1][2] : dbset[i-1][3], 
+                                        color: dbset[i-1][2], 
                                         icon: dbset[i-1][4], 
                                         font: 24
                                     })}
@@ -2359,7 +2371,7 @@
                                 <div style="margin-right: auto;"></div>
                                 <div style="width: 16px;"></div>
                                 <div style="width: 48px;">
-                                    ${UI.cIcon({size: 48, border: 24, color: '#0000ff', icon: 'model_training', font: 24})}
+                                    ${UI.cIcon({size: 48, border: 24, color: 'blue', icon: 'model_training', font: 24})}
                                 </div>
                             </button>
 
@@ -2373,7 +2385,7 @@
                                 <div style="margin-right: auto;"></div>
                                 <div style="width: 16px;"></div>
                                 <div style="width: 48px;">
-                                    ${UI.cIcon({size: 48, border: 24, color: UX.theme.get() ? '#ffff00' : '#d29d08', icon: 'waving_hand', font: 24})}
+                                    ${UI.cIcon({size: 48, border: 24, color: 'yellow', icon: 'waving_hand', font: 24})}
                                 </div>
                             </button>
 
@@ -2387,7 +2399,7 @@
                                 <div style="margin-right: auto;"></div>
                                 <div style="width: 16px;"></div>
                                 <div style="width: 48px;">
-                                    ${UI.cIcon({size: 48, border: 24, color: UX.theme.get() ? '#00ff00' : '#20ae20', icon: 'home', font: 24})}
+                                    ${UI.cIcon({size: 48, border: 24, color: 'green', icon: 'home', font: 24})}
                                 </div>
                             </button>
 
@@ -2449,7 +2461,7 @@
                             <div style="margin-right: auto;"></div>
                             <div style="width: 16px;"></div>
                             <div style="width: 38px;">
-                                ${UI.cIcon({size: 38, border: 24, color: UX.theme.get() ? '#ffffff' : '#707070', icon: 'navigate_next', font: 32})}
+                                ${UI.cIcon({size: 38, border: 24, color: 'neutral', icon: 'navigate_next', font: 32})}
                             </div>
                         </button>
 
@@ -2463,7 +2475,7 @@
                             <div style="margin-right: auto;"></div>
                             <div style="width: 16px;"></div>
                             <div style="width: 38px;">
-                                ${UI.cIcon({size: 38, border: 24, color: UX.theme.get() ? '#ffffff' : '#707070', icon: 'navigate_next', font: 32})}
+                                ${UI.cIcon({size: 38, border: 24, color: 'neutral', icon: 'navigate_next', font: 32})}
                             </div>
                         </button>
 
@@ -2477,7 +2489,7 @@
                             <div style="margin-right: auto;"></div>
                             <div style="width: 16px;"></div>
                             <div style="width: 38px;">
-                                ${UI.cIcon({size: 38, border: 24, color: UX.theme.get() ? '#ffffff' : '#707070', icon: 'navigate_next', font: 32})}
+                                ${UI.cIcon({size: 38, border: 24, color: 'neutral', icon: 'navigate_next', font: 32})}
                             </div>
                         </button>
                         `)
@@ -2576,7 +2588,7 @@
                             HTMLAfter: `
                             <div style="display: flex; flex-direction: row; align-items: center; justify-content: space-around; padding: 12px;">
                                 <button class="header changerClassBUTTON1" style="width: 110px; font-family: 'Montserrat';" onclick="UX.changer(1)">PS/AN</button>
-                                <button class="header changerClassBUTTON2" style="width: 110px; font-family: 'Montserrat';" onclick="UX.changer(2)">multisim</button>
+                                <button class="header changerClassBUTTON2" style="width: 112px; font-family: 'Montserrat';" onclick="UX.changer(2)">multisim</button>
                             </div>
                             `
                         })
@@ -2594,7 +2606,7 @@
                             <div style="height: 24px;"></div>
                             <button style="width: 100%; height: 64px; background: var(--button-color-header) !important; border: 2px solid var(--button-color); border-radius: 100px; padding: 8px 6px !important; display: flex; flex-direction: row; flex-wrap: nowrap; align-items: center; justify-content: space-between;"
                             onclick="window.location.assign('//lib.plutonny.ru/installers/Adobe Photoshop 2021.exe')">
-                                ${UI.cIcon({size: 48, border: 24, color: '#ff0000', icon: 'download', font: 24})}
+                                ${UI.cIcon({size: 48, border: 24, color: 'red', icon: 'download', font: 24})}
                                 <div style="margin-right: auto;"></div>
                                 <div>
                                     <p style="margin: 0; font-family: 'Montserrat';">Photoshop</p>
@@ -2606,7 +2618,7 @@
                             <div style="height: 24px;"></div>
                             <button style="width: 100%; height: 64px; background: var(--button-color-header) !important; border: 2px solid var(--button-color); border-radius: 100px; padding: 8px 6px !important; display: flex; flex-direction: row; flex-wrap: nowrap; align-items: center; justify-content: space-between;"
                             onclick="window.location.assign('//lib.plutonny.ru/installers/Adobe Animate 2020.exe')">
-                                ${UI.cIcon({size: 48, border: 24, color: '#0000ff', icon: 'download', font: 24})}
+                                ${UI.cIcon({size: 48, border: 24, color: 'blue', icon: 'download', font: 24})}
                                 <div style="margin-right: auto;"></div>
                                 <div>
                                     <p style="margin: 0; font-family: 'Montserrat';">Animate</p>
@@ -2622,7 +2634,7 @@
                             <div style="height: 24px;"></div>
                             <button style="width: 100%; height: 64px; background: var(--button-color-header) !important; border: 2px solid var(--button-color); border-radius: 100px; padding: 8px 6px !important; display: flex; flex-direction: row; flex-wrap: nowrap; align-items: center; justify-content: space-between;"
                             onclick="window.location.assign('//lib.plutonny.ru/installers/NI Circuit Design Suite 14.0.1.exe')">
-                                ${UI.cIcon({size: 48, border: 24, color: '#ff0000', icon: 'download', font: 24})}
+                                ${UI.cIcon({size: 48, border: 24, color: 'red', icon: 'download', font: 24})}
                                 <div style="margin-right: auto;"></div>
                                 <div>
                                     <p style="margin: 0; font-family: 'Montserrat';">файл-установщик</p>
@@ -2634,7 +2646,7 @@
                             <div style="height: 24px;"></div>
                             <button style="width: 100%; height: 64px; background: var(--button-color-header) !important; border: 2px solid var(--button-color); border-radius: 100px; padding: 8px 6px !important; display: flex; flex-direction: row; flex-wrap: nowrap; align-items: center; justify-content: space-between;"
                             onclick="window.location.assign('//lib.plutonny.ru/installers/NI License Activator 1.2.exe')">
-                                ${UI.cIcon({size: 48, border: 24, color: '#0000ff', icon: 'download', font: 24})}
+                                ${UI.cIcon({size: 48, border: 24, color: 'blue', icon: 'download', font: 24})}
                                 <div style="margin-right: auto;"></div>
                                 <div>
                                     <p style="margin: 0; font-family: 'Montserrat';">активатор</p>
@@ -2809,7 +2821,7 @@
                                 .mini-update-modal { display: flex; justify-content: space-between; align-items: center; z-index: 100; margin: 8px; padding: 6px 12px 6px 6px; background-color: var(--bg-color); box-shadow: 0px 0px 8px var(--box-shadow-color); border-radius: 24px; }
                             </style>
                             <div style="display: flex; flex-direction: row; align-items: center;">
-                                <div style="display: flex; justify-content: center; align-items: center;border-radius: 100px; width: 30px; height: 30px; background-color: #0000ff55;"><span style="color: #0000ff;" class="material-symbols-rounded">exclamation</span></div>
+                                ${UI.cIcon({size: 30, border: 100, color: 'blue', icon: 'exclamation', font: 24})}
                                 <p style="margin: 0 0 0 8px; word-break: break-all;">вышло обновление</p>
                             </div>
                             <a style="margin: 0; word-break: break-all; text-decoration: none; color: blue;" href="/?/updates/old/">изменения</a>
