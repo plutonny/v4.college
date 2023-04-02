@@ -55,17 +55,17 @@
         <link   rel="preload prefetch"              href="https://fonts.gstatic.com/s/materialsymbolsrounded/v74/sykg-zNym6YjUruM-QrEh7-nyTnjDwKNJ_190Fjzag.woff2" as="font" type="font/woff2" crossorigin onload="clgenld()">
         
         <!-- CSS and icon site -->
-        <link   rel="preload prefetch stylesheet"   href="https://lib.plutonny.ru/viewer.css?cache=02.04.2023-v410-b38" as="style">
-        <link   rel="preload prefetch stylesheet"   href="static/load.css?cache=02.04.2023-v410-b38" as="style">
-        <link   rel="preload prefetch stylesheet"   href="static/main.css?cache=02.04.2023-v410-b38" as="style">
-        <link   rel="icon"                          href="static/g-icon.png?cache=02.04.2023-v410-b38">
+        <link   rel="preload prefetch stylesheet"   href="https://lib.plutonny.ru/viewer.css?cache=02.04.2023-v410-b39" as="style">
+        <link   rel="preload prefetch stylesheet"   href="static/load.css?cache=02.04.2023-v410-b39" as="style">
+        <link   rel="preload prefetch stylesheet"   href="static/main.css?cache=02.04.2023-v410-b39" as="style">
+        <link   rel="icon"                          href="static/g-icon.png?cache=02.04.2023-v410-b39">
         <link   rel="apple-touch-icon"              href="pwa-icon-apple.png">
 
         <!-- JS files -->
-        <script type="text/javascript"              src="https://lib.plutonny.ru/plutonny.js/v1.0.js?cache=02.04.2023-v410-b38"></script>
-        <script type="text/javascript"              src="https://lib.plutonny.ru/luxon.js?cache=02.04.2023-v410-b38"></script>
-        <script type="text/javascript"              src="https://lib.plutonny.ru/solar.js?cache=02.04.2023-v410-b38"></script>
-        <script type="text/javascript"              src="https://lib.plutonny.ru/viewer.js?cache=02.04.2023-v410-b38"></script>
+        <script type="text/javascript"              src="https://lib.plutonny.ru/plutonny.js/v1.0.js?cache=02.04.2023-v410-b39"></script>
+        <script type="text/javascript"              src="https://lib.plutonny.ru/luxon.js?cache=02.04.2023-v410-b39"></script>
+        <script type="text/javascript"              src="https://lib.plutonny.ru/solar.js?cache=02.04.2023-v410-b39"></script>
+        <script type="text/javascript"              src="https://lib.plutonny.ru/viewer.js?cache=02.04.2023-v410-b39"></script>
         
         <style  id="root-colors-theme"              >#thMoon, #thSun { display: none; }</style>
 
@@ -95,7 +95,7 @@
             "use strict";
             
             var siteVersion = '4.0.2 -> 4.1.0'
-            var siteBuild = '38'
+            var siteBuild = '39'
 
             var CURRDATE = new Date()
             var NEXTDAY = new Date(); NEXTDAY.setDate(CURRDATE.getDay() == 6 ? CURRDATE.getDate() + 2 : CURRDATE.getDate() + 1)
@@ -528,17 +528,18 @@
                                 UX.modal(`
                                     <style>.max-modal { width: 100% !important; }</style>
                                     <div style="margin: 0 18px; max-height: 90%; overflow-y: auto; background-color: var(--bg-color); border: none; border-radius: 24px; box-shadow: 0px 0px 8px var(--box-shadow-color);">
-                                        <h1 style="font-family: 'Montserrat'; text-align: center; margin: 16px 16px 6px 16px;">${data[NUMSEMESTR][id]['small_name']}</h1>
-                                        <p style="font-family: 'Montserrat'; text-align: center; opacity: 0.7; margin: 0 0 16px 0;">${data[NUMSEMESTR][id]['name']}</>
+                                        <h1 style="font-family: 'Montserrat'; text-align: center; margin: 16px 16px 6px 16px;">${data[NUMSEMESTR][id]['name']}</h1>
+                                        <div style="height: 12px;"></div>
                                         <div style="display: flex; flex-direction: column; margin: 0 18px; max-height: 55vh;">
-                                            <p style="margin: 4px 0;">ведёт ${data[NUMSEMESTR][id]['teacher']}</p>
+                                            <p style="font-family: 'Montserrat'; margin: 4px 0;">ведёт ${data[NUMSEMESTR][id]['teacher']}</p>
                                             <hr style="width: 100%; opacity: 0.1; margin: 2px 0; background-color: var(--icon-color);">
-                                            <p style="margin: 4px 0;">сдавать ${data[NUMSEMESTR][id]['offset'] && !data[NUMSEMESTR][id]['exam'] ? 'зачет' : ''}${data[NUMSEMESTR][id]['exam'] && !data[NUMSEMESTR][id]['offset'] ? 'экзамен' : ''}${data[NUMSEMESTR][id]['exam'] && data[NUMSEMESTR][id]['offset'] ? 'зачет и экзамен' : ''}${!data[NUMSEMESTR][id]['exam'] && !data[NUMSEMESTR][id]['offset'] ? 'ничего не надо' : ''}</p>
+                                            <p style="font-family: 'Montserrat'; margin: 4px 0;">сдавать ${data[NUMSEMESTR][id]['offset'] && !data[NUMSEMESTR][id]['exam'] ? 'зачет' : ''}${data[NUMSEMESTR][id]['exam'] && !data[NUMSEMESTR][id]['offset'] ? 'экзамен' : ''}${data[NUMSEMESTR][id]['exam'] && data[NUMSEMESTR][id]['offset'] ? 'зачет и экзамен' : ''}${!data[NUMSEMESTR][id]['exam'] && !data[NUMSEMESTR][id]['offset'] ? 'ничего не надо' : ''}</p>
                                             <hr style="width: 100%; opacity: 0.1; margin: 2px 0; background-color: var(--icon-color);">
-                                            <p style="margin: 4px 0;">пары в ${inj}</p>
+                                            <p style="font-family: 'Montserrat'; margin: 4px 0;">пары в ${inj}</p>
                                         </div>
+                                        <div style="height: 12px;"></div>
                                         <div style="display: flex; flex-direction: column; align-items: center;">
-                                            <a style="font-family: 'Montserrat'; opacity: 0.7; text-decoration: none; margin: 12px 0 0 0;" href="/?/pair/${id}/">подробнее...</a>
+                                            <a style="font-family: 'Montserrat'; opacity: 0.7; text-decoration: none; margin: 0;" href="/?/pair/${id}/">подробнее...</a>
                                             <button style="width: 128px; margin: 6px 16px 16px 16px;" onclick="document.getElementById('modal').innerHTML = ''; UX.theme.load()">закрыть</button>
                                         </div>
                                     </div>
@@ -914,21 +915,8 @@
                     height: 100vh;
                     width: 100vw;
                 }
-                .loader_box {
-                    border-radius: 28px;
-                    background-color: var(--bg-color-header);
-                    height: 120px;
-                    width: 120px;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    align-content: center;
-                }
                 html, body { margin: 0; overflow-y: hidden; }
-            </style><!--
-            <div class="loader_box">
-                <div class="loader"><svg viewBox="0 0 80 80"><circle cx="40" cy="40" r="32"></circle></svg></div>
-            </div>-->
+            </style>
         </div>
 
         <div class="page" id="page">
@@ -1602,6 +1590,39 @@
                 `
             }
             
+            function tableLoad() {
+                plutonny.output('genload', `
+                <style>
+                    .genload {
+                        backdrop-filter: blur(10px);
+                        -webkit-backdrop-filter: blur(10px);
+                        position: absolute;
+                        z-index: 100;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        align-content: center;
+                        height: 100vh;
+                        width: 100vw;
+                    }
+                    .loader_box {
+                        border-radius: 28px;
+                        background-color: var(--bg-color-header);
+                        height: 120px;
+                        width: 120px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        align-content: center;
+                    }
+                    html, body { margin: 0; overflow-y: hidden; }
+                </style>
+                <div class="loader_box">
+                    <div class="loader"><svg viewBox="0 0 80 80"><circle cx="40" cy="40" r="32"></circle></svg></div>
+                </div>
+                `)
+            }
+
             async function sceletonLoad() {
                 if (URLDIR[0] == '' && URLDIR[1] == '') {
                     UI.header({
@@ -1647,8 +1668,7 @@
                     await plutonny.sleep(300)
                 }
                 else if (URLDIR[1] == 'changes') {
-                    // TABLE LOAD
-                    await plutonny.sleep(500)
+                    tableLoad()
                 }
                 else if (URLDIR[1] == 'timetable') {
                     if (URLDIR[2] == 'week') {
@@ -1715,7 +1735,12 @@
                         })
                         UI.navbar('home')
                         plutonny.output('content', `
+                            <h2 style="margin: 0; height: 30px; width: 180px; background: var(--button-color); border-radius: 18px;"></h2>
+                            <div style="height: 12px;"></div>
                             <button style="width: 100%; height: 90px; padding: 12px; margin: 0 0 12px 0;"></button>
+                            <button style="width: 100%; height: 90px; padding: 12px; margin: 0 0 12px 0;"></button>
+                            <h2 style="margin: 0; height: 30px; width: 180px; background: var(--button-color); border-radius: 18px;"></h2>
+                            <div style="height: 12px;"></div>
                             <button style="width: 100%; height: 90px; padding: 12px; margin: 0 0 12px 0;"></button>
                             <button style="width: 100%; height: 90px; padding: 12px; margin: 0 0 12px 0;"></button>
                         `)
@@ -1781,12 +1806,10 @@
                 } 
                 else if (URLDIR[1] == 'other') {
                     if (URLDIR[2] == 'attendance') {
-                        // TABLE LOAD
-                        await plutonny.sleep(500)
+                        tableLoad()
                     }
                     else if (URLDIR[2] == 'planle') {
-                        // TABLE LOAD
-                        await plutonny.sleep(500)
+                        tableLoad()
                     }
                     
                 }
@@ -2152,21 +2175,35 @@
                             plutonny.output('title-page', 'КСК-11 | предметы')
                             UI.navbar('home')
                             fetch(`/info/subjects.json?t=${CURRDATE.getTime()}`).then(function (response) { return response.json() }).then(function (data) {
-                                let pPairInj = ''
-                                for (let i = 1; i <= data[NUMSEMESTR]['count']; i++) pPairInj += `
-                                <button style="width: 100%; padding: 12px; margin: 0 0 12px 0; display: flex; flex-direction: column; justify-content: center; align-items: flex-start; flex-wrap: nowrap;" onclick="window.location.href = '/?/pair/${i}/'">
-                                    ${UI.cIcon({
-                                        size: 36,
-                                        border: 14,
-                                        color: data[NUMSEMESTR][i]['color'],
-                                        icon: data[NUMSEMESTR][i]['icon'],
-                                        font: 24
-                                    })}
-                                    <p style="margin: 8px 0 2px 0; font-family: 'Montserrat';">${data[NUMSEMESTR][i]['name']}</p>
-                                </button>
-                                `
+                                let pPairInj = ['', '', '']
+                                for (let i = 1; i <= data[NUMSEMESTR]['count']; i++) {
+                                    let j = 2
+                                    if (data[NUMSEMESTR][i]['exam']) j = 0
+                                    else if (data[NUMSEMESTR][i]['offset']) j = 1
+                                    else j = 2
+                                    pPairInj[j] += `
+                                        <button style="width: 100%; padding: 12px; margin: 0 0 12px 0; display: flex; flex-direction: column; justify-content: center; align-items: flex-start; flex-wrap: nowrap;" onclick="window.location.href = '/?/pair/${i}/'">
+                                            ${UI.cIcon({
+                                                size: 36,
+                                                border: 14,
+                                                color: data[NUMSEMESTR][i]['color'],
+                                                icon: data[NUMSEMESTR][i]['icon'],
+                                                font: 24
+                                            })}
+                                            <p style="margin: 8px 0 2px 0; font-family: 'Montserrat';">${data[NUMSEMESTR][i]['name']}</p>
+                                        </button>
+                                        `
+                                }   
                                 plutonny.output('content', `
-                                    ${pPairInj}
+                                    <h2 style="margin: 0;">сдавать экзамен:</h2>
+                                    <div style="height: 12px;"></div>
+                                    ${pPairInj[0]}
+                                    <h2 style="margin: 0;">сдавать зачет:</h2>
+                                    <div style="height: 12px;"></div>
+                                    ${pPairInj[1]}
+                                    <h2 style="margin: 0;">остальное:</h2>
+                                    <div style="height: 12px;"></div>
+                                    ${pPairInj[2]}
                                     <div id="arrowTop" style="cursor: pointer; position: fixed; box-shadow: 0px 0px 5px var(--box-shadow-color); top: calc(100% - 148px); display: none; align-items: center; justify-content: center; background: var(--button-color); border-radius: 100px; height: 48px; width: 48px; user-select: none;">
                                         <span class="material-symbols-rounded">arrow_upward</span>
                                     </div>
@@ -2180,40 +2217,62 @@
                     else {
                         UI.navbar('home')
                         fetch(`/info/subjects.json?t=${CURRDATE.getTime()}`).then(function (response) { return response.json() }).then(function (data) {
-                            UI.header({
-                            textCenter: data[NUMSEMESTR][URLDIR[2]]['small_name'], 
-                            buttonTheme: false, 
-                            buttonBack: true, 
-                            enableHR: false, 
-                            HTMLAfter: ``
-                            })
-                            plutonny.output('title-page', `КСК-11 | ${data[NUMSEMESTR][URLDIR[2]]['small_name']}`)
-                            plutonny.output('content', `
-                                <div style="display: flex; flex-direction: column; flex-wrap: nowrap; align-items: flex-start;">
-                                    <div style="width: 100%; display: flex; flex-direction: row; flex-wrap: nowrap; align-items: center; justify-content: space-between;">
-                                        <p style="margin: 4px 0; font-size: 28px;">${data[NUMSEMESTR][URLDIR[2]]['full_name']}</p>
-                                        <div style="width: 8px;"></div>
-                                        <div style="width: 64px;">
-                                            ${UI.cIcon({
-                                                size: 64,
-                                                border: 18,
-                                                color: data[NUMSEMESTR][URLDIR[2]]['color'],
-                                                icon: data[NUMSEMESTR][URLDIR[2]]['icon'],
-                                                font: 36
-                                            })}
+                            fetch(`/info/timetable.json?t=${CURRDATE.getTime()}`).then(function (response) { return response.json() }).then(function (timet) {
+                                let inj = ''
+                                for (let i = 1; i <= 6; i++) {
+                                    for (j in timet[NUMSEMESTR][i]) {
+                                        if (timet[NUMSEMESTR][i][j]['id'] == URLDIR[2]) {
+                                            inj += ' '
+                                            inj += weekPov[i]
+                                            break
+                                        }
+                                    }
+                                }
+                                UI.header({
+                                textCenter: data[NUMSEMESTR][URLDIR[2]]['small_name'], 
+                                buttonTheme: false, 
+                                buttonBack: true, 
+                                enableHR: false, 
+                                HTMLAfter: ``
+                                })
+                                plutonny.output('title-page', `КСК-11 | ${data[NUMSEMESTR][URLDIR[2]]['small_name']}`)
+                                plutonny.output('content', `
+                                    <div style="display: flex; flex-direction: column; flex-wrap: nowrap; align-items: flex-start;">
+                                        <div style="width: 100%; display: flex; flex-direction: row; flex-wrap: nowrap; align-items: center; justify-content: space-between;">
+                                            <p style="margin: 4px 0; font-size: 28px;">${data[NUMSEMESTR][URLDIR[2]]['full_name']}</p>
+                                            <div style="width: 8px;"></div>
+                                            <div style="width: 64px;">
+                                                ${UI.cIcon({
+                                                    size: 64,
+                                                    border: 18,
+                                                    color: data[NUMSEMESTR][URLDIR[2]]['color'],
+                                                    icon: data[NUMSEMESTR][URLDIR[2]]['icon'],
+                                                    font: 36
+                                                })}
+                                            </div>
                                         </div>
+                                        <p style="margin: 4px 0; opacity: 0.4; font-family: 'Montserrat';">${data[NUMSEMESTR][URLDIR[2]]['small_name']}</p>
+                                        <div style="height: 8px;"></div>
+                                        <hr style="width: 100%; opacity: 0.1; margin: 2px 0; background-color: var(--icon-color);">
+                                        <div style="height: 8px;"></div>
+                                        <p style="margin: 4px 0; font-family: 'Montserrat';">преподаватель: ${data[NUMSEMESTR][URLDIR[2]]['teacher']}</p>
+                                        <div style="height: 8px;"></div>
+                                        <hr style="width: 100%; opacity: 0.1; margin: 2px 0; background-color: var(--icon-color);">
+                                        <div style="height: 8px;"></div>
+                                        <p style="font-family: 'Montserrat'; margin: 4px 0;">пары в: ${inj}</p>
+                                        <div style="height: 8px;"></div>
+                                        <hr style="width: 100%; opacity: 0.1; margin: 2px 0; background-color: var(--icon-color);">
+                                        <div style="height: 8px;"></div>
+                                        <p style="margin: 4px 0; font-family: 'Montserrat';">всего часов: ${data[NUMSEMESTR][URLDIR[2]]['learn_hours']}</p>
+                                        <p style="margin: 4px 0; font-family: 'Montserrat';">аудиторных: ${data[NUMSEMESTR][URLDIR[2]]['learn_hours_aud']}</p>
+                                        <div style="height: 8px;"></div>
+                                        <hr style="width: 100%; opacity: 0.1; margin: 2px 0; background-color: var(--icon-color);">
+                                        <div style="height: 8px;"></div>
+                                        <p style="margin: 4px 0; font-family: 'Montserrat';">зачет: ${data[NUMSEMESTR][URLDIR[2]]['offset'] ? `<b style="font-family: 'Montserrat'; background: #ff000099; border-radius: 8px; padding: 3px 8px;">есть</b>` : 'нет'}</p>
+                                        <p style="margin: 4px 0; font-family: 'Montserrat';">экзамен: ${data[NUMSEMESTR][URLDIR[2]]['exam'] ? `<b style="font-family: 'Montserrat'; background: #ff000099; border-radius: 8px; padding: 3px 8px;">есть</b>` : 'нет'}</p>
                                     </div>
-                                    <p style="margin: 4px 0; opacity: 0.4; font-family: 'Montserrat';">${data[NUMSEMESTR][URLDIR[2]]['small_name']}</p>
-                                    <div style="height: 16px;"></div>
-                                    <p style="margin: 4px 0; font-family: 'Montserrat';">преподаватель: ${data[NUMSEMESTR][URLDIR[2]]['teacher']}</p>
-                                    <div style="height: 16px;"></div>
-                                    <p style="margin: 4px 0; font-family: 'Montserrat';">всего часов: ${data[NUMSEMESTR][URLDIR[2]]['learn_hours']}</p>
-                                    <p style="margin: 4px 0; font-family: 'Montserrat';">аудиторных: ${data[NUMSEMESTR][URLDIR[2]]['learn_hours_aud']}</p>
-                                    <div style="height: 16px;"></div>
-                                    <p style="margin: 4px 0; font-family: 'Montserrat';">зачет: ${data[NUMSEMESTR][URLDIR[2]]['offset'] ? '<b>есть</b>' : 'нет'}</p>
-                                    <p style="margin: 4px 0; font-family: 'Montserrat';">экзамен: ${data[NUMSEMESTR][URLDIR[2]]['exam'] ? '<b>есть</b>' : 'нет'}</p>
-                                </div>
-                            `)
+                                `)
+                            }).catch(function (err) { plutonny.console.error('index.html -> pair/{id}/ -> JSON (timetable)', err); pageCantLoad() })
                         }).catch(function (err) { plutonny.console.error('index.html -> pair/{id}/ -> JSON (subjects)', err); pageCantLoad() })
                     }
                 } 
@@ -2566,7 +2625,7 @@
                             UI.navbar('other')
                             plutonny.output('content', `
                             <style>.content { padding: 0 !important; } body { background: #ffffff !important; }</style>
-                            <iframe style="border: none; height: calc(100vh - 142px); width: 100%;" src="https://view.officeapps.live.com/op/embed.aspx?src=https://${ALPHA ? 'alpha.' : BETA ? 'beta.' : ''}college.plutonny.ru/info/plan.xlsx"></iframe>
+                            <iframe style="border: none; height: calc(100vh - 85px); width: 100%;" src="https://view.officeapps.live.com/op/embed.aspx?src=https://${ALPHA ? 'alpha.' : BETA ? 'beta.' : ''}college.plutonny.ru/info/plan.xlsx"></iframe>
                             `)
                             UX.theme.table()
                         } 
