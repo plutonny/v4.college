@@ -13,50 +13,59 @@
         <meta   name="theme-color" id="theme-color" content="#202020">
         <title  id="title-page"                     >КСК-11</title>
         <link   rel="manifest"                      href="manifest.json">
+
+        <script id="ImLo" type="text/javascript">
+            async function clgenld() { 
+                try { 
+                    document.getElementById('genload').remove() 
+                } catch {}
+            }
+        </script>
         
-        <!-- Fonts and icons -->
+        <!-- fonts and icons -->
+        <style>
+            @font-face {
+                font-family: 'Material Symbols Rounded';
+                font-style: normal;
+                font-weight: 100 700;
+                src: url(https://fonts.gstatic.com/s/materialsymbolsrounded/v74/sykg-zNym6YjUruM-QrEh7-nyTnjDwKNJ_190Fjzag.woff2) format('woff2');
+                }
+
+                .material-symbols-rounded {
+                font-family: 'Material Symbols Rounded';
+                font-weight: normal;
+                font-style: normal;
+                font-size: 24px;
+                line-height: 1;
+                letter-spacing: normal;
+                text-transform: none;
+                display: inline-block;
+                white-space: nowrap;
+                word-wrap: normal;
+                direction: ltr;
+                -webkit-font-feature-settings: 'liga';
+                -webkit-font-smoothing: antialiased;
+                font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 26;
+            }
+        </style>
         <link   rel="preconnect"                    href="https://fonts.googleapis.com">
         <link   rel="preconnect"                    href="https://fonts.gstatic.com" crossorigin>
         <link   rel="stylesheet"                    href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap">
         <link   rel="stylesheet"                    href="https://fonts.googleapis.com/css2?family=Nunito:wght@600&display=swap">
-        <style>
-            @font-face {
-            font-family: 'Material Symbols Rounded';
-            font-style: normal;
-            font-weight: 100 700;
-            src: url(https://fonts.gstatic.com/s/materialsymbolsrounded/v74/sykg-zNym6YjUruM-QrEh7-nyTnjDwKNJ_190Fjzag.woff2) format('woff2');
-            }
-
-            .material-symbols-rounded {
-            font-family: 'Material Symbols Rounded';
-            font-weight: normal;
-            font-style: normal;
-            font-size: 24px;
-            line-height: 1;
-            letter-spacing: normal;
-            text-transform: none;
-            display: inline-block;
-            white-space: nowrap;
-            word-wrap: normal;
-            direction: ltr;
-            -webkit-font-feature-settings: 'liga';
-            -webkit-font-smoothing: antialiased;
-            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 26;
-            }
-        </style>
+        <link   rel="preload prefetch"              href="https://fonts.gstatic.com/s/materialsymbolsrounded/v74/sykg-zNym6YjUruM-QrEh7-nyTnjDwKNJ_190Fjzag.woff2" as="font" type="font/woff2" crossorigin onload="clgenld()">
         
         <!-- CSS and icon site -->
-        <link   rel="preload prefetch stylesheet"   href="https://lib.plutonny.ru/viewer.css?cache=24.03.2023-v410-b37" as="style">
-        <link   rel="preload prefetch stylesheet"   href="static/load.css?cache=24.03.2023-v410-b37" as="style">
-        <link   rel="preload prefetch stylesheet"   href="static/main.css?cache=24.03.2023-v410-b37" as="style">
-        <link   rel="icon"                          href="static/g-icon.png?cache=24.03.2023-v410-b37">
+        <link   rel="preload prefetch stylesheet"   href="https://lib.plutonny.ru/viewer.css?cache=02.04.2023-v410-b38" as="style">
+        <link   rel="preload prefetch stylesheet"   href="static/load.css?cache=02.04.2023-v410-b38" as="style">
+        <link   rel="preload prefetch stylesheet"   href="static/main.css?cache=02.04.2023-v410-b38" as="style">
+        <link   rel="icon"                          href="static/g-icon.png?cache=02.04.2023-v410-b38">
         <link   rel="apple-touch-icon"              href="pwa-icon-apple.png">
 
         <!-- JS files -->
-        <script type="text/javascript"              src="https://lib.plutonny.ru/plutonny.js/v1.0.js?cache=24.03.2023-v410-b37"></script>
-        <script type="text/javascript"              src="https://lib.plutonny.ru/luxon.js?cache=24.03.2023-v410-b37"></script>
-        <script type="text/javascript"              src="https://lib.plutonny.ru/solar.js?cache=24.03.2023-v410-b37"></script>
-        <script type="text/javascript"              src="https://lib.plutonny.ru/viewer.js?cache=24.03.2023-v410-b37"></script>
+        <script type="text/javascript"              src="https://lib.plutonny.ru/plutonny.js/v1.0.js?cache=02.04.2023-v410-b38"></script>
+        <script type="text/javascript"              src="https://lib.plutonny.ru/luxon.js?cache=02.04.2023-v410-b38"></script>
+        <script type="text/javascript"              src="https://lib.plutonny.ru/solar.js?cache=02.04.2023-v410-b38"></script>
+        <script type="text/javascript"              src="https://lib.plutonny.ru/viewer.js?cache=02.04.2023-v410-b38"></script>
         
         <style  id="root-colors-theme"              >#thMoon, #thSun { display: none; }</style>
 
@@ -86,7 +95,7 @@
             "use strict";
             
             var siteVersion = '4.0.2 -> 4.1.0'
-            var siteBuild = '37'
+            var siteBuild = '38'
 
             var CURRDATE = new Date()
             var NEXTDAY = new Date(); NEXTDAY.setDate(CURRDATE.getDay() == 6 ? CURRDATE.getDate() + 2 : CURRDATE.getDate() + 1)
@@ -369,7 +378,7 @@
              *  | -- rus(format, number)  (format = 'week'; 'day'; 'hour'; 'minute'; 'minuteS'; 'second'; 'milisecond'
              *  |                          number = any)
              *  | -- MODAL
-             *  |    | -- settings (in page creator -> settings)
+             *  |    | -- settings (in scripts page creator -> settings)
              *  |    |    | -- theme()
              *  |    |    | -- greetingsType()
              *  |    |    | -- viewChangImport()
@@ -916,10 +925,10 @@
                     align-content: center;
                 }
                 html, body { margin: 0; overflow-y: hidden; }
-            </style>
+            </style><!--
             <div class="loader_box">
                 <div class="loader"><svg viewBox="0 0 80 80"><circle cx="40" cy="40" r="32"></circle></svg></div>
-            </div>
+            </div>-->
         </div>
 
         <div class="page" id="page">
@@ -985,9 +994,538 @@
             </div>
         </div>
 
-        <script type="text/javascript">
+        <script id="MaSh" type="text/javascript">
             if (!(window.location.href.split('/')[2] == 'college.plutonny.ru' || window.location.href.split('/')[2] == 'beta.college.plutonny.ru' || window.location.href.split('/')[2] == 'alpha.college.plutonny.ru' || window.location.href.split('/')[2] == '127.0.0.1:5500')) {
                 document.body.remove(); document.head.remove();
+            }
+        </script>
+
+        <script id="PcFu" type="text/javascript">
+            /* ---------- HOME ---------- */
+            /* ---------- HOME ---------- */
+            /* ---------- HOME ---------- */
+            function changOUT(c) {
+                if (c == 0) {
+                    plutonny.output('content', CURRDATE.getDay() == 0 ? 
+                    `<div style="display: flex; flex-direction: column; align-items: center;">
+                        <div style="height: 36px;"></div>
+                        <img style="height: 120px; width: 120px;" src="/static/dayKS.png">
+                        <div style="height: 36px;"></div>
+                        <b style="font-family: 'Montserrat'; text-align: center;">сегодня изменений нет</b>
+                        <p style="font-family: 'Montserrat'; text-align: center;">можно зачиллиться :)</p>
+                        <div style="height: 12px;"></div>
+                        <button onclick="changOUT(1)" style="height: 40px;">завтра</button>
+                    </div>
+                    ` : `
+                        <div style="display: flex; justify-content: space-between; margin: 0 0 8px 0;">
+                            <h2 style="margin: 0;">изменения сегодня:</h2>
+                            <button onclick="changOUT(1)" style="height: 40px;">завтра</button>
+                        </div>
+                        <iframe src="https://view.officeapps.live.com/op/embed.aspx?src=${changesTable.pathTo}${changesTable.fileNameToday}${changesTable.fileType}" frameborder="0"
+                            style="width: 100%; height: 600px;"></iframe>
+                        <button style="width: 100%; font-family: 'Montserrat'; margin: 8px 0 0 0;" onclick="window.location.href = '/?/pair/'">все предметы</button>
+                    `)
+                }
+                if (c == 1) {
+                    plutonny.output('content', CURRDATE.getDay() == 6 ? 
+                    `<div style="display: flex; justify-content: space-between; margin: 0 0 8px 0;">
+                            <h2 style="margin: 0;">изменения в ПН:</h2>
+                            <button onclick="changOUT(0)" style="height: 40px;">сегодня</button>
+                        </div>
+                        <iframe src="https://view.officeapps.live.com/op/embed.aspx?src=${changesTable.pathTo}${changesTable.fileNameTomorrow}${changesTable.fileType}" frameborder="0"
+                            style="width: 100%; height: 600px;"></iframe>
+                        <button style="width: 100%; font-family: 'Montserrat'; margin: 8px 0 0 0;" onclick="window.location.href = '/?/pair/'">все предметы</button>
+                    ` : `
+                        <div style="display: flex; justify-content: space-between; margin: 0 0 8px 0;">
+                            <h2 style="margin: 0;">изменения завтра:</h2>
+                            <button onclick="changOUT(0)" style="height: 40px;">сегодня</button>
+                        </div>
+                        <iframe src="https://view.officeapps.live.com/op/embed.aspx?src=${changesTable.pathTo}${changesTable.fileNameTomorrow}${changesTable.fileType}" frameborder="0"
+                            style="width: 100%; height: 600px;"></iframe>
+                        <button style="width: 100%; font-family: 'Montserrat'; margin: 8px 0 0 0;" onclick="window.location.href = '/?/pair/'">все предметы</button>
+                    `)
+                }
+            }
+            function pairOUT(c) {
+                fetch(`/info/timetable.json?t=${CURRDATE.getTime()}`).then(function (response) { return response.json() }).then(function (tim) { 
+                    fetch(`/info/subjects.json?t=${CURRDATE.getTime()}`).then(function (response) { return response.json() }).then(function (subj) { 
+                        function fco(i, a) {
+                            let inj = ''
+                            if (i == 1) {
+                                for (let j in tim[NUMSEMESTR][i]) {
+                                    if (j != 'count') {
+                                        if (tim[NUMSEMESTR][i][j]['num'] == 0) {
+                                            inj += UI.timetable.default(tim[NUMSEMESTR][i][j]['color'], {
+                                                id: tim[NUMSEMESTR][i][j]['id'],
+                                                name: subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['name'],
+                                                teacher: subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['teacher'].split(' ')[0],
+                                                icon: UI.cIcon({size: 36, border: 10, color: subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['color'], icon: subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['icon'], font: 24}),
+                                                cab: tim[NUMSEMESTR][i][j]['cab'],
+                                                time: `${UX.timetable.alert.UIed.monday[0][0]}-${UX.timetable.alert.UIed.monday[0][1]}`,
+                                                active: UX.timetable.currentPairNum() == 0 && a == 'active' && a != 'noactive'
+                                            })
+                                        }
+                                        else if (tim[NUMSEMESTR][i][j]['color'] == 'default')
+                                            inj += UI.timetable.default(tim[NUMSEMESTR][i][j]['color'], {
+                                                id: tim[NUMSEMESTR][i][j]['id'],
+                                                name: subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['name'],
+                                                teacher: subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['teacher'].split(' ')[0],
+                                                icon: UI.cIcon({size: 36, border: 10, color: subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['color'], icon: subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['icon'], font: 24}),
+                                                cab: tim[NUMSEMESTR][i][j]['cab'],
+                                                time: `${UX.timetable.alert.UIed.monday[tim[NUMSEMESTR][i][j]['num']][0]}-${UX.timetable.alert.UIed.monday[tim[NUMSEMESTR][i][j]['num']][3]}`,
+                                                active: UX.timetable.currentPairNum() == tim[NUMSEMESTR][i][j]['num'] && a == 'active' && a != 'noactive'
+                                            })
+                                        else if ((tim[NUMSEMESTR][i][j]['color'] == 'yellow' && CURRDATE.getDay() != 0 && WEEK.name.EN == 'yellow') || (tim[NUMSEMESTR][i][j]['color'] == 'yellow' && CURRDATE.getDay() == 0 && WEEK.name.alt.EN == 'yellow')) {
+                                            inj += UI.timetable.default('yellow', {
+                                                id: tim[NUMSEMESTR][i][j]['id'],
+                                                name: subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['name'],
+                                                teacher: subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['teacher'].split(' ')[0],
+                                                icon: UI.cIcon({size: 36, border: 10, color: subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['color'], icon: subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['icon'], font: 24}),
+                                                cab: tim[NUMSEMESTR][i][j]['cab'],
+                                                time: `${UX.timetable.alert.UIed.monday[tim[NUMSEMESTR][i][j]['num']][0]}-${UX.timetable.alert.UIed.monday[tim[NUMSEMESTR][i][j]['num']][3]}`,
+                                                active: UX.timetable.currentPairNum() == tim[NUMSEMESTR][i][j]['num'] && a == 'active' && a != 'noactive'
+                                            })
+                                        }
+                                        else if ((tim[NUMSEMESTR][i][j]['color'] == 'green' && CURRDATE.getDay() != 0 && WEEK.name.EN == 'green') || (tim[NUMSEMESTR][i][j]['color'] == 'green' && CURRDATE.getDay() == 0 && WEEK.name.alt.EN == 'green')) {
+                                            inj += UI.timetable.default('green', {
+                                                id: tim[NUMSEMESTR][i][j]['id'],
+                                                name: subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['name'],
+                                                teacher: subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['teacher'].split(' ')[0],
+                                                icon: UI.cIcon({size: 36, border: 10, color: subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['color'], icon: subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['icon'], font: 24}),
+                                                cab: tim[NUMSEMESTR][i][j]['cab'],
+                                                time: `${UX.timetable.alert.UIed.monday[tim[NUMSEMESTR][i][j]['num']][0]}-${UX.timetable.alert.UIed.monday[tim[NUMSEMESTR][i][j]['num']][3]}`,
+                                                active: UX.timetable.currentPairNum() == tim[NUMSEMESTR][i][j]['num'] && a == 'active' && a != 'noactive'
+                                            })
+                                        }
+                                    }
+                                }
+                                inj += `</div>`
+                            }
+                            else if (i == 0) {
+                                inj = `
+                                <div style="display: flex; flex-direction: column; align-items: center;">
+                                    <div style="height: 36px;"></div>
+                                    <img style="height: 120px; width: 120px;" src="/static/dayKS.png">
+                                    <div style="height: 36px;"></div>
+                                    <b style="font-family: 'Montserrat'; text-align: center;">сегодня пар нет</b>
+                                    <p style="font-family: 'Montserrat'; text-align: center;">можно зачиллиться :)</p>
+                                    <div style="height: 12px;"></div>
+                                </div>
+                                `
+                            }
+                            else {
+                                let skip = false
+                                for (let j in tim[NUMSEMESTR][i]) {
+                                    if (j != 'count') {
+                                        if (tim[NUMSEMESTR][i][j]['color'] == 'default')
+                                            inj += UI.timetable.default(tim[NUMSEMESTR][i][j]['color'], {
+                                                id: tim[NUMSEMESTR][i][j]['id'],
+                                                name: subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['name'],
+                                                teacher: subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['teacher'].split(' ')[0],
+                                                icon: UI.cIcon({size: 36, border: 10, color: subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['color'], icon: subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['icon'], font: 24}),
+                                                cab: tim[NUMSEMESTR][i][j]['cab'],
+                                                time: `${UX.timetable.alert.UIed.other[tim[NUMSEMESTR][i][j]['num']][0]}-${UX.timetable.alert.UIed.other[tim[NUMSEMESTR][i][j]['num']][3]}`,
+                                                active: UX.timetable.currentPairNum() == tim[NUMSEMESTR][i][j]['num'] && a == 'active' && a != 'noactive'
+                                            })
+                                        else if (tim[NUMSEMESTR][i][j]['color'] == 'yellow' && WEEK.name.EN == 'yellow') {
+                                            inj += UI.timetable.default('yellow', {
+                                                id: tim[NUMSEMESTR][i][j]['id'],
+                                                name: subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['name'],
+                                                teacher: subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['teacher'].split(' ')[0],
+                                                icon: UI.cIcon({size: 36, border: 10, color:subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['color'], icon: subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['icon'], font: 24}),
+                                                cab: tim[NUMSEMESTR][i][j]['cab'],
+                                                time: `${UX.timetable.alert.UIed.other[tim[NUMSEMESTR][i][j]['num']][0]}-${UX.timetable.alert.UIed.other[tim[NUMSEMESTR][i][j]['num']][3]}`,
+                                                active: UX.timetable.currentPairNum() == tim[NUMSEMESTR][i][j]['num'] && a == 'active' && a != 'noactive'
+                                            })
+                                        }
+                                        else if (tim[NUMSEMESTR][i][j]['color'] == 'green' && WEEK.name.EN == 'green') {
+                                            inj += UI.timetable.default('green', {
+                                                id: tim[NUMSEMESTR][i][j]['id'],
+                                                name: subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['name'],
+                                                teacher: subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['teacher'].split(' ')[0],
+                                                icon: UI.cIcon({size: 36, border: 10, color: subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['color'], icon: subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['icon'], font: 24}),
+                                                cab: tim[NUMSEMESTR][i][j]['cab'],
+                                                time: `${UX.timetable.alert.UIed.other[tim[NUMSEMESTR][i][j]['num']][0]}-${UX.timetable.alert.UIed.other[tim[NUMSEMESTR][i][j]['num']][3]}`,
+                                                active: UX.timetable.currentPairNum() == tim[NUMSEMESTR][i][j]['num'] && a == 'active' && a != 'noactive'
+                                            })
+                                        }
+                                    }
+                                }
+                                inj += `</div>`
+                            }
+                            return inj
+                        }
+                        if (c == 0) {
+                            plutonny.output('content', `
+                                <div style="display: flex; justify-content: space-between; margin: 0 0 16px 0;">
+                                    <h2 style="margin: 0;">пары сегодня:</h2>
+                                    <button onclick="pairOUT(1)" style="height: 40px;">завтра</button>
+                                </div>
+                                ${fco(CURRDATE.getDay(), 'active')}
+                                <button style="width: 100%; font-family: 'Montserrat'; margin: 8px 0 0 0;" onclick="window.location.href = '/?/changes/today/'">изменения на сегодня</button>
+                                <button style="width: 100%; font-family: 'Montserrat'; margin: 8px 0 0 0;" onclick="window.location.href = '/?/pair/'">все предметы</button>
+                            `)
+                        }
+                        if (c == 1) {
+                            plutonny.output('content', CURRDATE.getDay() == 6 ? 
+                            `<div style="display: flex; justify-content: space-between; margin: 0 0 16px 0;">
+                                    <h2 style="margin: 0;">пары в ПН:</h2>
+                                    <button onclick="pairOUT(0)" style="height: 40px;">сегодня</button>
+                                </div>
+                                ${fco(1, 'noactive')}
+                                <button style="width: 100%; font-family: 'Montserrat'; margin: 8px 0 0 0;" onclick="window.location.href = '/?/changes/tomorrow/'">изменения на завтра</button>
+                                <button style="width: 100%; font-family: 'Montserrat'; margin: 8px 0 0 0;" onclick="window.location.href = '/?/pair/'">все предметы</button>
+                            ` : `
+                                <div style="display: flex; justify-content: space-between; margin: 0 0 16px 0;">
+                                    <h2 style="margin: 0;">пары завтра:</h2>
+                                    <button onclick="pairOUT(0)" style="height: 40px;">сегодня</button>
+                                </div>
+                                ${fco(NEXTDAY.getDay(), 'noactive')}
+                                <button style="width: 100%; font-family: 'Montserrat'; margin: 8px 0 0 0;" onclick="window.location.href = '/?/changes/tomorrow/'">изменения на завтра</button>
+                                <button style="width: 100%; font-family: 'Montserrat'; margin: 8px 0 0 0;" onclick="window.location.href = '/?/pair/'">все предметы</button>
+                            `)
+                        }
+                    }).catch(function (err) { plutonny.console.error('index.html -> home -> JSON (subjects)', err); pageCantLoad() })
+                }).catch(function (err) { plutonny.console.error('index.html -> home -> JSON (timetable)', err); pageCantLoad() })
+            }
+            /* ---------- SETTINGS ---------- */
+            /* ---------- SETTINGS ---------- */
+            /* ---------- SETTINGS ---------- */
+            /**
+             * theme:
+             *      1 - system
+             *      2 - button
+             *      3 - sun
+             *      4 - alight
+             *      5 - adark
+             *  greet:
+             *      1 - official
+             *      2 - unofficial
+             *  chang:
+             *      1 - no
+             *      2 - onlp
+             *      3 - yes
+             */
+            function matchesChanger(type, num) {
+                let inj = ''
+                switch (type) {
+                    case 'theme': {
+                        for (let i = 1; i <= 5; i++)
+                            inj += `
+                            ${num == i ? 
+                                `#mobu${i} { background-color: var(--button-color-active-header) !important; }` : 
+                                `#moma${i} { display: none !important; } #mobu${i} { background-color: var(--button-color-header) !important; }`
+                            }`;
+                        break;
+                    }
+                    case 'greet': {
+                        for (let i = 1; i <= 2; i++)
+                            inj += `
+                            ${num == i ? 
+                                `#mobu${i} { background-color: var(--button-color-active-header) !important; }` : 
+                                `#moma${i} { display: none !important; } #mobu${i} { background-color: var(--button-color-header) !important; }`
+                            }`;
+                        break;
+                    }
+                    case 'chang': {
+                        for (let i = 1; i <= 3; i++)
+                            inj += `
+                            ${num == i ? 
+                                `#mobu${i} { background-color: var(--button-color-active-header) !important; }` : 
+                                `#moma${i} { display: none !important; } #mobu${i} { background-color: var(--button-color-header) !important; }`
+                            }`;
+                        break;
+                    }
+                }
+                document.querySelector('#matches').innerHTML = inj
+            }
+            UI.MODAL.settings = {
+                theme: function() {
+                    try {
+                        let dark = window.matchMedia("(prefers-color-scheme: dark)");
+                        let matchTheme = 1
+                        switch (localStorage.getItem('THEME-type')) {
+                            case 'system': matchTheme = 1; break;
+                            case 'button': matchTheme = 2; break;
+                            case 'sun': matchTheme = 3; break;
+                            case 'alight': matchTheme = 4; break;
+                            case 'adark': matchTheme = 5; break;
+                        }
+                        let dbset = [
+                            ['по системной', `сейчас: ${dark.matches ? 'темная' : 'светлая'}`, 
+                            'violet', '', 'smartphone', 'system'],
+                            ['по кнопке', `сверху страницы`, 
+                            'green', '', 'ads_click', 'button'],
+                            ['по закату/<br>рассвету', `светлая ${SunCalc.getTimes(CURRDATE, 64.4, 40.4).sunrise.getHours()}:${SunCalc.getTimes(CURRDATE, 64.4, 40.4).sunrise.getMinutes() < 10 ? `0${SunCalc.getTimes(CURRDATE, 64.4, 40.4).sunrise.getMinutes()}` : SunCalc.getTimes(CURRDATE, 64.4, 40.4).sunrise.getMinutes()}-${SunCalc.getTimes(CURRDATE, 64.4, 40.4).sunset.getHours()}:${SunCalc.getTimes(CURRDATE, 64.4, 40.4).sunset.getMinutes() < 10 ? `0${SunCalc.getTimes(CURRDATE, 64.4, 40.4).sunset.getMinutes()}` : SunCalc.getTimes(CURRDATE, 64.4, 40.4).sunset.getMinutes()}`, 
+                            'yellow', '', 'schedule', 'sun'],
+                            ['всегда светлая', ``, 
+                            'neutral', '', 'light_mode', 'alight'],
+                            ['всегда темная', ``, 
+                            'dark', '', 'dark_mode', 'adark'],
+                        ]
+                        let inj = ''
+                        for (let i = 1; i <= 5; i++) inj += `
+                            <button onclick="matchesChanger('theme', ${i}); localStorage.setItem('THEME-type', '${dbset[i-1][5]}'); setUpdate()" id="mobu${i}" style="width: 100%; height: 86px !important; margin: 0 0 8px 0; padding: 8px 8px 8px 4px !important; ${matchTheme == i ? 'background: var(--button-color-active-header);' : 'background: var(--button-color-header);'} border: 2px solid var(--button-color); border-radius: 18px; display: flex; flex-direction: row; align-items: center; justify-content: space-between;">
+                                <div style="display: flex; flex-direction: row;">
+                                    <div style="width: 32px; display: flex; justify-content: center; align-items: center;">
+                                        <span id="moma${i}" ${matchTheme == i ? 'style="display: inherit;"' : ''} class="material-symbols-rounded">check</span>
+                                    </div>
+                                    <div>
+                                        <p style="margin: 0; font-family: 'Montserrat'; text-align: left;">${dbset[i-1][0]}</p>
+                                        <p style="opacity: 0.4; font-size: 12px; margin: 0; font-family: 'Montserrat'; text-align: left;">${dbset[i-1][1]}</p>
+                                    </div>
+                                </div>
+                                ${UI.cIcon({
+                                    size: 48, 
+                                    border: 24, 
+                                    color: dbset[i-1][2], 
+                                    icon: dbset[i-1][4], 
+                                    font: 24
+                                })}
+                            </button>
+                        `
+                        UX.modal(`
+                            <style>.max-modal { width: 100% !important; }</style>
+                            <style id="matches">#moma1, #moma2, #moma3, #moma4, #moma5 { display: none; }</style>
+                            <div style="margin: 0 18px; max-height: 90%; overflow-y: auto; background-color: var(--bg-color); border: none; border-radius: 24px; box-shadow: 0px 0px 8px var(--box-shadow-color);">
+                                <h1 style="font-family: 'Montserrat' !important; text-align: center; margin: 16px;">тема</h1>
+                                <div style="display: flex; flex-direction: column; align-items: center; margin: 0 18px; overflow-y: scroll; max-height: 55vh;">
+                                    ${inj}
+                                </div>
+                                <div style="display: flex; justify-content: center;">
+                                    <button style="width: 128px; margin: 12px 16px 16px 16px;" onclick="document.getElementById('modal').innerHTML = ''; UX.theme.load()">закрыть</button>
+                                </div>
+                            </div>
+                        `)
+                        setUpdate()
+                    }
+                    catch (e) { plutonny.console.error('index.html -> settings -> UI.MODAL.settings.theme', e) }
+                },
+                greetingsType: function() {
+                    try {
+                        let matchGreet = 1
+                        switch (localStorage.getItem('greetingsType')) {
+                            case 'official': matchGreet = 1; break;
+                            case 'unofficial': matchGreet = 2; break;
+                        }
+                        let dbset = [
+                            ['официальное', `"добрый день/вечер"`, 
+                            'blue', '', 'apartment', 'official'],
+                            ['неофициальное', `"привет"`, 
+                            'red', '', 'volunteer_activism', 'unofficial'],
+                        ]
+                        let inj = ''
+                        for (let i = 1; i <= 2; i++) inj += `
+                            <button onclick="matchesChanger('greet', ${i}); localStorage.setItem('greetingsType', '${dbset[i-1][5]}'); setUpdate()" id="mobu${i}" style="width: 100%; height: 86px !important; margin: 0 0 8px 0; padding: 8px 8px 8px 4px !important; ${matchGreet == i ? 'background: var(--button-color-active-header);' : 'background: var(--button-color-header);'} border: 2px solid var(--button-color); border-radius: 18px; display: flex; flex-direction: row; align-items: center; justify-content: space-between;">
+                                <div style="display: flex; flex-direction: row;">
+                                    <div style="width: 32px; display: flex; justify-content: center; align-items: center;">
+                                        <span id="moma${i}" ${matchGreet == i ? 'style="display: inherit;"' : ''} class="material-symbols-rounded">check</span>
+                                    </div>
+                                    <div>
+                                        <p style="margin: 0; font-family: 'Montserrat'; text-align: left;">${dbset[i-1][0]}</p>
+                                        <p style="opacity: 0.4; font-size: 12px; margin: 0; font-family: 'Montserrat'; text-align: left;">${dbset[i-1][1]}</p>
+                                    </div>
+                                </div>
+                                ${UI.cIcon({
+                                    size: 48, 
+                                    border: 24, 
+                                    color: dbset[i-1][2], 
+                                    icon: dbset[i-1][4], 
+                                    font: 24
+                                })}
+                            </button>
+                        `
+                        UX.modal(`
+                            <style>.max-modal { width: 100% !important; }</style>
+                            <style id="matches">#moma1, #moma2 { display: none; }</style>
+                            <div style="margin: 0 18px; max-height: 90%; overflow-y: auto; background-color: var(--bg-color); border: none; border-radius: 24px; box-shadow: 0px 0px 8px var(--box-shadow-color);">
+                                <h1 style="font-family: 'Montserrat' !important; text-align: center; margin: 16px;">приветсвтие</h1>
+                                <div style="display: flex; flex-direction: column; align-items: center; margin: 0 18px; overflow-y: scroll; max-height: 55vh;">
+                                    ${inj}
+                                </div>
+                                <div style="display: flex; justify-content: center;">
+                                    <button style="width: 128px; margin: 12px 16px 16px 16px;" onclick="document.getElementById('modal').innerHTML = ''; UX.theme.load()">закрыть</button>
+                                </div>
+                            </div>
+                        `)
+                        setUpdate()
+                    }
+                    catch (e) { plutonny.console.error('index.html -> settings -> UI.MODAL.settings.greetingsType', e) }
+                },
+                viewChangImport: function() {
+                    try {
+                        let matchChang = 1
+                        switch (localStorage.getItem('viewChangImport')) {
+                            case 'no': matchChang = 1; break;
+                            case 'onlp': matchChang = 2; break;
+                            case 'yes': matchChang = 3; break;
+                        }
+                        let dbset = [
+                            ['расписание', ``, 
+                            'red', '', 'local_library', 'no'],
+                            ['изменения<br>только на УП', ``, 
+                            'yellow', '', 'history_edu', 'onlp'],
+                            ['изменения', ``, 
+                            'blue', '', 'change_circle', 'yes'],
+                        ]
+                        let inj = ''
+                        for (let i = 1; i <= 3; i++) inj += `
+                            <button onclick="matchesChanger('chang', ${i}); localStorage.setItem('viewChangImport', '${dbset[i-1][5]}'); setUpdate()" id="mobu${i}" style="width: 100%; height: 86px !important; margin: 0 0 8px 0; padding: 8px 8px 8px 4px !important; ${matchChang == i ? 'background: var(--button-color-active-header);' : 'background: var(--button-color-header);'} border: 2px solid var(--button-color); border-radius: 18px; display: flex; flex-direction: row; align-items: center; justify-content: space-between;">
+                                <div style="display: flex; flex-direction: row;">
+                                    <div style="width: 32px; display: flex; justify-content: center; align-items: center;">
+                                        <span id="moma${i}" ${matchChang == i ? 'style="display: inherit;"' : ''} class="material-symbols-rounded">check</span>
+                                    </div>
+                                    <div>
+                                        <p style="margin: 0; font-family: 'Montserrat'; text-align: left;">${dbset[i-1][0]}</p>
+                                        <p style="opacity: 0.4; font-size: 12px; margin: 0; font-family: 'Montserrat'; text-align: left;">${dbset[i-1][1]}</p>
+                                    </div>
+                                </div>
+                                ${UI.cIcon({
+                                    size: 48, 
+                                    border: 24, 
+                                    color: dbset[i-1][2], 
+                                    icon: dbset[i-1][4], 
+                                    font: 24
+                                })}
+                            </button>
+                        `
+                        UX.modal(`
+                            <style>.max-modal { width: 100% !important; }</style>
+                            <style id="matches">#moma1, #moma2, #moma3 { display: none; }</style>
+                            <div style="margin: 0 18px; max-height: 90%; overflow-y: auto; background-color: var(--bg-color); border: none; border-radius: 24px; box-shadow: 0px 0px 8px var(--box-shadow-color);">
+                                <h1 style="font-family: 'Montserrat' !important; text-align: center; margin: 16px;">гл. страница</h1>
+                                <div style="display: flex; flex-direction: column; align-items: center; margin: 0 18px; overflow-y: scroll; max-height: 55vh;">
+                                    ${inj}
+                                </div>
+                                <div style="display: flex; justify-content: center;">
+                                    <button style="width: 128px; margin: 12px 16px 16px 16px;" onclick="document.getElementById('modal').innerHTML = ''; UX.theme.load()">закрыть</button>
+                                </div>
+                            </div>
+                        `)
+                        setUpdate()
+                    }
+                    catch { plutonny.console.error('ondex.html -> settings -> UI.MODAL.settings.viewChangImport', e) }
+                }
+            }
+            function clearCache() {
+                caches.delete('csc11-v4-byPlutonny')
+                caches.delete('csc11-byPlutonny')
+                caches.delete('plutonny-college')
+                plutonny.output('CCB', 'успешно')
+            }
+            function cd() {
+                try {
+                    navigator.serviceWorker.getRegistrations().then(function(registrations) {
+                        for(let registration of registrations) {
+                            registration.unregister();
+                        } 
+                    });
+                    caches.delete('csc11-v4-byPlutonny')
+                    caches.delete('csc11-byPlutonny')
+                    caches.delete('plutonny-college')
+                    localStorage.clear()
+                    sessionStorage.clear()
+                }
+                catch (e) { plutonny.console.error('index.html -> settings -> cd()', e) }
+                plutonny.output('content', '<h1 align="center">успешно</h1><p align="center">теперь перезагрузите страницу</p>')
+            }
+            function clearData() {
+                UX.modal(`
+                    <div style="margin: 0 18px; max-height: 95%; overflow-y: auto; background-color: var(--bg-color); border: none; border-radius: 24px; box-shadow: 0px 0px 8px var(--box-shadow-color);">
+                        <h1 style="font-family: 'Montserrat' !important; text-align: center; margin: 16px;">уверен?</h1>
+                        <div style="display: flex; justify-content: center;">
+                            <button style="width: 128px; margin: 4px 16px 16px 16px; background-color: #00ff0020;" onclick="document.getElementById('modal').innerHTML = ''; UX.theme.load()">НЕТ</button>
+                            <button style="width: 128px; margin: 4px 16px 16px 16px; background-color: #ff000020;" onclick="document.getElementById('modal').innerHTML = ''; cd()">ДА</button>
+                        </div>
+                    </div>
+                `)
+            }
+            function setUpdate() {
+                try {
+                    let nameArr = {}
+
+                    switch (localStorage.getItem('THEME-type')) {
+                        case 'button': nameArr.themeType = 'по кнопке'; break;
+                        case 'sun': nameArr.themeType = 'по времени заката/рассвета'; break;
+                        case 'system': nameArr.themeType = 'системная'; break;
+                        case 'alight': nameArr.themeType = 'всегда светлая'; break;
+                        case 'adark': nameArr.themeType = 'всегда темная'; break;
+                    }
+
+                    switch (localStorage.getItem('greetingsType')) {
+                        case 'official': nameArr.greetingsType = 'официальное'; break;
+                        case 'unofficial': nameArr.greetingsType = 'формальное'; break;
+                    }
+
+                    switch (localStorage.getItem('viewChangImport')) {
+                        case 'yes': nameArr.viewChangImport = 'выводятся изменения'; break;
+                        case 'onlp': nameArr.viewChangImport = 'выводятся изменения на УП'; break;
+                        case 'no': nameArr.viewChangImport = 'выводится расписание'; break;
+                    }
+
+                    plutonny.output('content', `
+                        <div style="height: 24px;"></div>
+                        <div style="display: flex; align-items: center; flex-direction: column; flex-wrap: nowrap;">
+                            <b style="margin: 0 0 8px 0; font-family: 'Montserrat';">твой ник:</b>
+                            <input type="text" id="username" autocomplete="off" style="font-family: 'Montserrat'; text-align: center; color: var(--text-color); border: none; border-radius: 18px; background-color: var(--button-color); height: 26px; width: 200px;" ${ localStorage.getItem('username') == null || localStorage.getItem('username') == '' ? '' : `value="${localStorage.getItem('username')}"` }>
+                            <p id="usernamesave" style="font-size: 14px; margin-left: 8px 0 0 0; opacity: 0.5; user-select: none;"></p>
+                        </div>
+
+                        <div style="height: 24px;"></div>
+                        <button style="width: 100%; height: 96px; background: var(--button-color-header) !important; border: 2px solid var(--button-color); border-radius: 18px; padding: 8px 16px !important; display: flex; flex-direction: row; flex-wrap: nowrap; align-items: center; justify-content: space-between;" 
+                        onclick="UI.MODAL.settings.theme()">
+                            <div style="text-align: left;">
+                                <b style="margin: 0; font-family: 'Montserrat';">работа темы</b>
+                                <p style="margin: 0; font-size: 12px; font-family: 'Montserrat';">${nameArr.themeType}</p>
+                            </div>
+                            <div style="margin-right: auto;"></div>
+                            <div style="width: 16px;"></div>
+                            <div style="width: 48px;">
+                                ${UI.cIcon({size: 48, border: 24, color: 'blue', icon: 'model_training', font: 24})}
+                            </div>
+                        </button>
+
+                        <div style="height: 24px;"></div>
+                        <button style="width: 100%; height: 96px; background: var(--button-color-header) !important; border: 2px solid var(--button-color); border-radius: 18px; padding: 8px 16px !important; display: flex; flex-direction: row; flex-wrap: nowrap; align-items: center; justify-content: space-between;" 
+                        onclick="UI.MODAL.settings.greetingsType()">
+                            <div style="text-align: left;">
+                                <b style="margin: 0; font-family: 'Montserrat';">приветствие</b>
+                                <p style="margin: 0; font-size: 12px; font-family: 'Montserrat';">${nameArr.greetingsType}</p>
+                            </div>
+                            <div style="margin-right: auto;"></div>
+                            <div style="width: 16px;"></div>
+                            <div style="width: 48px;">
+                                ${UI.cIcon({size: 48, border: 24, color: 'yellow', icon: 'waving_hand', font: 24})}
+                            </div>
+                        </button>
+
+                        <div style="height: 24px;"></div>
+                        <button style="width: 100%; height: 96px; background: var(--button-color-header) !important; border: 2px solid var(--button-color); border-radius: 18px; padding: 8px 16px !important; display: flex; flex-direction: row; flex-wrap: nowrap; align-items: center; justify-content: space-between;" 
+                        onclick="UI.MODAL.settings.viewChangImport()">
+                            <div style="text-align: left;">
+                                <b style="margin: 0; font-family: 'Montserrat';">главная страница</b>
+                                <p style="margin: 0; font-size: 12px; font-family: 'Montserrat';">${nameArr.viewChangImport}</p>
+                            </div>
+                            <div style="margin-right: auto;"></div>
+                            <div style="width: 16px;"></div>
+                            <div style="width: 48px;">
+                                ${UI.cIcon({size: 48, border: 24, color: 'green', icon: 'home', font: 24})}
+                            </div>
+                        </button>
+
+                        <div style="height: 24px;"></div>
+                        <button style="width: 100%; font-family: 'Montserrat';" onclick="clearCache()" id="CCB">
+                            очистить кэш
+                        </button>
+                        <div style="height: 14px;"></div>
+                        <button style="width: 100%; font-family: 'Montserrat';" onclick="clearData()">
+                            удалить все данные
+                        </button>
+                    `)
+                    UX.theme.load()
+                }
+                catch { pageCantLoad() }
+                username.oninput = async function() { localStorage.setItem('username', username.value); usernamesave.innerHTML = 'сохранено'; await plutonny.sleep(2500); usernamesave.innerHTML = '' }
             }
         </script>
 
@@ -1106,11 +1644,11 @@
                         <button style="width: 100%; height: 36px; font-family: 'Montserrat'; margin: 8px 0 0 0;"></button>
                         <button style="width: 100%; height: 36px; font-family: 'Montserrat'; margin: 8px 0 0 0;"></button>
                     `)
-                    await plutonny.sleep(1000)
+                    await plutonny.sleep(300)
                 }
                 else if (URLDIR[1] == 'changes') {
                     // TABLE LOAD
-                    await plutonny.sleep(1000)
+                    await plutonny.sleep(500)
                 }
                 else if (URLDIR[1] == 'timetable') {
                     if (URLDIR[2] == 'week') {
@@ -1139,7 +1677,7 @@
                         <div style="width: calc(100% - 16px); height: 68px; background: var(--button-color); border-radius: 18px; margin: 0 0 16px 0; padding: 0 8px;"></div>
                         <div style="width: calc(100% - 16px); height: 68px; background: var(--button-color); border-radius: 18px; margin: 0 0 16px 0; padding: 0 8px;"></div>
                     `)
-                    await plutonny.sleep(1000)
+                    await plutonny.sleep(300)
                     }
                     else if (URLDIR[2] == 'alerts') {
                         UI.header({
@@ -1163,7 +1701,7 @@
                             <div style="background: var(--button-color); margin: 10px 0; padding: 0 0 0 20px; width: calc(100% - 20px); height: 48px; border-radius: 100px;"></div>
                             <div style="background: var(--button-color); margin: 10px 0; padding: 0 0 0 20px; width: calc(100% - 20px); height: 48px; border-radius: 100px;"></div>
                         `)
-                        await plutonny.sleep(1000)
+                        await plutonny.sleep(300)
                     }
                 } 
                 else if (URLDIR[1] == 'pair') {
@@ -1181,7 +1719,7 @@
                             <button style="width: 100%; height: 90px; padding: 12px; margin: 0 0 12px 0;"></button>
                             <button style="width: 100%; height: 90px; padding: 12px; margin: 0 0 12px 0;"></button>
                         `)
-                        await plutonny.sleep(1000)
+                        await plutonny.sleep(300)
                     }
                     else {
                         UI.header({
@@ -1211,7 +1749,7 @@
                                 <h2 style="margin: 0; height: 30px; width: 160px; background: var(--button-color); border-radius: 18px;"></h2>
                             </div>
                         `)
-                        await plutonny.sleep(1000)
+                        await plutonny.sleep(300)
                     }
                 } 
                 else if (URLDIR[1] == 'grades') {
@@ -1236,19 +1774,19 @@
                         <div style="display: flex; flex-direction: column; align-items: center; margin: 0 0 6px 0;">
                             <h2 style="margin: 0; height: 30px; width: 160px; background: var(--button-color); border-radius: 18px;"></h2>
                             <div style="height: 24px;"></div>
-                            <div style="width: 60vw; height: 50vh; background: var(--button-color); margin-bottom: 6px; border-radius: 12px;">
+                            <div style="width: 80%; height: 50vh; background: var(--button-color); margin-bottom: 6px; border-radius: 12px;">
                         </div>
                     `)
-                    await plutonny.sleep(1000)
+                    await plutonny.sleep(300)
                 } 
                 else if (URLDIR[1] == 'other') {
                     if (URLDIR[2] == 'attendance') {
                         // TABLE LOAD
-                        await plutonny.sleep(1000)
+                        await plutonny.sleep(500)
                     }
                     else if (URLDIR[2] == 'planle') {
                         // TABLE LOAD
-                        await plutonny.sleep(1000)
+                        await plutonny.sleep(500)
                     }
                     
                 }
@@ -1260,249 +1798,63 @@
                     /* ---------- HOME ---------- */
                     /* ---------- HOME ---------- */
                     /* ---------- HOME ---------- */
-                    var headerGretings = ''
-                    if (localStorage.getItem('greetingsType') == 'official') {
-                            if (CURRDATE.getHours() >= 5  && CURRDATE.getHours() < 12) { headerGretings += `Доброе утро` } 
-                        else if (CURRDATE.getHours() >= 12 && CURRDATE.getHours() < 17) { headerGretings += `Добрый день` } 
-                        else if (CURRDATE.getHours() >= 17 && CURRDATE.getHours() < 22) { headerGretings += `Добрый вечер`} 
-                        else                                                            { headerGretings += `Доброй ночи` }
-                    } else headerGretings += `Привет`
-                    headerGretings += (localStorage.getItem('username') == null || localStorage.getItem('username') == '') ? '!' : `, ${localStorage.getItem('username')}!`
-                    let butTimWe = `${week[CURRDATE.getDay()]}, ${CURRDATE.getDate()} ${month[CURRDATE.getMonth()]}
-                                    <br>${CURRDATE.getDay() == 0 ? 'с ПН ' : ''}неделя 
-                                    ${CURRDATE.getDay() == 0 ? `${WEEK.name.alt.RU[0].toUpperCase()}${WEEK.name.alt.RU[1].toUpperCase()}${WEEK.name.alt.RU[2].toUpperCase()}` : `${WEEK.name.RU[0].toUpperCase()}${WEEK.name.RU[1].toUpperCase()}${WEEK.name.RU[2].toUpperCase()}`}`
-                    UI.header({
-                        textCenter: headerGretings, 
-                        buttonTheme: true, 
-                        buttonBack: false, 
-                        enableHR: !(localStorage.getItem('HOLIDAYSMODE') == 'summer' || localStorage.getItem('HOLIDAYSMODE') == 'winter'), 
-                        HTMLAfter: (localStorage.getItem('HOLIDAYSMODE') == 'summer' || localStorage.getItem('HOLIDAYSMODE') == 'winter') ? '' : `
-                            <div style="display: flex; flex-direction: row; align-items: stretch; justify-content: center; min-height: 120px;">
-                                    <button class="header" style="display: flex; flex-direction: column; padding: 12px; min-height: 120px; width: calc(50% - 9px); margin: 6px 3px 6px 6px; border-radius: 20px;" onclick="window.location.href = '/?/timetable/alerts/'">
-                                        <div style="height: 36px; width: 36px;">
-                                            ${UI.cIcon({size: 36, border: 10, color: "red", icon: "schedule", font: 24})}
-                                        </div>
-                                        <p style="margin: 12px 0px 0px 0px; text-align: left; font-size: 18px; font-family: 'Montserrat';" id="pairTimerHTML">
-                                            расп-е звонков
-                                        </p>
-                                    </button>
-                                    <button class="header" style="display: flex; flex-direction: column; padding: 12px; min-height: 120px; width: calc(50% - 9px); margin: 6px 6px 6px 3px; border-radius: 20px;" onclick="window.location.href = '/?/timetable/week/'">
-                                        <div style="height: 36px; width: 36px;">
-                                            ${UI.cIcon({size: 36, border: 10, color: "blue", icon: "calendar_month", font: 24})}
-                                        </div>
-                                        <p style="margin: 12px 0px 0px 0px; text-align: left; font-size: 18px; font-family: 'Montserrat';">
-                                            ${localStorage.getItem('HOLIDAYSMODE') == 'summer' || localStorage.getItem('HOLIDAYSMODE') == 'winter' || localStorage.getItem('PRACTICEMODE') == 'l' || localStorage.getItem('PRACTICEMODE') == 'm' ? 
-                                            'расп-е на неделю' : butTimWe}
-                                        </p>
-                                    </button>
-                            </div>
-                            ${(BETA || ALPHA) ? `<h1 style="font-family: 'Montserrat'; text-align: center; margin: 0;">ТЕСТОВАЯ ВЕРСИЯ</h1>` : ""}
-                        `
-                    })
-                    UI.navbar('home')
-                    if (!(localStorage.getItem('HOLIDAYSMODE') == 'summer' || localStorage.getItem('HOLIDAYSMODE') == 'winter' || localStorage.getItem('PRACTICEMODE') == 'l' || localStorage.getItem('PRACTICEMODE') == 'm')) UX.timetable.pairTimerHTML()
+                    try {
+                        var headerGretings = ''
+                        if (localStorage.getItem('greetingsType') == 'official') {
+                                if (CURRDATE.getHours() >= 5  && CURRDATE.getHours() < 12) { headerGretings += `Доброе утро` } 
+                            else if (CURRDATE.getHours() >= 12 && CURRDATE.getHours() < 17) { headerGretings += `Добрый день` } 
+                            else if (CURRDATE.getHours() >= 17 && CURRDATE.getHours() < 22) { headerGretings += `Добрый вечер`} 
+                            else                                                            { headerGretings += `Доброй ночи` }
+                        } else headerGretings += `Привет`
+                        headerGretings += (localStorage.getItem('username') == null || localStorage.getItem('username') == '') ? '!' : `, ${localStorage.getItem('username')}!`
+                        let butTimWe = `${week[CURRDATE.getDay()]}, ${CURRDATE.getDate()} ${month[CURRDATE.getMonth()]}
+                                        <br>${CURRDATE.getDay() == 0 ? 'с ПН ' : ''}неделя 
+                                        ${CURRDATE.getDay() == 0 ? `${WEEK.name.alt.RU[0].toUpperCase()}${WEEK.name.alt.RU[1].toUpperCase()}${WEEK.name.alt.RU[2].toUpperCase()}` : `${WEEK.name.RU[0].toUpperCase()}${WEEK.name.RU[1].toUpperCase()}${WEEK.name.RU[2].toUpperCase()}`}`
+                        UI.header({
+                            textCenter: headerGretings, 
+                            buttonTheme: true, 
+                            buttonBack: false, 
+                            enableHR: !(localStorage.getItem('HOLIDAYSMODE') == 'summer' || localStorage.getItem('HOLIDAYSMODE') == 'winter'), 
+                            HTMLAfter: (localStorage.getItem('HOLIDAYSMODE') == 'summer' || localStorage.getItem('HOLIDAYSMODE') == 'winter') ? '' : `
+                                <div style="display: flex; flex-direction: row; align-items: stretch; justify-content: center; min-height: 120px;">
+                                        <button class="header" style="display: flex; flex-direction: column; padding: 12px; min-height: 120px; width: calc(50% - 9px); margin: 6px 3px 6px 6px; border-radius: 20px;" onclick="window.location.href = '/?/timetable/alerts/'">
+                                            <div style="height: 36px; width: 36px;">
+                                                ${UI.cIcon({size: 36, border: 10, color: "red", icon: "schedule", font: 24})}
+                                            </div>
+                                            <p style="margin: 12px 0px 0px 0px; text-align: left; font-size: 18px; font-family: 'Montserrat';" id="pairTimerHTML">
+                                                расп-е звонков
+                                            </p>
+                                        </button>
+                                        <button class="header" style="display: flex; flex-direction: column; padding: 12px; min-height: 120px; width: calc(50% - 9px); margin: 6px 6px 6px 3px; border-radius: 20px;" onclick="window.location.href = '/?/timetable/week/'">
+                                            <div style="height: 36px; width: 36px;">
+                                                ${UI.cIcon({size: 36, border: 10, color: "blue", icon: "calendar_month", font: 24})}
+                                            </div>
+                                            <p style="margin: 12px 0px 0px 0px; text-align: left; font-size: 18px; font-family: 'Montserrat';">
+                                                ${localStorage.getItem('HOLIDAYSMODE') == 'summer' || localStorage.getItem('HOLIDAYSMODE') == 'winter' || localStorage.getItem('PRACTICEMODE') == 'l' || localStorage.getItem('PRACTICEMODE') == 'm' ? 
+                                                'расп-е на неделю' : butTimWe}
+                                            </p>
+                                        </button>
+                                </div>
+                                ${(BETA || ALPHA) ? `<h1 style="font-family: 'Montserrat'; text-align: center; margin: 0;">ТЕСТОВАЯ ВЕРСИЯ</h1>` : ""}
+                            `
+                        })
+                        UI.navbar('home')
+                        if (!(localStorage.getItem('HOLIDAYSMODE') == 'summer' || localStorage.getItem('HOLIDAYSMODE') == 'winter' || localStorage.getItem('PRACTICEMODE') == 'l' || localStorage.getItem('PRACTICEMODE') == 'm')) UX.timetable.pairTimerHTML()
 
-                    if (localStorage.getItem('HOLIDAYSMODE') == 'summer') plutonny.output('content', holiS())
-                    else if (localStorage.getItem('HOLIDAYSMODE') == 'winter') plutonny.output('content', holiW())
-                    else {
-                        if (localStorage.getItem('PRACTICEMODE') == 'm') plutonny.output('content', pracM())
-                        else if (localStorage.getItem('viewChangImport') == 'yes' || (localStorage.getItem('viewChangImport') == 'onlp' && localStorage.getItem('PRACTICEMODE') == 'l')) {
-                            function changOUT(c) {
-                                if (c == 0) {
-                                    plutonny.output('content', CURRDATE.getDay() == 0 ? 
-                                    `<div style="display: flex; flex-direction: column; align-items: center;">
-                                        <div style="height: 36px;"></div>
-                                        <img style="height: 120px; width: 120px;" src="/static/dayKS.png">
-                                        <div style="height: 36px;"></div>
-                                        <b style="font-family: 'Montserrat'; text-align: center;">сегодня изменений нет</b>
-                                        <p style="font-family: 'Montserrat'; text-align: center;">можно зачиллиться :)</p>
-                                        <div style="height: 12px;"></div>
-                                        <button onclick="changOUT(1)" style="height: 40px;">завтра</button>
-                                    </div>
-                                    ` : `
-                                        <div style="display: flex; justify-content: space-between; margin: 0 0 8px 0;">
-                                            <h2 style="margin: 0;">изменения сегодня:</h2>
-                                            <button onclick="changOUT(1)" style="height: 40px;">завтра</button>
-                                        </div>
-                                        <iframe src="https://view.officeapps.live.com/op/embed.aspx?src=${changesTable.pathTo}${changesTable.fileNameToday}${changesTable.fileType}" frameborder="0"
-                                            style="width: 100%; height: 600px;"></iframe>
-                                        <button style="width: 100%; font-family: 'Montserrat'; margin: 8px 0 0 0;" onclick="window.location.href = '/?/pair/'">все предметы</button>
-                                    `)
-                                }
-                                if (c == 1) {
-                                    plutonny.output('content', CURRDATE.getDay() == 6 ? 
-                                    `<div style="display: flex; justify-content: space-between; margin: 0 0 8px 0;">
-                                            <h2 style="margin: 0;">изменения в ПН:</h2>
-                                            <button onclick="changOUT(0)" style="height: 40px;">сегодня</button>
-                                        </div>
-                                        <iframe src="https://view.officeapps.live.com/op/embed.aspx?src=${changesTable.pathTo}${changesTable.fileNameTomorrow}${changesTable.fileType}" frameborder="0"
-                                            style="width: 100%; height: 600px;"></iframe>
-                                        <button style="width: 100%; font-family: 'Montserrat'; margin: 8px 0 0 0;" onclick="window.location.href = '/?/pair/'">все предметы</button>
-                                    ` : `
-                                        <div style="display: flex; justify-content: space-between; margin: 0 0 8px 0;">
-                                            <h2 style="margin: 0;">изменения завтра:</h2>
-                                            <button onclick="changOUT(0)" style="height: 40px;">сегодня</button>
-                                        </div>
-                                        <iframe src="https://view.officeapps.live.com/op/embed.aspx?src=${changesTable.pathTo}${changesTable.fileNameTomorrow}${changesTable.fileType}" frameborder="0"
-                                            style="width: 100%; height: 600px;"></iframe>
-                                        <button style="width: 100%; font-family: 'Montserrat'; margin: 8px 0 0 0;" onclick="window.location.href = '/?/pair/'">все предметы</button>
-                                    `)
-                                }
+                        if (localStorage.getItem('HOLIDAYSMODE') == 'summer') plutonny.output('content', holiS())
+                        else if (localStorage.getItem('HOLIDAYSMODE') == 'winter') plutonny.output('content', holiW())
+                        else {
+                            if (localStorage.getItem('PRACTICEMODE') == 'm') plutonny.output('content', pracM())
+                            else if (localStorage.getItem('viewChangImport') == 'yes' || (localStorage.getItem('viewChangImport') == 'onlp' && localStorage.getItem('PRACTICEMODE') == 'l'))
+                                changOUT(0)
+                            else if (localStorage.getItem('viewChangImport') == 'no' || (localStorage.getItem('viewChangImport') == 'onlp' && localStorage.getItem('PRACTICEMODE') != 'l')) {
+                                if (localStorage.getItem('PRACTICEMODE') == 'l') plutonny.output('content', pracL())
+                                else if (localStorage.getItem('PRACTICEMODE') == 'm') plutonny.output('content', pracM())
+                                else pairOUT(0)
                             }
-                            changOUT(0)
+                            else pageCantLoad()
                         }
-                        else if (localStorage.getItem('viewChangImport') == 'no' || (localStorage.getItem('viewChangImport') == 'onlp' && localStorage.getItem('PRACTICEMODE') != 'l')) {
-                            if (localStorage.getItem('PRACTICEMODE') == 'l') plutonny.output('content', pracL())
-                            else if (localStorage.getItem('PRACTICEMODE') == 'm') plutonny.output('content', pracM())
-                            else {
-                                function pairOUT(c) {
-                                    fetch(`/info/timetable.json?t=${CURRDATE.getTime()}`).then(function (response) { return response.json() }).then(function (tim) { 
-                                        fetch(`/info/subjects.json?t=${CURRDATE.getTime()}`).then(function (response) { return response.json() }).then(function (subj) { 
-                                            function fco(i, a) {
-                                                let inj = ''
-                                                if (i == 1) {
-                                                    for (let j in tim[NUMSEMESTR][i]) {
-                                                        if (j != 'count') {
-                                                            if (tim[NUMSEMESTR][i][j]['num'] == 0) {
-                                                                inj += UI.timetable.default(tim[NUMSEMESTR][i][j]['color'], {
-                                                                    id: tim[NUMSEMESTR][i][j]['id'],
-                                                                    name: subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['name'],
-                                                                    teacher: subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['teacher'].split(' ')[0],
-                                                                    icon: UI.cIcon({size: 36, border: 10, color: subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['color'], icon: subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['icon'], font: 24}),
-                                                                    cab: tim[NUMSEMESTR][i][j]['cab'],
-                                                                    time: `${UX.timetable.alert.UIed.monday[0][0]}-${UX.timetable.alert.UIed.monday[0][1]}`,
-                                                                    active: UX.timetable.currentPairNum() == 0 && a == 'active' && a != 'noactive'
-                                                                })
-                                                            }
-                                                            else if (tim[NUMSEMESTR][i][j]['color'] == 'default')
-                                                                inj += UI.timetable.default(tim[NUMSEMESTR][i][j]['color'], {
-                                                                    id: tim[NUMSEMESTR][i][j]['id'],
-                                                                    name: subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['name'],
-                                                                    teacher: subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['teacher'].split(' ')[0],
-                                                                    icon: UI.cIcon({size: 36, border: 10, color: subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['color'], icon: subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['icon'], font: 24}),
-                                                                    cab: tim[NUMSEMESTR][i][j]['cab'],
-                                                                    time: `${UX.timetable.alert.UIed.monday[tim[NUMSEMESTR][i][j]['num']][0]}-${UX.timetable.alert.UIed.monday[tim[NUMSEMESTR][i][j]['num']][3]}`,
-                                                                    active: UX.timetable.currentPairNum() == tim[NUMSEMESTR][i][j]['num'] && a == 'active' && a != 'noactive'
-                                                                })
-                                                            else if ((tim[NUMSEMESTR][i][j]['color'] == 'yellow' && CURRDATE.getDay() != 0 && WEEK.name.EN == 'yellow') || (tim[NUMSEMESTR][i][j]['color'] == 'yellow' && CURRDATE.getDay() == 0 && WEEK.name.alt.EN == 'yellow')) {
-                                                                inj += UI.timetable.default('yellow', {
-                                                                    id: tim[NUMSEMESTR][i][j]['id'],
-                                                                    name: subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['name'],
-                                                                    teacher: subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['teacher'].split(' ')[0],
-                                                                    icon: UI.cIcon({size: 36, border: 10, color: subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['color'], icon: subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['icon'], font: 24}),
-                                                                    cab: tim[NUMSEMESTR][i][j]['cab'],
-                                                                    time: `${UX.timetable.alert.UIed.monday[tim[NUMSEMESTR][i][j]['num']][0]}-${UX.timetable.alert.UIed.monday[tim[NUMSEMESTR][i][j]['num']][3]}`,
-                                                                    active: UX.timetable.currentPairNum() == tim[NUMSEMESTR][i][j]['num'] && a == 'active' && a != 'noactive'
-                                                                })
-                                                            }
-                                                            else if ((tim[NUMSEMESTR][i][j]['color'] == 'green' && CURRDATE.getDay() != 0 && WEEK.name.EN == 'green') || (tim[NUMSEMESTR][i][j]['color'] == 'green' && CURRDATE.getDay() == 0 && WEEK.name.alt.EN == 'green')) {
-                                                                inj += UI.timetable.default('green', {
-                                                                    id: tim[NUMSEMESTR][i][j]['id'],
-                                                                    name: subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['name'],
-                                                                    teacher: subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['teacher'].split(' ')[0],
-                                                                    icon: UI.cIcon({size: 36, border: 10, color: subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['color'], icon: subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['icon'], font: 24}),
-                                                                    cab: tim[NUMSEMESTR][i][j]['cab'],
-                                                                    time: `${UX.timetable.alert.UIed.monday[tim[NUMSEMESTR][i][j]['num']][0]}-${UX.timetable.alert.UIed.monday[tim[NUMSEMESTR][i][j]['num']][3]}`,
-                                                                    active: UX.timetable.currentPairNum() == tim[NUMSEMESTR][i][j]['num'] && a == 'active' && a != 'noactive'
-                                                                })
-                                                            }
-                                                        }
-                                                    }
-                                                    inj += `</div>`
-                                                }
-                                                else if (i == 0) {
-                                                    inj = `
-                                                    <div style="display: flex; flex-direction: column; align-items: center;">
-                                                        <div style="height: 36px;"></div>
-                                                        <img style="height: 120px; width: 120px;" src="/static/dayKS.png">
-                                                        <div style="height: 36px;"></div>
-                                                        <b style="font-family: 'Montserrat'; text-align: center;">сегодня пар нет</b>
-                                                        <p style="font-family: 'Montserrat'; text-align: center;">можно зачиллиться :)</p>
-                                                        <div style="height: 12px;"></div>
-                                                    </div>
-                                                    `
-                                                }
-                                                else {
-                                                    let skip = false
-                                                    for (let j in tim[NUMSEMESTR][i]) {
-                                                        if (j != 'count') {
-                                                            if (tim[NUMSEMESTR][i][j]['color'] == 'default')
-                                                                inj += UI.timetable.default(tim[NUMSEMESTR][i][j]['color'], {
-                                                                    id: tim[NUMSEMESTR][i][j]['id'],
-                                                                    name: subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['name'],
-                                                                    teacher: subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['teacher'].split(' ')[0],
-                                                                    icon: UI.cIcon({size: 36, border: 10, color: subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['color'], icon: subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['icon'], font: 24}),
-                                                                    cab: tim[NUMSEMESTR][i][j]['cab'],
-                                                                    time: `${UX.timetable.alert.UIed.other[tim[NUMSEMESTR][i][j]['num']][0]}-${UX.timetable.alert.UIed.other[tim[NUMSEMESTR][i][j]['num']][3]}`,
-                                                                    active: UX.timetable.currentPairNum() == tim[NUMSEMESTR][i][j]['num'] && a == 'active' && a != 'noactive'
-                                                                })
-                                                            else if (tim[NUMSEMESTR][i][j]['color'] == 'yellow' && WEEK.name.EN == 'yellow') {
-                                                                inj += UI.timetable.default('yellow', {
-                                                                    id: tim[NUMSEMESTR][i][j]['id'],
-                                                                    name: subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['name'],
-                                                                    teacher: subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['teacher'].split(' ')[0],
-                                                                    icon: UI.cIcon({size: 36, border: 10, color:subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['color'], icon: subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['icon'], font: 24}),
-                                                                    cab: tim[NUMSEMESTR][i][j]['cab'],
-                                                                    time: `${UX.timetable.alert.UIed.other[tim[NUMSEMESTR][i][j]['num']][0]}-${UX.timetable.alert.UIed.other[tim[NUMSEMESTR][i][j]['num']][3]}`,
-                                                                    active: UX.timetable.currentPairNum() == tim[NUMSEMESTR][i][j]['num'] && a == 'active' && a != 'noactive'
-                                                                })
-                                                            }
-                                                            else if (tim[NUMSEMESTR][i][j]['color'] == 'green' && WEEK.name.EN == 'green') {
-                                                                inj += UI.timetable.default('green', {
-                                                                    id: tim[NUMSEMESTR][i][j]['id'],
-                                                                    name: subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['name'],
-                                                                    teacher: subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['teacher'].split(' ')[0],
-                                                                    icon: UI.cIcon({size: 36, border: 10, color: subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['color'], icon: subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['icon'], font: 24}),
-                                                                    cab: tim[NUMSEMESTR][i][j]['cab'],
-                                                                    time: `${UX.timetable.alert.UIed.other[tim[NUMSEMESTR][i][j]['num']][0]}-${UX.timetable.alert.UIed.other[tim[NUMSEMESTR][i][j]['num']][3]}`,
-                                                                    active: UX.timetable.currentPairNum() == tim[NUMSEMESTR][i][j]['num'] && a == 'active' && a != 'noactive'
-                                                                })
-                                                            }
-                                                        }
-                                                    }
-                                                    inj += `</div>`
-                                                }
-                                                return inj
-                                            }
-                                            if (c == 0) {
-                                                plutonny.output('content', `
-                                                    <div style="display: flex; justify-content: space-between; margin: 0 0 16px 0;">
-                                                        <h2 style="margin: 0;">пары сегодня:</h2>
-                                                        <button onclick="pairOUT(1)" style="height: 40px;">завтра</button>
-                                                    </div>
-                                                    ${fco(CURRDATE.getDay(), 'active')}
-                                                    <button style="width: 100%; font-family: 'Montserrat'; margin: 8px 0 0 0;" onclick="window.location.href = '/?/changes/today/'">изменения на сегодня</button>
-                                                    <button style="width: 100%; font-family: 'Montserrat'; margin: 8px 0 0 0;" onclick="window.location.href = '/?/pair/'">все предметы</button>
-                                                `)
-                                            }
-                                            if (c == 1) {
-                                                plutonny.output('content', CURRDATE.getDay() == 6 ? 
-                                                `<div style="display: flex; justify-content: space-between; margin: 0 0 16px 0;">
-                                                        <h2 style="margin: 0;">пары в ПН:</h2>
-                                                        <button onclick="pairOUT(0)" style="height: 40px;">сегодня</button>
-                                                    </div>
-                                                    ${fco(1, 'noactive')}
-                                                    <button style="width: 100%; font-family: 'Montserrat'; margin: 8px 0 0 0;" onclick="window.location.href = '/?/changes/tomorrow/'">изменения на завтра</button>
-                                                    <button style="width: 100%; font-family: 'Montserrat'; margin: 8px 0 0 0;" onclick="window.location.href = '/?/pair/'">все предметы</button>
-                                                ` : `
-                                                    <div style="display: flex; justify-content: space-between; margin: 0 0 16px 0;">
-                                                        <h2 style="margin: 0;">пары завтра:</h2>
-                                                        <button onclick="pairOUT(0)" style="height: 40px;">сегодня</button>
-                                                    </div>
-                                                    ${fco(NEXTDAY.getDay(), 'noactive')}
-                                                    <button style="width: 100%; font-family: 'Montserrat'; margin: 8px 0 0 0;" onclick="window.location.href = '/?/changes/tomorrow/'">изменения на завтра</button>
-                                                    <button style="width: 100%; font-family: 'Montserrat'; margin: 8px 0 0 0;" onclick="window.location.href = '/?/pair/'">все предметы</button>
-                                                `)
-                                            }
-                                        }).catch(function (err) { plutonny.console.error('index.html -> home -> JSON (subjects)', err); pageCantLoad() })
-                                    }).catch(function (err) { plutonny.console.error('index.html -> home -> JSON (timetable)', err); pageCantLoad() })
-                                }
-                                pairOUT(0)
-                            }
-                        }
-                        else pageCantLoad()
-                    }
-                    
+                    } catch (e) { plutonny.console.error('index.html -> home', e); pageCantLoad() }
                 }
                 else if (URLDIR[1] == 'changes') {
                     if (URLDIR[2] == 'today') {
@@ -1527,7 +1879,7 @@
                                     style="width: 100%; height: calc(100vh - 145px);"></iframe>
                             `)
                         } 
-                        catch { pageCantLoad() }
+                        catch (e) { plutonny.console.error('index.html -> changes/today/', e); pageCantLoad() }
                     }
                     else if (URLDIR[2] == 'tomorrow') {
                         try {
@@ -1551,7 +1903,7 @@
                                     style="width: 100%; height: calc(100vh - 145px);"></iframe>
                             `)
                         } 
-                        catch { pageCantLoad() }
+                        catch (e) { plutonny.console.error('index.html -> changes/tomorrow/', e); pageCantLoad() }
                     }
                     else page404()
                 }
@@ -1823,7 +2175,7 @@
                                 window.addEventListener('scroll', function() { document.getElementById('arrowTop').style.display = (pageYOffset < document.documentElement.clientHeight) ? 'none' : 'flex'})
                             }).catch(function (err) { plutonny.console.error('index.html -> pair -> JSON (subjects)', err); pageCantLoad() })
                         } 
-                        catch { pageCantLoad() }
+                        catch (e) { plutonny.console.error('index.html -> pair/', e); pageCantLoad() }
                     }
                     else {
                         UI.navbar('home')
@@ -1862,7 +2214,7 @@
                                     <p style="margin: 4px 0; font-family: 'Montserrat';">экзамен: ${data[NUMSEMESTR][URLDIR[2]]['exam'] ? '<b>есть</b>' : 'нет'}</p>
                                 </div>
                             `)
-                        }).catch(function (err) { plutonny.console.error('index.html -> pair -> JSON (subjects)', err); pageCantLoad() })
+                        }).catch(function (err) { plutonny.console.error('index.html -> pair/{id}/ -> JSON (subjects)', err); pageCantLoad() })
                     }
                 } 
                 else if (URLDIR[1] == 'grades') {
@@ -2064,7 +2416,7 @@
                             </div>
                             `)
                         } 
-                        catch { pageCantLoad() }
+                        catch (e) { plutonny.console.error('index.html -> other/', e); pageCantLoad() }
                     }
                     else if (URLDIR[2] == 'mailgroup') {
                         try {
@@ -2091,7 +2443,7 @@
                             </h3>
                             `)
                         } 
-                        catch { pageCantLoad() }
+                        catch (e) { plutonny.console.error('index.html -> other/mailgroup/', e); pageCantLoad() }
                     }
                     else if (URLDIR[2] == 'info') {
                         try {
@@ -2131,10 +2483,10 @@
                                         <p>список предметов на текущий семестр: ${sublist}</p>
                                         <p>расписание сегодня: ${ttlist}</p>
                                     `)
-                                }).catch(function (err) { plutonny.console.error('index.html -> JSON (timetable)', err) })
-                            }).catch(function (err) { plutonny.console.error('index.html -> JSON (subjects)', err) })
+                                }).catch(function (err) { plutonny.console.error('index.html -> other/info/ -> JSON (timetable)', err) })
+                            }).catch(function (err) { plutonny.console.error('index.html -> other/info/ -> JSON (subjects)', err) })
                         } 
-                        catch { pageCantLoad() }
+                        catch (e) { plutonny.console.error('index.html -> other/info/', e); pageCantLoad() }
                     }
                     else if (URLDIR[2] == 'attendance') {
                         try {
@@ -2153,7 +2505,7 @@
                             `)
                             UX.theme.table()
                         } 
-                        catch { pageCantLoad() }
+                        catch (e) { plutonny.console.error('index.html -> other/attendance/', e); pageCantLoad() }
                     }
                     else if (URLDIR[2] == 'plangr') {
                         try {
@@ -2199,7 +2551,7 @@
                                 zoomOnWheel: true
                             })
                         } 
-                        catch { pageCantLoad() }
+                        catch (e) { plutonny.console.error('index.html -> other/plangr/', e); pageCantLoad() }
                     }
                     else if (URLDIR[2] == 'planle') {
                         try {
@@ -2218,7 +2570,7 @@
                             `)
                             UX.theme.table()
                         } 
-                        catch { pageCantLoad() }
+                        catch (e) { plutonny.console.error('index.html -> other/planle/', e); pageCantLoad() }
                     }
                     else if (URLDIR[2] == 'links') {
                         try {
@@ -2258,7 +2610,7 @@
                             </button>
                             `)
                         } 
-                        catch { pageCantLoad() }
+                        catch (e) { plutonny.console.error('index.html -> other/links/', e); pageCantLoad() }
                     }
                     else page404()
                 } 
@@ -2275,344 +2627,6 @@
                     })
                     plutonny.output('title-page', 'КСК-11 | настройки')
                     UI.navbar('other')
-                    /**
-                     * theme:
-                     *      1 - system
-                     *      2 - button
-                     *      3 - sun
-                     *      4 - alight
-                     *      5 - adark
-                     *  greet:
-                     *      1 - official
-                     *      2 - unofficial
-                     *  chang:
-                     *      1 - no
-                     *      2 - onlp
-                     *      3 - yes
-                     */
-                    function matchesChanger(type, num) {
-                        let inj = ''
-                        switch (type) {
-                            case 'theme': {
-                                for (let i = 1; i <= 5; i++)
-                                    inj += `
-                                    ${num == i ? 
-                                        `#mobu${i} { background-color: var(--button-color-active-header) !important; }` : 
-                                        `#moma${i} { display: none !important; } #mobu${i} { background-color: var(--button-color-header) !important; }`
-                                    }`;
-                                break;
-                            }
-                            case 'greet': {
-                                for (let i = 1; i <= 2; i++)
-                                    inj += `
-                                    ${num == i ? 
-                                        `#mobu${i} { background-color: var(--button-color-active-header) !important; }` : 
-                                        `#moma${i} { display: none !important; } #mobu${i} { background-color: var(--button-color-header) !important; }`
-                                    }`;
-                                break;
-                            }
-                            case 'chang': {
-                                for (let i = 1; i <= 3; i++)
-                                    inj += `
-                                    ${num == i ? 
-                                        `#mobu${i} { background-color: var(--button-color-active-header) !important; }` : 
-                                        `#moma${i} { display: none !important; } #mobu${i} { background-color: var(--button-color-header) !important; }`
-                                    }`;
-                                break;
-                            }
-                        }
-                        document.querySelector('#matches').innerHTML = inj
-                    }
-
-                    UI.MODAL.settings = {
-                        theme: function() {
-                            try {
-                                let dark = window.matchMedia("(prefers-color-scheme: dark)");
-                                let matchTheme = 1
-                                switch (localStorage.getItem('THEME-type')) {
-                                    case 'system': matchTheme = 1; break;
-                                    case 'button': matchTheme = 2; break;
-                                    case 'sun': matchTheme = 3; break;
-                                    case 'alight': matchTheme = 4; break;
-                                    case 'adark': matchTheme = 5; break;
-                                }
-                                let dbset = [
-                                    ['по системной', `сейчас: ${dark.matches ? 'темная' : 'светлая'}`, 
-                                    'violet', '', 'smartphone', 'system'],
-                                    ['по кнопке', `сверху страницы`, 
-                                    'green', '', 'ads_click', 'button'],
-                                    ['по закату/<br>рассвету', `светлая ${SunCalc.getTimes(CURRDATE, 64.4, 40.4).sunrise.getHours()}:${SunCalc.getTimes(CURRDATE, 64.4, 40.4).sunrise.getMinutes() < 10 ? `0${SunCalc.getTimes(CURRDATE, 64.4, 40.4).sunrise.getMinutes()}` : SunCalc.getTimes(CURRDATE, 64.4, 40.4).sunrise.getMinutes()}-${SunCalc.getTimes(CURRDATE, 64.4, 40.4).sunset.getHours()}:${SunCalc.getTimes(CURRDATE, 64.4, 40.4).sunset.getMinutes() < 10 ? `0${SunCalc.getTimes(CURRDATE, 64.4, 40.4).sunset.getMinutes()}` : SunCalc.getTimes(CURRDATE, 64.4, 40.4).sunset.getMinutes()}`, 
-                                    'yellow', '', 'schedule', 'sun'],
-                                    ['всегда светлая', ``, 
-                                    'neutral', '', 'light_mode', 'alight'],
-                                    ['всегда темная', ``, 
-                                    'dark', '', 'dark_mode', 'adark'],
-                                ]
-                                let inj = ''
-                                for (let i = 1; i <= 5; i++) inj += `
-                                    <button onclick="matchesChanger('theme', ${i}); localStorage.setItem('THEME-type', '${dbset[i-1][5]}'); setUpdate()" id="mobu${i}" style="width: 100%; height: 86px !important; margin: 0 0 8px 0; padding: 8px 8px 8px 4px !important; ${matchTheme == i ? 'background: var(--button-color-active-header);' : 'background: var(--button-color-header);'} border: 2px solid var(--button-color); border-radius: 18px; display: flex; flex-direction: row; align-items: center; justify-content: space-between;">
-                                        <div style="display: flex; flex-direction: row;">
-                                            <div style="width: 32px; display: flex; justify-content: center; align-items: center;">
-                                                <span id="moma${i}" ${matchTheme == i ? 'style="display: inherit;"' : ''} class="material-symbols-rounded">check</span>
-                                            </div>
-                                            <div>
-                                                <p style="margin: 0; font-family: 'Montserrat'; text-align: left;">${dbset[i-1][0]}</p>
-                                                <p style="opacity: 0.4; font-size: 12px; margin: 0; font-family: 'Montserrat'; text-align: left;">${dbset[i-1][1]}</p>
-                                            </div>
-                                        </div>
-                                        ${UI.cIcon({
-                                            size: 48, 
-                                            border: 24, 
-                                            color: dbset[i-1][2], 
-                                            icon: dbset[i-1][4], 
-                                            font: 24
-                                        })}
-                                    </button>
-                                `
-                                UX.modal(`
-                                    <style>.max-modal { width: 100% !important; }</style>
-                                    <style id="matches">#moma1, #moma2, #moma3, #moma4, #moma5 { display: none; }</style>
-                                    <div style="margin: 0 18px; max-height: 90%; overflow-y: auto; background-color: var(--bg-color); border: none; border-radius: 24px; box-shadow: 0px 0px 8px var(--box-shadow-color);">
-                                        <h1 style="font-family: 'Montserrat' !important; text-align: center; margin: 16px;">тема</h1>
-                                        <div style="display: flex; flex-direction: column; align-items: center; margin: 0 18px; overflow-y: scroll; max-height: 55vh;">
-                                            ${inj}
-                                        </div>
-                                        <div style="display: flex; justify-content: center;">
-                                            <button style="width: 128px; margin: 12px 16px 16px 16px;" onclick="document.getElementById('modal').innerHTML = ''; UX.theme.load()">закрыть</button>
-                                        </div>
-                                    </div>
-                                `)
-                                setUpdate()
-                            }
-                            catch (e) { plutonny.console.error('index.html -> settings -> UI.MODAL.settings.theme', e) }
-                        },
-                        greetingsType: function() {
-                            try {
-                                let matchGreet = 1
-                                switch (localStorage.getItem('greetingsType')) {
-                                    case 'official': matchGreet = 1; break;
-                                    case 'unofficial': matchGreet = 2; break;
-                                }
-                                let dbset = [
-                                    ['официальное', `"добрый день/вечер"`, 
-                                    'blue', '', 'apartment', 'official'],
-                                    ['неофициальное', `"привет"`, 
-                                    'red', '', 'volunteer_activism', 'unofficial'],
-                                ]
-                                let inj = ''
-                                for (let i = 1; i <= 2; i++) inj += `
-                                    <button onclick="matchesChanger('greet', ${i}); localStorage.setItem('greetingsType', '${dbset[i-1][5]}'); setUpdate()" id="mobu${i}" style="width: 100%; height: 86px !important; margin: 0 0 8px 0; padding: 8px 8px 8px 4px !important; ${matchGreet == i ? 'background: var(--button-color-active-header);' : 'background: var(--button-color-header);'} border: 2px solid var(--button-color); border-radius: 18px; display: flex; flex-direction: row; align-items: center; justify-content: space-between;">
-                                        <div style="display: flex; flex-direction: row;">
-                                            <div style="width: 32px; display: flex; justify-content: center; align-items: center;">
-                                                <span id="moma${i}" ${matchGreet == i ? 'style="display: inherit;"' : ''} class="material-symbols-rounded">check</span>
-                                            </div>
-                                            <div>
-                                                <p style="margin: 0; font-family: 'Montserrat'; text-align: left;">${dbset[i-1][0]}</p>
-                                                <p style="opacity: 0.4; font-size: 12px; margin: 0; font-family: 'Montserrat'; text-align: left;">${dbset[i-1][1]}</p>
-                                            </div>
-                                        </div>
-                                        ${UI.cIcon({
-                                            size: 48, 
-                                            border: 24, 
-                                            color: dbset[i-1][2], 
-                                            icon: dbset[i-1][4], 
-                                            font: 24
-                                        })}
-                                    </button>
-                                `
-                                UX.modal(`
-                                    <style>.max-modal { width: 100% !important; }</style>
-                                    <style id="matches">#moma1, #moma2 { display: none; }</style>
-                                    <div style="margin: 0 18px; max-height: 90%; overflow-y: auto; background-color: var(--bg-color); border: none; border-radius: 24px; box-shadow: 0px 0px 8px var(--box-shadow-color);">
-                                        <h1 style="font-family: 'Montserrat' !important; text-align: center; margin: 16px;">приветсвтие</h1>
-                                        <div style="display: flex; flex-direction: column; align-items: center; margin: 0 18px; overflow-y: scroll; max-height: 55vh;">
-                                            ${inj}
-                                        </div>
-                                        <div style="display: flex; justify-content: center;">
-                                            <button style="width: 128px; margin: 12px 16px 16px 16px;" onclick="document.getElementById('modal').innerHTML = ''; UX.theme.load()">закрыть</button>
-                                        </div>
-                                    </div>
-                                `)
-                                setUpdate()
-                            }
-                            catch (e) { plutonny.console.error('index.html -> settings -> UI.MODAL.settings.greetingsType', e) }
-                        },
-                        viewChangImport: function() {
-                            try {
-                                let matchChang = 1
-                                switch (localStorage.getItem('viewChangImport')) {
-                                    case 'no': matchChang = 1; break;
-                                    case 'onlp': matchChang = 2; break;
-                                    case 'yes': matchChang = 3; break;
-                                }
-                                let dbset = [
-                                    ['расписание', ``, 
-                                    'red', '', 'local_library', 'no'],
-                                    ['изменения<br>только на УП', ``, 
-                                    'yellow', '', 'history_edu', 'onlp'],
-                                    ['изменения', ``, 
-                                    'blue', '', 'change_circle', 'yes'],
-                                ]
-                                let inj = ''
-                                for (let i = 1; i <= 3; i++) inj += `
-                                    <button onclick="matchesChanger('chang', ${i}); localStorage.setItem('viewChangImport', '${dbset[i-1][5]}'); setUpdate()" id="mobu${i}" style="width: 100%; height: 86px !important; margin: 0 0 8px 0; padding: 8px 8px 8px 4px !important; ${matchChang == i ? 'background: var(--button-color-active-header);' : 'background: var(--button-color-header);'} border: 2px solid var(--button-color); border-radius: 18px; display: flex; flex-direction: row; align-items: center; justify-content: space-between;">
-                                        <div style="display: flex; flex-direction: row;">
-                                            <div style="width: 32px; display: flex; justify-content: center; align-items: center;">
-                                                <span id="moma${i}" ${matchChang == i ? 'style="display: inherit;"' : ''} class="material-symbols-rounded">check</span>
-                                            </div>
-                                            <div>
-                                                <p style="margin: 0; font-family: 'Montserrat'; text-align: left;">${dbset[i-1][0]}</p>
-                                                <p style="opacity: 0.4; font-size: 12px; margin: 0; font-family: 'Montserrat'; text-align: left;">${dbset[i-1][1]}</p>
-                                            </div>
-                                        </div>
-                                        ${UI.cIcon({
-                                            size: 48, 
-                                            border: 24, 
-                                            color: dbset[i-1][2], 
-                                            icon: dbset[i-1][4], 
-                                            font: 24
-                                        })}
-                                    </button>
-                                `
-                                UX.modal(`
-                                    <style>.max-modal { width: 100% !important; }</style>
-                                    <style id="matches">#moma1, #moma2, #moma3 { display: none; }</style>
-                                    <div style="margin: 0 18px; max-height: 90%; overflow-y: auto; background-color: var(--bg-color); border: none; border-radius: 24px; box-shadow: 0px 0px 8px var(--box-shadow-color);">
-                                        <h1 style="font-family: 'Montserrat' !important; text-align: center; margin: 16px;">гл. страница</h1>
-                                        <div style="display: flex; flex-direction: column; align-items: center; margin: 0 18px; overflow-y: scroll; max-height: 55vh;">
-                                            ${inj}
-                                        </div>
-                                        <div style="display: flex; justify-content: center;">
-                                            <button style="width: 128px; margin: 12px 16px 16px 16px;" onclick="document.getElementById('modal').innerHTML = ''; UX.theme.load()">закрыть</button>
-                                        </div>
-                                    </div>
-                                `)
-                                setUpdate()
-                            }
-                            catch { plutonny.console.error('ondex.html -> settings -> UI.MODAL.settings.viewChangImport', e) }
-                        }
-                    }
-                    
-                    function clearCache() {
-                        caches.delete('csc11-v4-byPlutonny')
-                        caches.delete('csc11-byPlutonny')
-                        caches.delete('plutonny-college')
-                        plutonny.output('CCB', 'успешно')
-                    }
-                    function cd() {
-                        try {
-                            navigator.serviceWorker.getRegistrations().then(function(registrations) {
-                                for(let registration of registrations) {
-                                    registration.unregister();
-                                } 
-                            });
-                            caches.delete('csc11-v4-byPlutonny')
-                            caches.delete('csc11-byPlutonny')
-                            caches.delete('plutonny-college')
-                            localStorage.clear()
-                            sessionStorage.clear()
-                        }
-                        catch (e) { plutonny.console.error('index.html -> settings -> cd()', e) }
-                        plutonny.output('content', '<h1 align="center">успешно</h1><p align="center">теперь перезагрузите страницу</p>')
-                    }
-                    function clearData() {
-                        UX.modal(`
-                            <div style="margin: 0 18px; max-height: 95%; overflow-y: auto; background-color: var(--bg-color); border: none; border-radius: 24px; box-shadow: 0px 0px 8px var(--box-shadow-color);">
-                                <h1 style="font-family: 'Montserrat' !important; text-align: center; margin: 16px;">уверен?</h1>
-                                <div style="display: flex; justify-content: center;">
-                                    <button style="width: 128px; margin: 4px 16px 16px 16px; background-color: #00ff0020;" onclick="document.getElementById('modal').innerHTML = ''; UX.theme.load()">НЕТ</button>
-                                    <button style="width: 128px; margin: 4px 16px 16px 16px; background-color: #ff000020;" onclick="document.getElementById('modal').innerHTML = ''; cd()">ДА</button>
-                                </div>
-                            </div>
-                        `)
-                    }
-                    function setUpdate() {
-                        try {
-                            let nameArr = {}
-
-                            switch (localStorage.getItem('THEME-type')) {
-                                case 'button': nameArr.themeType = 'по кнопке'; break;
-                                case 'sun': nameArr.themeType = 'по времени заката/рассвета'; break;
-                                case 'system': nameArr.themeType = 'системная'; break;
-                                case 'alight': nameArr.themeType = 'всегда светлая'; break;
-                                case 'adark': nameArr.themeType = 'всегда темная'; break;
-                            }
-
-                            switch (localStorage.getItem('greetingsType')) {
-                                case 'official': nameArr.greetingsType = 'официальное'; break;
-                                case 'unofficial': nameArr.greetingsType = 'формальное'; break;
-                            }
-
-                            switch (localStorage.getItem('viewChangImport')) {
-                                case 'yes': nameArr.viewChangImport = 'выводятся изменения'; break;
-                                case 'onlp': nameArr.viewChangImport = 'выводятся изменения на УП'; break;
-                                case 'no': nameArr.viewChangImport = 'выводится расписание'; break;
-                            }
-
-                            plutonny.output('content', `
-                                <div style="height: 24px;"></div>
-                                <div style="display: flex; align-items: center; flex-direction: column; flex-wrap: nowrap;">
-                                    <b style="margin: 0 0 8px 0; font-family: 'Montserrat';">твой ник:</b>
-                                    <input type="text" id="username" autocomplete="off" style="font-family: 'Montserrat'; text-align: center; color: var(--text-color); border: none; border-radius: 18px; background-color: var(--button-color); height: 26px; width: 200px;" ${ localStorage.getItem('username') == null || localStorage.getItem('username') == '' ? '' : `value="${localStorage.getItem('username')}"` }>
-                                    <p id="usernamesave" style="font-size: 14px; margin-left: 8px 0 0 0; opacity: 0.5; user-select: none;"></p>
-                                </div>
-
-                                <div style="height: 24px;"></div>
-                                <button style="width: 100%; height: 96px; background: var(--button-color-header) !important; border: 2px solid var(--button-color); border-radius: 18px; padding: 8px 16px !important; display: flex; flex-direction: row; flex-wrap: nowrap; align-items: center; justify-content: space-between;" 
-                                onclick="UI.MODAL.settings.theme()">
-                                    <div style="text-align: left;">
-                                        <b style="margin: 0; font-family: 'Montserrat';">работа темы</b>
-                                        <p style="margin: 0; font-size: 12px; font-family: 'Montserrat';">${nameArr.themeType}</p>
-                                    </div>
-                                    <div style="margin-right: auto;"></div>
-                                    <div style="width: 16px;"></div>
-                                    <div style="width: 48px;">
-                                        ${UI.cIcon({size: 48, border: 24, color: 'blue', icon: 'model_training', font: 24})}
-                                    </div>
-                                </button>
-
-                                <div style="height: 24px;"></div>
-                                <button style="width: 100%; height: 96px; background: var(--button-color-header) !important; border: 2px solid var(--button-color); border-radius: 18px; padding: 8px 16px !important; display: flex; flex-direction: row; flex-wrap: nowrap; align-items: center; justify-content: space-between;" 
-                                onclick="UI.MODAL.settings.greetingsType()">
-                                    <div style="text-align: left;">
-                                        <b style="margin: 0; font-family: 'Montserrat';">приветствие</b>
-                                        <p style="margin: 0; font-size: 12px; font-family: 'Montserrat';">${nameArr.greetingsType}</p>
-                                    </div>
-                                    <div style="margin-right: auto;"></div>
-                                    <div style="width: 16px;"></div>
-                                    <div style="width: 48px;">
-                                        ${UI.cIcon({size: 48, border: 24, color: 'yellow', icon: 'waving_hand', font: 24})}
-                                    </div>
-                                </button>
-
-                                <div style="height: 24px;"></div>
-                                <button style="width: 100%; height: 96px; background: var(--button-color-header) !important; border: 2px solid var(--button-color); border-radius: 18px; padding: 8px 16px !important; display: flex; flex-direction: row; flex-wrap: nowrap; align-items: center; justify-content: space-between;" 
-                                onclick="UI.MODAL.settings.viewChangImport()">
-                                    <div style="text-align: left;">
-                                        <b style="margin: 0; font-family: 'Montserrat';">главная страница</b>
-                                        <p style="margin: 0; font-size: 12px; font-family: 'Montserrat';">${nameArr.viewChangImport}</p>
-                                    </div>
-                                    <div style="margin-right: auto;"></div>
-                                    <div style="width: 16px;"></div>
-                                    <div style="width: 48px;">
-                                        ${UI.cIcon({size: 48, border: 24, color: 'green', icon: 'home', font: 24})}
-                                    </div>
-                                </button>
-
-                                <div style="height: 24px;"></div>
-                                <button style="width: 100%; font-family: 'Montserrat';" onclick="clearCache()" id="CCB">
-                                    очистить кэш
-                                </button>
-                                <div style="height: 14px;"></div>
-                                <button style="width: 100%; font-family: 'Montserrat';" onclick="clearData()">
-                                    удалить все данные
-                                </button>
-                            `)
-                            UX.theme.load()
-                        }
-                        catch { pageCantLoad() }
-                        username.oninput = async function() { localStorage.setItem('username', username.value); usernamesave.innerHTML = 'сохранено'; await plutonny.sleep(2500); usernamesave.innerHTML = '' }
-                    }
                     setUpdate()
                 } 
                 else if (URLDIR[1] == 'support') {
@@ -2675,7 +2689,7 @@
                             </button>
                             `)
                         }
-                        catch { pageCantLoad() }
+                        catch (e) { plutonny.console.error('index.html -> support/', e); pageCantLoad() }
                     } 
                     else if (URLDIR[2] == 'important') {
                         try {
@@ -2703,7 +2717,7 @@
                             <li style="font-family: 'Montserrat';">если изменения не отображаются (ошибка "File not found"), следовательно либо произошел системный сбой данного сайта, либо не опубликованы изменения со стороны сайта колледжа</li>
                             `)
                         }
-                        catch { pageCantLoad() }
+                        catch (e) { plutonny.console.error('index.html -> support/important/', e); pageCantLoad() }
                     }
                     else if (URLDIR[2] == 'install') {
                         try {
@@ -2757,7 +2771,7 @@
                             `)
                             UX.changer(1)
                         }
-                        catch { pageCantLoad() }
+                        catch (e) { plutonny.console.error('index.html -> support/install/', e); pageCantLoad() }
                     } 
                     else if (URLDIR[2] == 'colapp') {
                         try {
@@ -2839,7 +2853,7 @@
                             `)
                             UX.changer(1)
                         }
-                        catch { pageCantLoad() }
+                        catch (e) { plutonny.console.error('index.html -> support/colapp/', e); pageCantLoad() }
                     }
                     else page404()
                 }  
@@ -2897,7 +2911,7 @@
                             </div>
                             `)
                         } 
-                        catch { pageCantLoad() }
+                        catch (e) { plutonny.console.error('index.html -> updates/', e); pageCantLoad() }
                     }
                     else if (URLDIR[2] == 'old') {
                         try {
@@ -2975,7 +2989,7 @@
                             <li>сделана версия для ПК</li>
                             `)
                         } 
-                        catch { pageCantLoad() }
+                        catch (e) { plutonny.console.error('index.html -> updates/old/', e); pageCantLoad() }
                     }
                     else page404()
                 }
@@ -2984,23 +2998,30 @@
             pageCreator()
         </script>
 
-        <!-- Clear loading div -->
+        <!-- clearing -->
         <script id="ClLo" type="text/javascript">
-            window.addEventListener('load', async function() { 
-                await plutonny.sleep(1500)
-                try { document.getElementById('genload').remove() } catch {} 
-                try { document.getElementById('PaCr').remove() } catch {} 
-                try { document.getElementById('ClLo').remove() } catch {}
-                try { document.getElementById('PrCh').remove() } catch {} 
-                try { document.getElementById('GlVa').remove() } catch {} 
-                try { document.getElementById('UsEx').remove() } catch {} 
-                try { document.getElementById('UsIn').remove() } catch {} 
-                try { document.getElementById('SeWo').remove() } catch {} 
-                try { document.getElementById('TiSc').remove() } catch {} 
+            window.addEventListener('load', function() { 
+                let deleteList = [
+                    'genload', 
+                    'ImLo', 
+                    'PaCr', 
+                    'ClLo', 
+                    'PrCh', 
+                    'GlVa', 
+                    'UsEx', 
+                    'UsIn', 
+                    'SeWo', 
+                    'TiSc', 
+                    'MaSh', 
+                    'PcFu'
+                ]
+                for (let i in deleteList) {
+                    try { document.getElementById(deleteList[i]).remove() } catch {} 
+                }
             })
         </script>
 
-        <!-- Update modal work -->
+        <!-- update modal work -->
         <script id="UpMo" type="text/javascript">
             window.onload = function() {
                 if (localStorage.getItem(`noDisplayUpdate${siteVersion}`) != 'true') { 
