@@ -55,17 +55,17 @@
         <link   rel="preload prefetch"              href="https://fonts.gstatic.com/s/materialsymbolsrounded/v74/sykg-zNym6YjUruM-QrEh7-nyTnjDwKNJ_190Fjzag.woff2" as="font" type="font/woff2" crossorigin onload="clgenld()">
         
         <!-- CSS and icon site -->
-        <link   rel="preload prefetch stylesheet"   href="https://lib.plutonny.ru/viewer.css?cache=02.04.2023-v410-b39" as="style">
-        <link   rel="preload prefetch stylesheet"   href="static/load.css?cache=02.04.2023-v410-b39" as="style">
-        <link   rel="preload prefetch stylesheet"   href="static/main.css?cache=02.04.2023-v410-b39" as="style">
-        <link   rel="icon"                          href="static/g-icon.png?cache=02.04.2023-v410-b39">
+        <link   rel="preload prefetch stylesheet"   href="https://lib.plutonny.ru/viewer.css?cache=03.04.2023-v410-b40" as="style">
+        <link   rel="preload prefetch stylesheet"   href="static/load.css?cache=03.04.2023-v410-b40" as="style">
+        <link   rel="preload prefetch stylesheet"   href="static/main.css?cache=03.04.2023-v410-b40" as="style">
+        <link   rel="icon"                          href="static/g-icon.png?cache=03.04.2023-v410-b40">
         <link   rel="apple-touch-icon"              href="pwa-icon-apple.png">
 
         <!-- JS files -->
-        <script type="text/javascript"              src="https://lib.plutonny.ru/plutonny.js/v1.0.js?cache=02.04.2023-v410-b39"></script>
-        <script type="text/javascript"              src="https://lib.plutonny.ru/luxon.js?cache=02.04.2023-v410-b39"></script>
-        <script type="text/javascript"              src="https://lib.plutonny.ru/solar.js?cache=02.04.2023-v410-b39"></script>
-        <script type="text/javascript"              src="https://lib.plutonny.ru/viewer.js?cache=02.04.2023-v410-b39"></script>
+        <script type="text/javascript"              src="https://lib.plutonny.ru/plutonny.js/v1.0.js?cache=03.04.2023-v410-b40"></script>
+        <script type="text/javascript"              src="https://lib.plutonny.ru/luxon.js?cache=03.04.2023-v410-b40"></script>
+        <script type="text/javascript"              src="https://lib.plutonny.ru/solar.js?cache=03.04.2023-v410-b40"></script>
+        <script type="text/javascript"              src="https://lib.plutonny.ru/viewer.js?cache=03.04.2023-v410-b40"></script>
         
         <style  id="root-colors-theme"              >#thMoon, #thSun { display: none; }</style>
 
@@ -94,8 +94,8 @@
         <script id="GlVa" type="text/javascript">
             "use strict";
             
-            var siteVersion = '4.0.2 -> 4.1.0'
-            var siteBuild = '39'
+            var siteVersion = '4.1.0'
+            var siteBuild = '40'
 
             var CURRDATE = new Date()
             var NEXTDAY = new Date(); NEXTDAY.setDate(CURRDATE.getDay() == 6 ? CURRDATE.getDate() + 2 : CURRDATE.getDate() + 1)
@@ -563,7 +563,8 @@
              *  |    |                            icon: "result from UI.cIcon()",
              *  |    |                            cab: "str",
              *  |    |                            time: "str",
-             *  |    |                            active: bool
+             *  |    |                            active: bool,
+             *  |    |                            position: "first"\"last"\"other"\"week"
              *  |    |                       })
              *  |    | -- week(settings) (settings = {
              *  |    |                         id: int,
@@ -842,7 +843,11 @@
                     return `
                         <div onclick="UI.MODAL.pair(${settings.id})" style="${settings.active ? 'border: 2px solid #FF000099;' : ''}display: flex; flex-direction: row; flex-wrap: nowrap; width: calc(100% - 16px); 
                         ${col == 'default' ? `background: var(--button-color); ` : `background: rgb(2,0,36); background: linear-gradient(90deg, var(--button-color) 50%, var(--ui-${col}) 100%); `}
-                        border-radius: 18px; margin: 0 0 16px 0; padding: 0 8px;">
+                        ${settings.position == 'first' ? 'border-radius: 18px 18px 8px 8px;' : ''}
+                        ${settings.position == 'last' ? 'border-radius: 8px 8px 18px 18px;' : ''}
+                        ${settings.position == 'other' ? 'border-radius: 8px;' : ''}
+                        ${settings.position == 'week' ? 'border-radius: 18px;' : ''}
+                        margin: 0 0 16px 0; padding: 0 8px;">
                             <div style="width: 36px; margin: 8px 8px 0 0;">${settings.icon}</div>
                             <div style="padding: 12px 0; display: flex; flex-direction: column; justify-content: center;">
                                 <b style="margin: 0; font-family: 'Montserrat';">${settings.name}</b>
@@ -1040,9 +1045,11 @@
                         function fco(i, a) {
                             let inj = ''
                             if (i == 1) {
+                                let counter = 0
                                 for (let j in tim[NUMSEMESTR][i]) {
                                     if (j != 'count') {
                                         if (tim[NUMSEMESTR][i][j]['num'] == 0) {
+                                            counter += 1
                                             inj += UI.timetable.default(tim[NUMSEMESTR][i][j]['color'], {
                                                 id: tim[NUMSEMESTR][i][j]['id'],
                                                 name: subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['name'],
@@ -1050,10 +1057,12 @@
                                                 icon: UI.cIcon({size: 36, border: 10, color: subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['color'], icon: subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['icon'], font: 24}),
                                                 cab: tim[NUMSEMESTR][i][j]['cab'],
                                                 time: `${UX.timetable.alert.UIed.monday[0][0]}-${UX.timetable.alert.UIed.monday[0][1]}`,
-                                                active: UX.timetable.currentPairNum() == 0 && a == 'active' && a != 'noactive'
+                                                active: UX.timetable.currentPairNum() == 0 && a == 'active' && a != 'noactive',
+                                                position: 'first'
                                             })
                                         }
-                                        else if (tim[NUMSEMESTR][i][j]['color'] == 'default')
+                                        else if (tim[NUMSEMESTR][i][j]['color'] == 'default') {
+                                            counter += 1
                                             inj += UI.timetable.default(tim[NUMSEMESTR][i][j]['color'], {
                                                 id: tim[NUMSEMESTR][i][j]['id'],
                                                 name: subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['name'],
@@ -1061,9 +1070,12 @@
                                                 icon: UI.cIcon({size: 36, border: 10, color: subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['color'], icon: subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['icon'], font: 24}),
                                                 cab: tim[NUMSEMESTR][i][j]['cab'],
                                                 time: `${UX.timetable.alert.UIed.monday[tim[NUMSEMESTR][i][j]['num']][0]}-${UX.timetable.alert.UIed.monday[tim[NUMSEMESTR][i][j]['num']][3]}`,
-                                                active: UX.timetable.currentPairNum() == tim[NUMSEMESTR][i][j]['num'] && a == 'active' && a != 'noactive'
+                                                active: UX.timetable.currentPairNum() == tim[NUMSEMESTR][i][j]['num'] && a == 'active' && a != 'noactive',
+                                                position: counter <= tim[NUMSEMESTR][i]['count']-1 ? 'other' : 'last'
                                             })
+                                        }
                                         else if ((tim[NUMSEMESTR][i][j]['color'] == 'yellow' && CURRDATE.getDay() != 0 && WEEK.name.EN == 'yellow') || (tim[NUMSEMESTR][i][j]['color'] == 'yellow' && CURRDATE.getDay() == 0 && WEEK.name.alt.EN == 'yellow')) {
+                                            counter += 1
                                             inj += UI.timetable.default('yellow', {
                                                 id: tim[NUMSEMESTR][i][j]['id'],
                                                 name: subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['name'],
@@ -1071,10 +1083,12 @@
                                                 icon: UI.cIcon({size: 36, border: 10, color: subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['color'], icon: subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['icon'], font: 24}),
                                                 cab: tim[NUMSEMESTR][i][j]['cab'],
                                                 time: `${UX.timetable.alert.UIed.monday[tim[NUMSEMESTR][i][j]['num']][0]}-${UX.timetable.alert.UIed.monday[tim[NUMSEMESTR][i][j]['num']][3]}`,
-                                                active: UX.timetable.currentPairNum() == tim[NUMSEMESTR][i][j]['num'] && a == 'active' && a != 'noactive'
+                                                active: UX.timetable.currentPairNum() == tim[NUMSEMESTR][i][j]['num'] && a == 'active' && a != 'noactive',
+                                                position: counter <= tim[NUMSEMESTR][i]['count']-1 ? 'other' : 'last'
                                             })
                                         }
                                         else if ((tim[NUMSEMESTR][i][j]['color'] == 'green' && CURRDATE.getDay() != 0 && WEEK.name.EN == 'green') || (tim[NUMSEMESTR][i][j]['color'] == 'green' && CURRDATE.getDay() == 0 && WEEK.name.alt.EN == 'green')) {
+                                            counter += 1
                                             inj += UI.timetable.default('green', {
                                                 id: tim[NUMSEMESTR][i][j]['id'],
                                                 name: subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['name'],
@@ -1082,7 +1096,8 @@
                                                 icon: UI.cIcon({size: 36, border: 10, color: subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['color'], icon: subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['icon'], font: 24}),
                                                 cab: tim[NUMSEMESTR][i][j]['cab'],
                                                 time: `${UX.timetable.alert.UIed.monday[tim[NUMSEMESTR][i][j]['num']][0]}-${UX.timetable.alert.UIed.monday[tim[NUMSEMESTR][i][j]['num']][3]}`,
-                                                active: UX.timetable.currentPairNum() == tim[NUMSEMESTR][i][j]['num'] && a == 'active' && a != 'noactive'
+                                                active: UX.timetable.currentPairNum() == tim[NUMSEMESTR][i][j]['num'] && a == 'active' && a != 'noactive',
+                                                position: counter <= tim[NUMSEMESTR][i]['count']-1 ? 'other' : 'last'
                                             })
                                         }
                                     }
@@ -1102,10 +1117,16 @@
                                 `
                             }
                             else {
+                                let counter = 0
+                                let posinj = ''
                                 let skip = false
                                 for (let j in tim[NUMSEMESTR][i]) {
                                     if (j != 'count') {
-                                        if (tim[NUMSEMESTR][i][j]['color'] == 'default')
+                                        if (counter == 0) posinj = 'first'
+                                        else if (counter <= tim[NUMSEMESTR][i]['count'] - 2) posinj = 'other'
+                                        else posinj = 'last'
+                                        if (tim[NUMSEMESTR][i][j]['color'] == 'default') {
+                                            counter += 1
                                             inj += UI.timetable.default(tim[NUMSEMESTR][i][j]['color'], {
                                                 id: tim[NUMSEMESTR][i][j]['id'],
                                                 name: subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['name'],
@@ -1113,9 +1134,12 @@
                                                 icon: UI.cIcon({size: 36, border: 10, color: subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['color'], icon: subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['icon'], font: 24}),
                                                 cab: tim[NUMSEMESTR][i][j]['cab'],
                                                 time: `${UX.timetable.alert.UIed.other[tim[NUMSEMESTR][i][j]['num']][0]}-${UX.timetable.alert.UIed.other[tim[NUMSEMESTR][i][j]['num']][3]}`,
-                                                active: UX.timetable.currentPairNum() == tim[NUMSEMESTR][i][j]['num'] && a == 'active' && a != 'noactive'
+                                                active: UX.timetable.currentPairNum() == tim[NUMSEMESTR][i][j]['num'] && a == 'active' && a != 'noactive',
+                                                position: posinj
                                             })
+                                        }
                                         else if (tim[NUMSEMESTR][i][j]['color'] == 'yellow' && WEEK.name.EN == 'yellow') {
+                                            counter += 1
                                             inj += UI.timetable.default('yellow', {
                                                 id: tim[NUMSEMESTR][i][j]['id'],
                                                 name: subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['name'],
@@ -1123,10 +1147,12 @@
                                                 icon: UI.cIcon({size: 36, border: 10, color:subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['color'], icon: subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['icon'], font: 24}),
                                                 cab: tim[NUMSEMESTR][i][j]['cab'],
                                                 time: `${UX.timetable.alert.UIed.other[tim[NUMSEMESTR][i][j]['num']][0]}-${UX.timetable.alert.UIed.other[tim[NUMSEMESTR][i][j]['num']][3]}`,
-                                                active: UX.timetable.currentPairNum() == tim[NUMSEMESTR][i][j]['num'] && a == 'active' && a != 'noactive'
+                                                active: UX.timetable.currentPairNum() == tim[NUMSEMESTR][i][j]['num'] && a == 'active' && a != 'noactive',
+                                                position: posinj
                                             })
                                         }
                                         else if (tim[NUMSEMESTR][i][j]['color'] == 'green' && WEEK.name.EN == 'green') {
+                                            counter += 1
                                             inj += UI.timetable.default('green', {
                                                 id: tim[NUMSEMESTR][i][j]['id'],
                                                 name: subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['name'],
@@ -1134,7 +1160,8 @@
                                                 icon: UI.cIcon({size: 36, border: 10, color: subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['color'], icon: subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['icon'], font: 24}),
                                                 cab: tim[NUMSEMESTR][i][j]['cab'],
                                                 time: `${UX.timetable.alert.UIed.other[tim[NUMSEMESTR][i][j]['num']][0]}-${UX.timetable.alert.UIed.other[tim[NUMSEMESTR][i][j]['num']][3]}`,
-                                                active: UX.timetable.currentPairNum() == tim[NUMSEMESTR][i][j]['num'] && a == 'active' && a != 'noactive'
+                                                active: UX.timetable.currentPairNum() == tim[NUMSEMESTR][i][j]['num'] && a == 'active' && a != 'noactive',
+                                                position: posinj
                                             })
                                         }
                                     }
@@ -1658,9 +1685,9 @@
                             <button style="height: 40px; width: 89px;"></button>
                         </div>
                                                     
-                        <div style="width: calc(100% - 16px); height: 68px; background: var(--button-color); border-radius: 18px; margin: 0 0 16px 0; padding: 0 8px;"></div>
-                        <div style="width: calc(100% - 16px); height: 68px; background: var(--button-color); border-radius: 18px; margin: 0 0 16px 0; padding: 0 8px;"></div>
-                        <div style="width: calc(100% - 16px); height: 68px; background: var(--button-color); border-radius: 18px; margin: 0 0 16px 0; padding: 0 8px;"></div>
+                        <div style="width: calc(100% - 16px); height: 68px; background: var(--button-color); border-radius: 18px 18px 8px 8px; margin: 0 0 16px 0; padding: 0 8px;"></div>
+                        <div style="width: calc(100% - 16px); height: 68px; background: var(--button-color); border-radius: 8px; margin: 0 0 16px 0; padding: 0 8px;"></div>
+                        <div style="width: calc(100% - 16px); height: 68px; background: var(--button-color); border-radius: 8px 8px 18px 18px; margin: 0 0 16px 0; padding: 0 8px;"></div>
 
                         <button style="width: 100%; height: 36px; font-family: 'Montserrat'; margin: 8px 0 0 0;"></button>
                         <button style="width: 100%; height: 36px; font-family: 'Montserrat'; margin: 8px 0 0 0;"></button>
@@ -1960,7 +1987,8 @@
                                                             teacher: subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['teacher'].split(' ')[0],
                                                             icon: UI.cIcon({size: 36, border: 10, color: subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['color'], icon: subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['icon'], font: 24}),
                                                             cab: tim[NUMSEMESTR][i][j]['cab'],
-                                                            time: `${UX.timetable.alert.UIed.monday[0][0]}-${UX.timetable.alert.UIed.monday[0][1]}`
+                                                            time: `${UX.timetable.alert.UIed.monday[0][0]}-${UX.timetable.alert.UIed.monday[0][1]}`,
+                                                            position: 'week'
                                                         })
                                                     }
                                                     else if (tim[NUMSEMESTR][i][j]['color'] == 'default')
@@ -1970,7 +1998,8 @@
                                                             teacher: subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['teacher'].split(' ')[0],
                                                             icon: UI.cIcon({size: 36, border: 10, color: subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['color'], icon: subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['icon'], font: 24}),
                                                             cab: tim[NUMSEMESTR][i][j]['cab'],
-                                                            time: `${UX.timetable.alert.UIed.monday[tim[NUMSEMESTR][i][j]['num']][0]}-${UX.timetable.alert.UIed.monday[tim[NUMSEMESTR][i][j]['num']][3]}`
+                                                            time: `${UX.timetable.alert.UIed.monday[tim[NUMSEMESTR][i][j]['num']][0]}-${UX.timetable.alert.UIed.monday[tim[NUMSEMESTR][i][j]['num']][3]}`,
+                                                            position: 'week'
                                                         })
                                                     else {
                                                         if (skip) { inj[1] += `
@@ -2018,7 +2047,8 @@
                                                             teacher: subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['teacher'].split(' ')[0],
                                                             icon: UI.cIcon({size: 36, border: 10, color: subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['color'], icon: subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['icon'], font: 24}),
                                                             cab: tim[NUMSEMESTR][i][j]['cab'],
-                                                            time: `${UX.timetable.alert.UIed.other[tim[NUMSEMESTR][i][j]['num']][0]}-${UX.timetable.alert.UIed.other[tim[NUMSEMESTR][i][j]['num']][3]}`
+                                                            time: `${UX.timetable.alert.UIed.other[tim[NUMSEMESTR][i][j]['num']][0]}-${UX.timetable.alert.UIed.other[tim[NUMSEMESTR][i][j]['num']][3]}`,
+                                                            position: 'week'
                                                         })
                                                     else {
                                                         if (skip) { inj[1] += `
@@ -2028,7 +2058,7 @@
                                                                 name: subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['name'],
                                                                 teacher: subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['teacher'].split(' ')[0],
                                                                 color: tim[NUMSEMESTR][i][j]['color'],
-                                                                icon: UI.cIcon({size: 28, border: 10, color: subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['color'], icon: subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['icon'], font: 20}),
+                                                                icon: UI.cIcon({size: 28, border: 10, color: subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['color'], icon: subj[NUMSEMESTR][tim[NUMSEMESTR][i][j]['id']]['icon'], font: 20})
                                                             })}
                                                         </div>
                                                         `
@@ -2920,13 +2950,13 @@
                     if (URLDIR[2] == '') {
                         try {
                             UI.header({
-                                textCenter: 'версия 4', 
+                                textCenter: 'версия 4.1', 
                                 buttonTheme: false, 
                                 buttonBack: true, 
                                 enableHR: false, 
                                 HTMLAfter: ``
                             })
-                            plutonny.output('title-page', 'КСК-11 | версия 4')
+                            plutonny.output('title-page', 'КСК-11 | версия 4.1')
                             UI.navbar('other')
                             plutonny.output('content', `
                             <p style="font-family: 'Montserrat';">важная информация перед использованием сайта</p>
@@ -2934,23 +2964,12 @@
                                 <button onclick="window.location.href = '/?/support/important/'">прочитать</button>
                             </div>
 
-                            <p style="font-family: 'Montserrat';">на главной помечается текущая пара</p>
+                            <div style="height: 12px;"></div>
+                            <b style="font-family: 'Montserrat';">скорость загрузки страниц и сайта увеличена вплоть до 95%</b>
+                            <div style="height: 12px;"></div>
+                            
+                            <p style="font-family: 'Montserrat';">теперь на странице всех пар предметы делатся на те, по которым сдавать экзаме или зачет</p>
                             <div style="display: flex; justify-content: center; margin: 0 0 6px 0;"><img src="/static/updates/u1.png" style="width: 80%; margin-bottom: 6px; border-radius: 12px;"></div>
-
-                            <p style="font-family: 'Montserrat';">в звонках текущая пара так же помечается</p>
-                            <div style="display: flex; justify-content: center; margin: 0 0 6px 0;"><img src="/static/updates/u2.png" style="width: 80%; margin-bottom: 6px; border-radius: 12px;"></div>
-
-                            <p style="font-family: 'Montserrat';">на главной есть таймер пары: теперь ты знаешь когда уже можно выйти покурить</p>
-                            <div style="display: flex; justify-content: center; margin: 0 0 6px 0;"><img src="/static/updates/u3.png" style="width: 80%; margin-bottom: 6px; border-radius: 12px;"></div>
-
-                            <p style="font-family: 'Montserrat';">на главной можно включить просмотр изменений (изменить можно в настройках)</p>
-                            <div style="display: flex; justify-content: center; margin: 0 0 6px 0;"><img src="/static/updates/u4.png" style="width: 80%; margin-bottom: 6px; border-radius: 12px;"></div>
-
-                            <p style="font-family: 'Montserrat';">есть подробная информация о каждом предмете (так же по клику по паре)</p>
-                            <div style="display: flex; justify-content: center; margin: 0 0 6px 0;"><img src="/static/updates/u5.png" style="width: 80%; margin-bottom: 6px; border-radius: 12px;"></div>
-
-                            <p style="font-family: 'Montserrat';">удобная навигация по оценкам (так же фото теперь можно развернуть на весь экран)</p>
-                            <div style="display: flex; justify-content: center; margin: 0 0 6px 0;"><img src="/static/updates/u6.png" style="width: 80%; margin-bottom: 6px; border-radius: 12px;"></div>
 
                             <p style="font-family: 'Montserrat';">интересующие тебя вопросы в поддержке</p>
                             <div style="display: flex; justify-content: center;">
@@ -2959,6 +2978,9 @@
 
                             <p style="font-family: 'Montserrat';">есть полезные ссылки: можно быстро найти нужную информацию на сайте колледжа</p>
                             <div style="display: flex; justify-content: center; margin: 0 0 6px 0;"><img src="/static/updates/u7.png" style="width: 80%; margin-bottom: 6px; border-radius: 12px;"></div>
+                            <div style="display: flex; justify-content: center;">
+                                <button onclick="window.location.href = '/?/other/links/'">перейти</button>
+                            </div>
 
                             <p style="font-family: 'Montserrat';">загляни в настройки, там можно редактировать главную или настроить под себя тему</p>
                             <div style="display: flex; justify-content: center;">
@@ -3086,6 +3108,7 @@
                 if (localStorage.getItem(`noDisplayUpdate${siteVersion}`) != 'true') { 
                     if (document.getElementById('update-modal') == null) document.body.innerHTML += '<div id="update-modal" class="update-modal"><div>'
                         /* SMALL UPDATES */
+                        /*
                         plutonny.output('update-modal', `
                         <div id="mini-update-modal" class="mini-update-modal">
                             <style>
@@ -3097,9 +3120,8 @@
                                 <p style="margin: 0 0 0 8px; word-break: break-all;">вышло обновление</p>
                             </div>
                             <a style="margin: 0; word-break: break-all; text-decoration: none; color: blue;" href="/?/updates/old/">изменения</a>
-                        </div>`)
+                        </div>`)*/
                         /* BIG UPDATES */
-                        /*
                         UX.modal(`
                             <style>.max-modal { width: 100% !important; }</style>
                             <div style="margin: 0 18px; max-height: 90%; overflow-y: auto; background-color: var(--bg-color); border: none; border-radius: 24px; box-shadow: 0px 0px 8px var(--box-shadow-color);">
@@ -3111,7 +3133,7 @@
                                 <button style="width: 128px; margin: 4px 16px 16px 16px;" onclick="window.location.href = '/?/updates/'">подробнее</button>
                             </div>
                             </div>
-                        `)*/
+                        `)
                     localStorage.setItem(`noDisplayUpdate${siteVersion}`, true)
                     caches.delete('csc11-v4-byPlutonny')
                     caches.delete('csc11-byPlutonny')
