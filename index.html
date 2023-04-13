@@ -55,17 +55,17 @@
         <link   rel="preload prefetch"              href="https://fonts.gstatic.com/s/materialsymbolsrounded/v74/sykg-zNym6YjUruM-QrEh7-nyTnjDwKNJ_190Fjzag.woff2" as="font" type="font/woff2" crossorigin onload="clgenld()">
         
         <!-- CSS and icon site -->
-        <link   rel="preload prefetch stylesheet"   href="https://lib.plutonny.ru/viewer.css?cache=03.04.2023-v410-b40" as="style">
-        <link   rel="preload prefetch stylesheet"   href="static/load.css?cache=03.04.2023-v410-b40" as="style">
-        <link   rel="preload prefetch stylesheet"   href="static/main.css?cache=03.04.2023-v410-b40" as="style">
-        <link   rel="icon"                          href="static/g-icon.png?cache=03.04.2023-v410-b40">
+        <link   rel="preload prefetch stylesheet"   href="https://lib.plutonny.ru/viewer.css?cache=13.04.2023-v410-b41" as="style">
+        <link   rel="preload prefetch stylesheet"   href="static/load.css?cache=13.04.2023-v410-b41" as="style">
+        <link   rel="preload prefetch stylesheet"   href="static/main.css?cache=13.04.2023-v410-b41" as="style">
+        <link   rel="icon"                          href="static/g-icon.png?cache=13.04.2023-v410-b41">
         <link   rel="apple-touch-icon"              href="pwa-icon-apple.png">
 
         <!-- JS files -->
-        <script type="text/javascript"              src="https://lib.plutonny.ru/plutonny.js/v1.0.js?cache=03.04.2023-v410-b40"></script>
-        <script type="text/javascript"              src="https://lib.plutonny.ru/luxon.js?cache=03.04.2023-v410-b40"></script>
-        <script type="text/javascript"              src="https://lib.plutonny.ru/solar.js?cache=03.04.2023-v410-b40"></script>
-        <script type="text/javascript"              src="https://lib.plutonny.ru/viewer.js?cache=03.04.2023-v410-b40"></script>
+        <script type="text/javascript"              src="https://lib.plutonny.ru/plutonny.js/v1.0.js?cache=13.04.2023-v410-b41"></script>
+        <script type="text/javascript"              src="https://lib.plutonny.ru/luxon.js?cache=13.04.2023-v410-b41"></script>
+        <script type="text/javascript"              src="https://lib.plutonny.ru/solar.js?cache=13.04.2023-v410-b41"></script>
+        <script type="text/javascript"              src="https://lib.plutonny.ru/viewer.js?cache=13.04.2023-v410-b41"></script>
         
         <style  id="root-colors-theme"              >#thMoon, #thSun { display: none; }</style>
 
@@ -95,7 +95,7 @@
             "use strict";
             
             var siteVersion = '4.1.0'
-            var siteBuild = '40'
+            var siteBuild = '41'
 
             var CURRDATE = new Date()
             var NEXTDAY = new Date(); NEXTDAY.setDate(CURRDATE.getDay() == 6 ? CURRDATE.getDate() + 2 : CURRDATE.getDate() + 1)
@@ -387,22 +387,16 @@
             var UI = {
                 header: function(settings) {
                     try {
-                        let inj = '';
+                        let inj = ['', ''];
                         if (settings.buttonTheme && localStorage.getItem('THEME-type') == "button") {
-                            inj += `<div
-                                        style="height: 38px; width: 38px; z-index: 90; fill: currentColor; left: calc(100% - 50px); position: absolute; margin: 18px 12px 0 0; border-radius: 100px; cursor: pointer;" 
-                                        onclick="UX.theme.change()">
-                                        <span class="material-symbols-rounded" style="font-size: 32px !important;" id="thMoon">dark_mode</span> 
-                                        <span class="material-symbols-rounded" style="font-size: 32px !important;" id="thSun">light_mode</span>
-                                    </div>`
+                            inj[0] += `
+                                        <span onclick="UX.theme.change()" class="material-symbols-rounded" style="font-size: 32px !important;" id="thMoon">dark_mode</span> 
+                                        <span onclick="UX.theme.change()" class="material-symbols-rounded" style="font-size: 32px !important;" id="thSun">light_mode</span>
+                                    `
                         }
 
                         if (settings.buttonBack) {
-                            inj += `<div
-                                        style="height: 38px; width: 38px; z-index: 90; fill: currentColor; position: absolute; margin: 18px 0 0 12px; border-radius: 100px; cursor: pointer;" 
-                                        onclick="history.back()">
-                                        <span class="material-symbols-rounded" style="font-size: 32px !important;">arrow_back</span>
-                                    </div>`
+                            inj[1] += `<span onclick="history.back()" class="material-symbols-rounded" style="font-size: 32px !important;">arrow_back</span>`
                         }
 
                         plutonny.output(`header`, `
@@ -410,7 +404,7 @@
                                 <style>
                                     #header {
                                         z-index: 3;
-                                        width: 100vw;
+                                        width: 100%;
                                         background-color: var(--bg-color-header);
                                         border-radius: 0 0 24px 24px;
                                     }
@@ -422,10 +416,15 @@
                                         align-items: flex-start; 
                                     }
                                 </style>
+                                <div style="height: 38px; width: 38px; z-index: 90; fill: currentColor; margin: 18px 0 0 12px; border-radius: 100px; cursor: pointer;">
+                                    ${inj[1]}
+                                </div>
                                 <div style="margin-right: auto;"></div>
                                 <p style="text-align: center; font-size: 20px; margin-bottom: 8px; z-index: 10;" onclick="addScript('//cdn.jsdelivr.net/npm/eruda?t=${CURRDATE.getTime()}'); eruda.init()">${settings.textCenter}</p>
                                 <div style="margin-right: auto;"></div>
-                                ${inj}
+                                <div style="height: 38px; width: 38px; z-index: 90; fill: currentColor; margin: 18px 12px 0 0; border-radius: 100px; cursor: pointer;">
+                                    ${inj[0]}
+                                </div>
                             </div>
                             ${settings.enableHR ? `<hr style="border: none; height: 0.5px; margin-top: 0; margin-bottom: 0; background-color: var(--text-color); opacity: 0.1; width: calc(100% - 20px);">` : ''}
                             ${settings.HTMLAfter}
@@ -526,7 +525,7 @@
                                     }
                                 }
                                 UX.modal(`
-                                    <style>.max-modal { width: 100% !important; }</style>
+                                    <style>.max-modal { width: 100%; }</style>
                                     <div style="margin: 0 18px; max-height: 90%; overflow-y: auto; background-color: var(--bg-color); border: none; border-radius: 24px; box-shadow: 0px 0px 8px var(--box-shadow-color);">
                                         <h1 style="font-family: 'Montserrat'; text-align: center; margin: 16px 16px 6px 16px;">${data[NUMSEMESTR][id]['name']}</h1>
                                         <div style="height: 12px;"></div>
@@ -841,7 +840,7 @@
             UI.timetable = {
                 default: function(col, settings) {
                     return `
-                        <div onclick="UI.MODAL.pair(${settings.id})" style="${settings.active ? 'border: 2px solid #FF000099;' : ''}display: flex; flex-direction: row; flex-wrap: nowrap; width: calc(100% - 16px); 
+                        <div onclick="UI.MODAL.pair(${settings.id})" style="${settings.active ? 'border: 2px solid #FF000099; width: calc(100% - 20px); ' : 'width: calc(100% - 16px); '}display: flex; flex-direction: row; flex-wrap: nowrap;
                         ${col == 'default' ? `background: var(--button-color); ` : `background: rgb(2,0,36); background: linear-gradient(90deg, var(--button-color) 50%, var(--ui-${col}) 100%); `}
                         ${settings.position == 'first' ? 'border-radius: 18px 18px 8px 8px;' : ''}
                         ${settings.position == 'last' ? 'border-radius: 8px 8px 18px 18px;' : ''}
@@ -924,68 +923,71 @@
             </style>
         </div>
 
-        <div class="page" id="page">
-            <div class="header" id="header">
-                <script>
-                    UI.header({
-                        textCenter: 'КСК-11', 
-                        buttonTheme: true, 
-                        buttonBack: false, 
-                        enableHR: false, 
-                        HTMLAfter: ''
-                    })
-                </script>
-            </div>
-            <div class="content" id="content"></div>
-            <div class="navbar" id="navbar">
-                <style id="navbarActiveButton"></style>
-                <style>
-                    #navbar {
-                        top: calc(100% - 76px);
-                        width: 100%;
-                        height: 64px;
-                        z-index: 10;
-                        padding-bottom: 12px;
-                        position: fixed;
-                        background-color: var(--bg-color-navbar);
-                    }
-                    .iconNavbar {
-                        padding: 3px 22px;
-                        border-radius: 100px;
-                    }
-                    .buttonsNavbar {
-                        padding: 6px;
-                        height: 100%;
-                        display: flex;
-                        flex-direction: row;
-                        flex-wrap: nowrap;
-                        justify-content: space-around;
-                        align-items: center;
-                    }
-                </style>
+        <div id="pageble" class="pageble">
+            <div class="page" id="page">
+                <div class="header" id="header">
+                    <script>
+                        UI.header({
+                            textCenter: 'КСК-11', 
+                            buttonTheme: true, 
+                            buttonBack: false, 
+                            enableHR: false, 
+                            HTMLAfter: ''
+                        })
+                    </script>
+                </div>
+                <div class="content" id="content"></div>
+                <div class="navbar" id="navbar">
+                    <style id="navbarActiveButton"></style>
+                    <style>
+                        #navbar {
+                            top: calc(100% - 76px);
+                            width: 100%;
+                            height: 64px;
+                            z-index: 10;
+                            padding-bottom: 12px;
+                            position: fixed;
+                            background-color: var(--bg-color-navbar);
+                        }
+                        .iconNavbar {
+                            padding: 3px 22px;
+                            border-radius: 100px;
+                        }
+                        .buttonsNavbar {
+                            padding: 6px;
+                            height: 100%;
+                            display: flex;
+                            flex-direction: row;
+                            flex-wrap: nowrap;
+                            justify-content: space-around;
+                            align-items: center;
+                        }
+                    </style>
 
-                <div class="buttonsNavbar">
-                    <a style="text-decoration: none; width: 20%" href="/?/">
-                        <div style="display: flex; flex-direction: column; flex-wrap: nowrap; align-items: center;">
-                            <p class="homeANavbar homeAIcon iconNavbar" style="color: var(--icon-color); fill: currentColor; margin: 0; height: 26px;"><span class="material-symbols-rounded" style="font-size: 26px !important;">home</span></p>
-                            <p class="homeANavbar" style="color: var(--icon-color); margin: 4px 0 0 0; font-size: 14px; font-family: 'Montserrat';">главная</p>
-                        </div>
-                    </a>
-                    <a style="text-decoration: none; width: 20%" href="/?/grades/">
-                        <div style="display: flex; flex-direction: column; flex-wrap: nowrap; align-items: center;">
-                            <p class="gradesANavbar gradesAIcon iconNavbar" style="color: var(--icon-color); fill: currentColor; margin: 0; height: 26px;"><span class="material-symbols-rounded" style="font-size: 26px !important;">assignment_turned_in</span></p>
-                            <p class="gradesANavbar" style="color: var(--icon-color); margin: 4px 0 0 0; font-size: 14px; font-family: 'Montserrat';">оценки</p>
-                        </div>
-                    </a>
-                    <a style="text-decoration: none; width: 20%" href="/?/other/">
-                        <div style="display: flex; flex-direction: column; flex-wrap: nowrap; align-items: center;">
-                            <p class="otherANavbar otherAIcon iconNavbar" style="color: var(--icon-color); fill: currentColor; margin: 0; height: 26px;"><span class="material-symbols-rounded" style="font-size: 26px !important;">menu</span></p>
-                            <p class="otherANavbar" style="color: var(--icon-color); margin: 4px 0 0 0; font-size: 14px; font-family: 'Montserrat';">другое</p>
-                        </div>
-                    </a>
+                    <div class="buttonsNavbar">
+                        <a style="text-decoration: none; width: 20%" href="/?/">
+                            <div style="display: flex; flex-direction: column; flex-wrap: nowrap; align-items: center;">
+                                <p class="homeANavbar homeAIcon iconNavbar" style="color: var(--icon-color); fill: currentColor; margin: 0; height: 26px;"><span class="material-symbols-rounded" style="font-size: 26px !important;">home</span></p>
+                                <p class="homeANavbar" style="color: var(--icon-color); margin: 4px 0 0 0; font-size: 14px; font-family: 'Montserrat';">главная</p>
+                            </div>
+                        </a>
+                        <a style="text-decoration: none; width: 20%" href="/?/grades/">
+                            <div style="display: flex; flex-direction: column; flex-wrap: nowrap; align-items: center;">
+                                <p class="gradesANavbar gradesAIcon iconNavbar" style="color: var(--icon-color); fill: currentColor; margin: 0; height: 26px;"><span class="material-symbols-rounded" style="font-size: 26px !important;">assignment_turned_in</span></p>
+                                <p class="gradesANavbar" style="color: var(--icon-color); margin: 4px 0 0 0; font-size: 14px; font-family: 'Montserrat';">оценки</p>
+                            </div>
+                        </a>
+                        <a style="text-decoration: none; width: 20%" href="/?/other/">
+                            <div style="display: flex; flex-direction: column; flex-wrap: nowrap; align-items: center;">
+                                <p class="otherANavbar otherAIcon iconNavbar" style="color: var(--icon-color); fill: currentColor; margin: 0; height: 26px;"><span class="material-symbols-rounded" style="font-size: 26px !important;">menu</span></p>
+                                <p class="otherANavbar" style="color: var(--icon-color); margin: 4px 0 0 0; font-size: 14px; font-family: 'Montserrat';">другое</p>
+                            </div>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
+        
 
         <script id="MaSh" type="text/javascript">
             if (!(window.location.href.split('/')[2] == 'college.plutonny.ru' || window.location.href.split('/')[2] == 'beta.college.plutonny.ru' || window.location.href.split('/')[2] == 'alpha.college.plutonny.ru' || window.location.href.split('/')[2] == '127.0.0.1:5500')) {
@@ -1300,7 +1302,7 @@
                             </button>
                         `
                         UX.modal(`
-                            <style>.max-modal { width: 100% !important; }</style>
+                            <style>.max-modal { width: 100%; }</style>
                             <style id="matches">#moma1, #moma2, #moma3, #moma4, #moma5 { display: none; }</style>
                             <div style="margin: 0 18px; max-height: 90%; overflow-y: auto; background-color: var(--bg-color); border: none; border-radius: 24px; box-shadow: 0px 0px 8px var(--box-shadow-color);">
                                 <h1 style="font-family: 'Montserrat' !important; text-align: center; margin: 16px;">тема</h1>
@@ -1351,7 +1353,7 @@
                             </button>
                         `
                         UX.modal(`
-                            <style>.max-modal { width: 100% !important; }</style>
+                            <style>.max-modal { width: 100%; }</style>
                             <style id="matches">#moma1, #moma2 { display: none; }</style>
                             <div style="margin: 0 18px; max-height: 90%; overflow-y: auto; background-color: var(--bg-color); border: none; border-radius: 24px; box-shadow: 0px 0px 8px var(--box-shadow-color);">
                                 <h1 style="font-family: 'Montserrat' !important; text-align: center; margin: 16px;">приветсвтие</h1>
@@ -1405,7 +1407,7 @@
                             </button>
                         `
                         UX.modal(`
-                            <style>.max-modal { width: 100% !important; }</style>
+                            <style>.max-modal { width: 100%; }</style>
                             <style id="matches">#moma1, #moma2, #moma3 { display: none; }</style>
                             <div style="margin: 0 18px; max-height: 90%; overflow-y: auto; background-color: var(--bg-color); border: none; border-radius: 24px; box-shadow: 0px 0px 8px var(--box-shadow-color);">
                                 <h1 style="font-family: 'Montserrat' !important; text-align: center; margin: 16px;">гл. страница</h1>
@@ -2327,7 +2329,7 @@
                             UI.navbar('grades')
                             plutonny.output('title-page', 'КСК-11 | оценки')
                             let inj = ''
-                            inj += `<div style="padding: 8px 24px 0 24px; overflow: auto; white-space: nowrap; height: 32px; width: calc(100% + 24px); transform: translateX(-24px);">`
+                            inj += `<div class="mobSubBut" style="padding: 8px 24px 0 24px; overflow: auto; white-space: nowrap; height: 32px; width: calc(100% + 24px); transform: translateX(-24px);">`
                             for (let i = 1; i <= data['count']; i++) {
                                 inj += `<a href="#sj${i}" style="background: var(--button-color); border-radius: 100px; padding: 4px 12px; margin: 2px; text-decoration: none;">${data['SUB'][i]['n']}</a>`
                             }
@@ -2965,27 +2967,50 @@
                             </div>
 
                             <div style="height: 12px;"></div>
+                            <hr style="width: 100%; opacity: 0.1; margin: 2px 0; background-color: var(--icon-color);">
+
+                            <div style="height: 12px;"></div>
                             <b style="font-family: 'Montserrat';">скорость загрузки страниц и сайта увеличена вплоть до 95%</b>
                             <div style="height: 12px;"></div>
+
+                            <hr style="width: 100%; opacity: 0.1; margin: 2px 0; background-color: var(--icon-color);">
                             
-                            <p style="font-family: 'Montserrat';">теперь на странице всех пар предметы делатся на те, по которым сдавать экзаме или зачет</p>
-                            <div style="display: flex; justify-content: center; margin: 0 0 6px 0;"><img src="/static/updates/u1.png" style="width: 80%; margin-bottom: 6px; border-radius: 12px;"></div>
+                            <p style="font-family: 'Montserrat';">теперь на странице всех пар предметы делятся на те, по которым сдавать экзамен или зачет</p>
+                            <div style="display: flex; justify-content: center; margin: 0 0 6px 0;"><img src="/static/updates/410-1.png" style="width: 80%; margin-bottom: 6px; border-radius: 12px;"></div>
+
+                            <div style="height: 12px;"></div>
+                            <hr style="width: 100%; opacity: 0.1; margin: 2px 0; background-color: var(--icon-color);">
+
+                            <div style="height: 12px;"></div>
+                            <b style="font-family: 'Montserrat';">комфортное отображение на ПК</b>
+                            <div style="height: 12px;"></div>
+
+                            <hr style="width: 100%; opacity: 0.1; margin: 2px 0; background-color: var(--icon-color);">
 
                             <p style="font-family: 'Montserrat';">интересующие тебя вопросы в поддержке</p>
                             <div style="display: flex; justify-content: center;">
                                 <button onclick="window.location.href = '/?/support/'">перейти</button>
                             </div>
 
+                            <div style="height: 12px;"></div>
+                            <hr style="width: 100%; opacity: 0.1; margin: 2px 0; background-color: var(--icon-color);">
+
                             <p style="font-family: 'Montserrat';">есть полезные ссылки: можно быстро найти нужную информацию на сайте колледжа</p>
-                            <div style="display: flex; justify-content: center; margin: 0 0 6px 0;"><img src="/static/updates/u7.png" style="width: 80%; margin-bottom: 6px; border-radius: 12px;"></div>
+                            <div style="display: flex; justify-content: center; margin: 0 0 6px 0;"><img src="/static/updates/410-2.png" style="width: 80%; margin-bottom: 6px; border-radius: 12px;"></div>
                             <div style="display: flex; justify-content: center;">
                                 <button onclick="window.location.href = '/?/other/links/'">перейти</button>
                             </div>
+
+                            <div style="height: 12px;"></div>
+                            <hr style="width: 100%; opacity: 0.1; margin: 2px 0; background-color: var(--icon-color);">
 
                             <p style="font-family: 'Montserrat';">загляни в настройки, там можно редактировать главную или настроить под себя тему</p>
                             <div style="display: flex; justify-content: center;">
                                 <button onclick="window.location.href = '/?/settings/'">перейти</button>
                             </div>
+
+                            <div style="height: 12px;"></div>
+                            <hr style="width: 100%; opacity: 0.1; margin: 2px 0; background-color: var(--icon-color);">
 
                             <div style="display: flex; justify-content: center;">
                                 <button style="margin: 24px 0;" onclick="window.location.href = '/?/updates/old/'">предыдущие обновления</button>
@@ -3123,7 +3148,7 @@
                         </div>`)*/
                         /* BIG UPDATES */
                         UX.modal(`
-                            <style>.max-modal { width: 100% !important; }</style>
+                            <style>.max-modal { width: 100%; }</style>
                             <div style="margin: 0 18px; max-height: 90%; overflow-y: auto; background-color: var(--bg-color); border: none; border-radius: 24px; box-shadow: 0px 0px 8px var(--box-shadow-color);">
                                 <h1 style="font-family: 'Montserrat'; text-align: center; margin: 16px 16px 6px 16px;">большое обновление</h1>
                                 <p style="font-family: 'Montserrat'; text-align: center; opacity: 0.7; margin: 0 0 16px 0;">${siteVersion}</>
