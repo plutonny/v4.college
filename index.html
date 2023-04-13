@@ -55,17 +55,17 @@
         <link   rel="preload prefetch"              href="https://fonts.gstatic.com/s/materialsymbolsrounded/v74/sykg-zNym6YjUruM-QrEh7-nyTnjDwKNJ_190Fjzag.woff2" as="font" type="font/woff2" crossorigin onload="clgenld()">
         
         <!-- CSS and icon site -->
-        <link   rel="preload prefetch stylesheet"   href="https://lib.plutonny.ru/viewer.css?cache=13.04.2023-v410-b41" as="style">
-        <link   rel="preload prefetch stylesheet"   href="static/load.css?cache=13.04.2023-v410-b41" as="style">
-        <link   rel="preload prefetch stylesheet"   href="static/main.css?cache=13.04.2023-v410-b41" as="style">
-        <link   rel="icon"                          href="static/g-icon.png?cache=13.04.2023-v410-b41">
+        <link   rel="preload prefetch stylesheet"   href="https://lib.plutonny.ru/viewer.css?cache=13.04.2023-v410-b42" as="style">
+        <link   rel="preload prefetch stylesheet"   href="static/load.css?cache=13.04.2023-v410-b42" as="style">
+        <link   rel="preload prefetch stylesheet"   href="static/main.css?cache=13.04.2023-v410-b42" as="style">
+        <link   rel="icon"                          href="static/g-icon.png?cache=13.04.2023-v410-b42">
         <link   rel="apple-touch-icon"              href="pwa-icon-apple.png">
 
         <!-- JS files -->
-        <script type="text/javascript"              src="https://lib.plutonny.ru/plutonny.js/v1.0.js?cache=13.04.2023-v410-b41"></script>
-        <script type="text/javascript"              src="https://lib.plutonny.ru/luxon.js?cache=13.04.2023-v410-b41"></script>
-        <script type="text/javascript"              src="https://lib.plutonny.ru/solar.js?cache=13.04.2023-v410-b41"></script>
-        <script type="text/javascript"              src="https://lib.plutonny.ru/viewer.js?cache=13.04.2023-v410-b41"></script>
+        <script type="text/javascript"              src="https://lib.plutonny.ru/plutonny.js/v1.0.js?cache=13.04.2023-v410-b42"></script>
+        <script type="text/javascript"              src="https://lib.plutonny.ru/luxon.js?cache=13.04.2023-v410-b42"></script>
+        <script type="text/javascript"              src="https://lib.plutonny.ru/solar.js?cache=13.04.2023-v410-b42"></script>
+        <script type="text/javascript"              src="https://lib.plutonny.ru/viewer.js?cache=13.04.2023-v410-b42"></script>
         
         <style  id="root-colors-theme"              >#thMoon, #thSun { display: none; }</style>
 
@@ -95,7 +95,7 @@
             "use strict";
             
             var siteVersion = '4.1.0'
-            var siteBuild = '41'
+            var siteBuild = '42'
 
             var CURRDATE = new Date()
             var NEXTDAY = new Date(); NEXTDAY.setDate(CURRDATE.getDay() == 6 ? CURRDATE.getDate() + 2 : CURRDATE.getDate() + 1)
@@ -390,13 +390,13 @@
                         let inj = ['', ''];
                         if (settings.buttonTheme && localStorage.getItem('THEME-type') == "button") {
                             inj[0] += `
-                                        <span onclick="UX.theme.change()" class="material-symbols-rounded" style="font-size: 32px !important;" id="thMoon">dark_mode</span> 
-                                        <span onclick="UX.theme.change()" class="material-symbols-rounded" style="font-size: 32px !important;" id="thSun">light_mode</span>
+                                        <span onclick="UX.theme.change()" class="material-symbols-rounded icoGo" style="font-size: 32px !important;" id="thMoon">dark_mode</span> 
+                                        <span onclick="UX.theme.change()" class="material-symbols-rounded icoGo" style="font-size: 32px !important;" id="thSun">light_mode</span>
                                     `
                         }
 
                         if (settings.buttonBack) {
-                            inj[1] += `<span onclick="history.back()" class="material-symbols-rounded" style="font-size: 32px !important;">arrow_back</span>`
+                            inj[1] += `<span onclick="history.back()" class="material-symbols-rounded icoGo" style="font-size: 32px !important;">arrow_back</span>`
                         }
 
                         plutonny.output(`header`, `
@@ -457,7 +457,7 @@
                     }
                     return `
                         <div style="user-select: none; height: ${settings.size}px; width: ${settings.size}px; display: flex; align-content: center; justify-content: center; align-items: center; background-color: ${colinj.button}; border-radius: ${settings.border}px">
-                            <span style="color: ${colinj.icon}; font-size: ${settings.font}px;" class="material-symbols-rounded">${settings.icon}</span>
+                            <span style="color: ${colinj.icon}; font-size: ${settings.font}px;" class="material-symbols-rounded icoGo">${settings.icon}</span>
                         </div>
                     `
                 },
@@ -609,6 +609,53 @@
              *  |    |                            6a, 6f, 6p, 6s)
              *  |    | -- pairTimerHTML()    [null] (need tag id="pairTimerHTML")
              */
+            UI.timetable = {
+                default: function(col, settings) {
+                    return `
+                        <div onclick="UI.MODAL.pair(${settings.id})" style="${settings.active ? 'border: 2px solid #FF000099; width: calc(100% - 20px); ' : 'width: calc(100% - 16px); '}display: flex; flex-direction: row; flex-wrap: nowrap;
+                        ${col == 'default' ? `background: var(--button-color); ` : `background: rgb(2,0,36); background: linear-gradient(90deg, var(--button-color) 50%, var(--ui-${col}) 100%); `}
+                        ${settings.position == 'first' ? 'border-radius: 18px 18px 8px 8px;' : ''}
+                        ${settings.position == 'last' ? 'border-radius: 8px 8px 18px 18px;' : ''}
+                        ${settings.position == 'other' ? 'border-radius: 8px;' : ''}
+                        ${settings.position == 'week' ? 'border-radius: 18px;' : ''}
+                        margin: 0 0 16px 0; padding: 0 8px;">
+                            <div style="width: 36px; margin: 8px 8px 0 0;">${settings.icon}</div>
+                            <div style="padding: 12px 0; display: flex; flex-direction: column; justify-content: center;">
+                                <b style="margin: 0; font-family: 'Montserrat';">${settings.name}</b>
+                                <div style="height: 6px;"></div>
+                                <p style="margin: 0; font-family: 'Montserrat';">${settings.teacher}</p>
+
+                            </div>
+                            <div style="margin-right: auto;"></div>
+                            <div style="padding: 8px 4px 8px 0; display: flex; flex-direction: column; justify-content: space-evenly;">
+                                <div style="display: flex; flex-direction: row; justify-content: flex-end;">
+                                    <span style="font-size: 18px; color: var(--icon-color);" class="material-symbols-rounded icoGo">sensor_door</span>
+                                    <div style="width: 4px;"></div>
+                                    <p style="margin: 0; font-family: 'Montserrat'; font-size: 14px; text-align: right;">${settings.cab}</p>
+                                </div>
+                                <div style="height: 8px;"></div>
+                                <div style="display: flex; flex-direction: row; width: 104px; justify-content: flex-end;">
+                                    <span style="font-size: 18px; color: var(--icon-color);" class="material-symbols-rounded icoGo">schedule</span>
+                                    <div style="width: 4px;"></div>
+                                    <p style="margin: 0; font-family: 'Montserrat'; font-size: 14px; text-align: right;">${settings.time}</p>
+                                </div>
+                            </div>
+                        </div>
+                    `
+                },
+                week: function(settings) {
+                    return `
+                    <div onclick="UI.MODAL.pair(${settings.id})" style="${settings.active ? 'border: 2px solid #FF000099;' : ''}display: flex; flex-direction: row; flex-wrap: nowrap; width: calc(50% - 16px); background: var(--ui-${settings.color}); border-radius: 18px; margin: 0 0 16px 0; padding: 0 8px;">
+                        <div style="width: 28px; margin: 8px 8px 0 0;">${settings.icon}</div>
+                        <div style="padding: 12px 0; display: flex; flex-direction: column; justify-content: center;">
+                            <b style="margin: 0; font-size: 14px; font-family: 'Montserrat';">${settings.name}</b>
+                            <div style="height: 6px;"></div>
+                            <p style="margin: 0; font-size: 14px; font-family: 'Montserrat';">${settings.teacher}</p>
+                        </div>
+                    </div>
+                    `
+                }
+            }
             UX.timetable = {
                 alert: {
                     monday: {
@@ -837,53 +884,6 @@
                     }).catch(function (err) { plutonny.console.error('index.html -> UX.timetable.pairTimerHTML() -> JSON (timetable)', err) })
                 }
             }
-            UI.timetable = {
-                default: function(col, settings) {
-                    return `
-                        <div onclick="UI.MODAL.pair(${settings.id})" style="${settings.active ? 'border: 2px solid #FF000099; width: calc(100% - 20px); ' : 'width: calc(100% - 16px); '}display: flex; flex-direction: row; flex-wrap: nowrap;
-                        ${col == 'default' ? `background: var(--button-color); ` : `background: rgb(2,0,36); background: linear-gradient(90deg, var(--button-color) 50%, var(--ui-${col}) 100%); `}
-                        ${settings.position == 'first' ? 'border-radius: 18px 18px 8px 8px;' : ''}
-                        ${settings.position == 'last' ? 'border-radius: 8px 8px 18px 18px;' : ''}
-                        ${settings.position == 'other' ? 'border-radius: 8px;' : ''}
-                        ${settings.position == 'week' ? 'border-radius: 18px;' : ''}
-                        margin: 0 0 16px 0; padding: 0 8px;">
-                            <div style="width: 36px; margin: 8px 8px 0 0;">${settings.icon}</div>
-                            <div style="padding: 12px 0; display: flex; flex-direction: column; justify-content: center;">
-                                <b style="margin: 0; font-family: 'Montserrat';">${settings.name}</b>
-                                <div style="height: 6px;"></div>
-                                <p style="margin: 0; font-family: 'Montserrat';">${settings.teacher}</p>
-
-                            </div>
-                            <div style="margin-right: auto;"></div>
-                            <div style="padding: 8px 4px 8px 0; display: flex; flex-direction: column; justify-content: space-evenly;">
-                                <div style="display: flex; flex-direction: row; justify-content: flex-end;">
-                                    <span style="font-size: 18px; color: var(--icon-color);" class="material-symbols-rounded">sensor_door</span>
-                                    <div style="width: 4px;"></div>
-                                    <p style="margin: 0; font-family: 'Montserrat'; font-size: 14px; text-align: right;">${settings.cab}</p>
-                                </div>
-                                <div style="height: 8px;"></div>
-                                <div style="display: flex; flex-direction: row; width: 104px; justify-content: flex-end;">
-                                    <span style="font-size: 18px; color: var(--icon-color);" class="material-symbols-rounded">schedule</span>
-                                    <div style="width: 4px;"></div>
-                                    <p style="margin: 0; font-family: 'Montserrat'; font-size: 14px; text-align: right;">${settings.time}</p>
-                                </div>
-                            </div>
-                        </div>
-                    `
-                },
-                week: function(settings) {
-                    return `
-                    <div onclick="UI.MODAL.pair(${settings.id})" style="${settings.active ? 'border: 2px solid #FF000099;' : ''}display: flex; flex-direction: row; flex-wrap: nowrap; width: calc(50% - 16px); background: var(--ui-${settings.color}); border-radius: 18px; margin: 0 0 16px 0; padding: 0 8px;">
-                        <div style="width: 28px; margin: 8px 8px 0 0;">${settings.icon}</div>
-                        <div style="padding: 12px 0; display: flex; flex-direction: column; justify-content: center;">
-                            <b style="margin: 0; font-size: 14px; font-family: 'Montserrat';">${settings.name}</b>
-                            <div style="height: 6px;"></div>
-                            <p style="margin: 0; font-size: 14px; font-family: 'Montserrat';">${settings.teacher}</p>
-                        </div>
-                    </div>
-                    `
-                }
-            }
         </script>
 
         <!-- serviceWorker -->
@@ -907,19 +907,7 @@
 
         <div id="genload" class="genload">
             <style>
-                .genload {
-                    backdrop-filter: blur(10px);
-                    -webkit-backdrop-filter: blur(10px);
-                    position: absolute;
-                    z-index: 100;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    align-content: center;
-                    height: 100vh;
-                    width: 100vw;
-                }
-                html, body { margin: 0; overflow-y: hidden; }
+                .icoGo { display: none; }
             </style>
         </div>
 
@@ -967,19 +955,19 @@
                     <div class="buttonsNavbar">
                         <a style="text-decoration: none; width: 20%" href="/?/">
                             <div style="display: flex; flex-direction: column; flex-wrap: nowrap; align-items: center;">
-                                <p class="homeANavbar homeAIcon iconNavbar" style="color: var(--icon-color); fill: currentColor; margin: 0; height: 26px;"><span class="material-symbols-rounded" style="font-size: 26px !important;">home</span></p>
+                                <p class="homeANavbar homeAIcon iconNavbar" style="color: var(--icon-color); fill: currentColor; margin: 0; height: 26px;"><span class="material-symbols-rounded icoGo" style="font-size: 26px !important;">home</span></p>
                                 <p class="homeANavbar" style="color: var(--icon-color); margin: 4px 0 0 0; font-size: 14px; font-family: 'Montserrat';">главная</p>
                             </div>
                         </a>
                         <a style="text-decoration: none; width: 20%" href="/?/grades/">
                             <div style="display: flex; flex-direction: column; flex-wrap: nowrap; align-items: center;">
-                                <p class="gradesANavbar gradesAIcon iconNavbar" style="color: var(--icon-color); fill: currentColor; margin: 0; height: 26px;"><span class="material-symbols-rounded" style="font-size: 26px !important;">assignment_turned_in</span></p>
+                                <p class="gradesANavbar gradesAIcon iconNavbar" style="color: var(--icon-color); fill: currentColor; margin: 0; height: 26px;"><span class="material-symbols-rounded icoGo" style="font-size: 26px !important;">assignment_turned_in</span></p>
                                 <p class="gradesANavbar" style="color: var(--icon-color); margin: 4px 0 0 0; font-size: 14px; font-family: 'Montserrat';">оценки</p>
                             </div>
                         </a>
                         <a style="text-decoration: none; width: 20%" href="/?/other/">
                             <div style="display: flex; flex-direction: column; flex-wrap: nowrap; align-items: center;">
-                                <p class="otherANavbar otherAIcon iconNavbar" style="color: var(--icon-color); fill: currentColor; margin: 0; height: 26px;"><span class="material-symbols-rounded" style="font-size: 26px !important;">menu</span></p>
+                                <p class="otherANavbar otherAIcon iconNavbar" style="color: var(--icon-color); fill: currentColor; margin: 0; height: 26px;"><span class="material-symbols-rounded icoGo" style="font-size: 26px !important;">menu</span></p>
                                 <p class="otherANavbar" style="color: var(--icon-color); margin: 4px 0 0 0; font-size: 14px; font-family: 'Montserrat';">другое</p>
                             </div>
                         </a>
@@ -988,11 +976,25 @@
             </div>
         </div>
         
-
         <script id="MaSh" type="text/javascript">
             if (!(window.location.href.split('/')[2] == 'college.plutonny.ru' || window.location.href.split('/')[2] == 'beta.college.plutonny.ru' || window.location.href.split('/')[2] == 'alpha.college.plutonny.ru' || window.location.href.split('/')[2] == '127.0.0.1:5500')) {
                 document.body.remove(); document.head.remove();
             }
+            var c12 = setInterval(function() {
+                let cdt = new Date()
+                if (CURRDATE.getDate() < cdt.getDate()) {
+                    document.querySelector('body').innerHTML = `
+                    <div style="display: flex; flex-direction: column; align-items: center;">
+                        <div style="height: 128px;"></div>
+                        <img style="height: 120px; width: 120px;" src="/static/time12.png">
+                        <div style="height: 36px;"></div>
+                        <b style="font-family: 'Montserrat'; text-align: center;">страница устарела</b>
+                        <p style="font-family: 'Montserrat'; text-align: center;">самое время ее перезагрузить</p>
+                        <div style="height: 12px;"></div>
+                    </div>
+                    `
+                }
+            }, 1000)
         </script>
 
         <script id="PcFu" type="text/javascript">
@@ -1022,6 +1024,21 @@
                     `)
                 }
                 if (c == 1) {
+                    let dt143 = new Date(CURRDATE.getFullYear(), CURRDATE.getMonth(), CURRDATE.getDate(), 14, 30)
+                    if (CURRDATE < dt143 && CURRDATE.getDay() != 0) {
+                        plutonny.output('content', ` 
+                        <div style="display: flex; flex-direction: column; align-items: center;">
+                            <div style="height: 36px;"></div>
+                            <img style="height: 160px; width: 160px;" src="/static/time2n3.png">
+                            <div style="height: 36px;"></div>
+                            <b style="font-family: 'Montserrat'; text-align: center;">изменения еще не готовы</b>
+                            <p style="font-family: 'Montserrat'; text-align: center;">обнови страницу после 14:30</p>
+                        </div>
+                        <button style="width: 100%; font-family: 'Montserrat'; margin: 8px 0 0 0;" onclick="changOUT(0)">сегодня</button>
+                        <button style="width: 100%; font-family: 'Montserrat'; margin: 8px 0 0 0;" onclick="window.location.href = '/?/pair/'">все предметы</button>
+                        `)
+                        return
+                    }
                     plutonny.output('content', CURRDATE.getDay() == 6 ? 
                     `<div style="display: flex; justify-content: space-between; margin: 0 0 8px 0;">
                             <h2 style="margin: 0;">изменения в ПН:</h2>
@@ -1041,10 +1058,47 @@
                     `)
                 }
             }
-            function pairOUT(c) {
-                fetch(`/info/timetable.json?t=${CURRDATE.getTime()}`).then(function (response) { return response.json() }).then(function (tim) { 
-                    fetch(`/info/subjects.json?t=${CURRDATE.getTime()}`).then(function (response) { return response.json() }).then(function (subj) { 
-                        function fco(i, a) {
+            async function pairOUT(c) {
+                if (c == 0) {
+                    plutonny.output('content', `
+                        <div style="display: flex; justify-content: space-between; margin: 0 0 16px 0;">
+                            <h2 style="margin: 0;">пары сегодня:</h2>
+                            <button onclick="pairOUT(1)" style="height: 40px;">завтра</button>
+                        </div>
+                        <div id="fcoPAIR"></div>
+                        ${CURRDATE.getDay() == 0 ? '' : `<button style="width: 100%; font-family: 'Montserrat'; margin: 8px 0 0 0;" onclick="window.location.href = '/?/changes/today/'">изменения на сегодня</button>`}
+                        <button style="width: 100%; font-family: 'Montserrat'; margin: 8px 0 0 0;" onclick="window.location.href = '/?/pair/'">все предметы</button>
+                    `)
+                }
+                if (c == 1) {
+                    plutonny.output('content', CURRDATE.getDay() == 6 ? 
+                    `<div style="display: flex; justify-content: space-between; margin: 0 0 16px 0;">
+                            <h2 style="margin: 0;">пары в ПН:</h2>
+                            <button onclick="pairOUT(0)" style="height: 40px;">сегодня</button>
+                        </div>
+                        <div id="fcoPAIR"></div>
+                        <button style="width: 100%; font-family: 'Montserrat'; margin: 8px 0 0 0;" onclick="window.location.href = '/?/changes/tomorrow/'">изменения на завтра</button>
+                        <button style="width: 100%; font-family: 'Montserrat'; margin: 8px 0 0 0;" onclick="window.location.href = '/?/pair/'">все предметы</button>
+                    ` : `
+                        <div style="display: flex; justify-content: space-between; margin: 0 0 16px 0;">
+                            <h2 style="margin: 0;">пары завтра:</h2>
+                            <button onclick="pairOUT(0)" style="height: 40px;">сегодня</button>
+                        </div>
+                        <div id="fcoPAIR"></div>
+                        <button style="width: 100%; font-family: 'Montserrat'; margin: 8px 0 0 0;" onclick="window.location.href = '/?/changes/tomorrow/'">изменения на завтра</button>
+                        <button style="width: 100%; font-family: 'Montserrat'; margin: 8px 0 0 0;" onclick="window.location.href = '/?/pair/'">все предметы</button>
+                    `)
+                }
+                await homeLoad()
+                if (c == 0) {
+                    fco(CURRDATE.getDay(), 'active')
+                }
+                if (c == 1) {
+                    CURRDATE.getDay() == 6 ? fco(1, 'noactive') : fco(NEXTDAY.getDay(), 'noactive')
+                }
+                function fco(i, a) {
+                    fetch(`/info/timetable.json?t=${CURRDATE.getTime()}`).then(function (response) { return response.json() }).then(function (tim) { 
+                        fetch(`/info/subjects.json?t=${CURRDATE.getTime()}`).then(function (response) { return response.json() }).then(function (subj) { 
                             let inj = ''
                             if (i == 1) {
                                 let counter = 0
@@ -1104,7 +1158,6 @@
                                         }
                                     }
                                 }
-                                inj += `</div>`
                             }
                             else if (i == 0) {
                                 inj = `
@@ -1168,42 +1221,11 @@
                                         }
                                     }
                                 }
-                                inj += `</div>`
                             }
-                            return inj
-                        }
-                        if (c == 0) {
-                            plutonny.output('content', `
-                                <div style="display: flex; justify-content: space-between; margin: 0 0 16px 0;">
-                                    <h2 style="margin: 0;">пары сегодня:</h2>
-                                    <button onclick="pairOUT(1)" style="height: 40px;">завтра</button>
-                                </div>
-                                ${fco(CURRDATE.getDay(), 'active')}
-                                <button style="width: 100%; font-family: 'Montserrat'; margin: 8px 0 0 0;" onclick="window.location.href = '/?/changes/today/'">изменения на сегодня</button>
-                                <button style="width: 100%; font-family: 'Montserrat'; margin: 8px 0 0 0;" onclick="window.location.href = '/?/pair/'">все предметы</button>
-                            `)
-                        }
-                        if (c == 1) {
-                            plutonny.output('content', CURRDATE.getDay() == 6 ? 
-                            `<div style="display: flex; justify-content: space-between; margin: 0 0 16px 0;">
-                                    <h2 style="margin: 0;">пары в ПН:</h2>
-                                    <button onclick="pairOUT(0)" style="height: 40px;">сегодня</button>
-                                </div>
-                                ${fco(1, 'noactive')}
-                                <button style="width: 100%; font-family: 'Montserrat'; margin: 8px 0 0 0;" onclick="window.location.href = '/?/changes/tomorrow/'">изменения на завтра</button>
-                                <button style="width: 100%; font-family: 'Montserrat'; margin: 8px 0 0 0;" onclick="window.location.href = '/?/pair/'">все предметы</button>
-                            ` : `
-                                <div style="display: flex; justify-content: space-between; margin: 0 0 16px 0;">
-                                    <h2 style="margin: 0;">пары завтра:</h2>
-                                    <button onclick="pairOUT(0)" style="height: 40px;">сегодня</button>
-                                </div>
-                                ${fco(NEXTDAY.getDay(), 'noactive')}
-                                <button style="width: 100%; font-family: 'Montserrat'; margin: 8px 0 0 0;" onclick="window.location.href = '/?/changes/tomorrow/'">изменения на завтра</button>
-                                <button style="width: 100%; font-family: 'Montserrat'; margin: 8px 0 0 0;" onclick="window.location.href = '/?/pair/'">все предметы</button>
-                            `)
-                        }
-                    }).catch(function (err) { plutonny.console.error('index.html -> home -> JSON (subjects)', err); pageCantLoad() })
-                }).catch(function (err) { plutonny.console.error('index.html -> home -> JSON (timetable)', err); pageCantLoad() })
+                            plutonny.output('fcoPAIR', inj)
+                        }).catch(function (err) { plutonny.console.error('index.html -> home -> JSON (subjects)', err); pageCantLoad() })
+                    }).catch(function (err) { plutonny.console.error('index.html -> home -> JSON (timetable)', err); pageCantLoad() })
+                }
             }
             /* ---------- SETTINGS ---------- */
             /* ---------- SETTINGS ---------- */
@@ -1651,6 +1673,14 @@
                 </div>
                 `)
             }
+            async function homeLoad() {
+                plutonny.output('fcoPAIR',`
+                    <div style="width: calc(100% - 16px); height: 68px; background: var(--button-color); border-radius: 18px 18px 8px 8px; margin: 0 0 16px 0; padding: 0 8px;"></div>
+                    <div style="width: calc(100% - 16px); height: 68px; background: var(--button-color); border-radius: 8px; margin: 0 0 16px 0; padding: 0 8px;"></div>
+                    <div style="width: calc(100% - 16px); height: 68px; background: var(--button-color); border-radius: 8px 8px 18px 18px; margin: 0 0 16px 0; padding: 0 8px;"></div>
+                `)
+                await plutonny.sleep(300)
+            }
 
             async function sceletonLoad() {
                 if (URLDIR[0] == '' && URLDIR[1] == '') {
@@ -1686,15 +1716,13 @@
                             <h2 style="margin: 0; height: 30px; width: 160px; background: var(--button-color); border-radius: 18px;"></h2>
                             <button style="height: 40px; width: 89px;"></button>
                         </div>
-                                                    
-                        <div style="width: calc(100% - 16px); height: 68px; background: var(--button-color); border-radius: 18px 18px 8px 8px; margin: 0 0 16px 0; padding: 0 8px;"></div>
-                        <div style="width: calc(100% - 16px); height: 68px; background: var(--button-color); border-radius: 8px; margin: 0 0 16px 0; padding: 0 8px;"></div>
-                        <div style="width: calc(100% - 16px); height: 68px; background: var(--button-color); border-radius: 8px 8px 18px 18px; margin: 0 0 16px 0; padding: 0 8px;"></div>
 
+                        <div id="fcoPAIR"></div>
+                                                    
                         <button style="width: 100%; height: 36px; font-family: 'Montserrat'; margin: 8px 0 0 0;"></button>
                         <button style="width: 100%; height: 36px; font-family: 'Montserrat'; margin: 8px 0 0 0;"></button>
                     `)
-                    await plutonny.sleep(300)
+                    await homeLoad()
                 }
                 else if (URLDIR[1] == 'changes') {
                     tableLoad()
@@ -1920,8 +1948,8 @@
                             })
                             UI.navbar('home')
                             plutonny.output('title-page', 'КСК-11 | изменения на сегодня')
-                            UX.theme.table()
 
+                            UX.theme.table()
                             plutonny.output('content', `
                                 <style>
                                     #content { padding: 0; }
@@ -1944,16 +1972,30 @@
                             })
                             UI.navbar('home')
                             plutonny.output('title-page', 'КСК-11 | изменения на завтра')
-                            UX.theme.table()
                             
-                            plutonny.output('content', `
-                                <style>
-                                    #content { padding: 0; }
-                                    </style>
-                                <button style="margin: 12px 24px; width: calc(100% - 48px); font-family: 'Montserrat';" onclick="window.location.href = '/?/changes/today/'">сегодня</button>
-                                <iframe src="https://view.officeapps.live.com/op/embed.aspx?src=${changesTable.pathTo}${changesTable.fileNameTomorrow}${changesTable.fileType}" frameborder="0"
-                                    style="width: 100%; height: calc(100vh - 145px);"></iframe>
-                            `)
+                            let dt143 = new Date(CURRDATE.getFullYear(), CURRDATE.getMonth(), CURRDATE.getDate(), 14, 30)
+                            if (CURRDATE < dt143 && CURRDATE.getDay() != 0) {
+                                plutonny.output('content', ` 
+                                <div style="display: flex; flex-direction: column; align-items: center;">
+                                    <div style="height: 36px;"></div>
+                                    <img style="height: 160px; width: 160px;" src="/static/time2n3.png">
+                                    <div style="height: 36px;"></div>
+                                    <b style="font-family: 'Montserrat'; text-align: center;">изменения еще не готовы</b>
+                                    <p style="font-family: 'Montserrat'; text-align: center;">обнови страницу после 14:30</p>
+                                </div>
+                                `)
+                                return
+                            } else {
+                                UX.theme.table()
+                                plutonny.output('content', `
+                                    <style>
+                                        #content { padding: 0; }
+                                        </style>
+                                    <button style="margin: 12px 24px; width: calc(100% - 48px); font-family: 'Montserrat';" onclick="window.location.href = '/?/changes/today/'">сегодня</button>
+                                    <iframe src="https://view.officeapps.live.com/op/embed.aspx?src=${changesTable.pathTo}${changesTable.fileNameTomorrow}${changesTable.fileType}" frameborder="0"
+                                        style="width: 100%; height: calc(100vh - 145px);"></iframe>
+                                `)
+                            }
                         } 
                         catch (e) { plutonny.console.error('index.html -> changes/tomorrow/', e); pageCantLoad() }
                     }
@@ -2237,7 +2279,7 @@
                                     <div style="height: 12px;"></div>
                                     ${pPairInj[2]}
                                     <div id="arrowTop" style="cursor: pointer; position: fixed; box-shadow: 0px 0px 5px var(--box-shadow-color); top: calc(100% - 148px); display: none; align-items: center; justify-content: center; background: var(--button-color); border-radius: 100px; height: 48px; width: 48px; user-select: none;">
-                                        <span class="material-symbols-rounded">arrow_upward</span>
+                                        <span class="material-symbols-rounded icoGo">arrow_upward</span>
                                     </div>
                                 `)
                                 document.getElementById('arrowTop').onclick = function() { window.scrollTo(pageXOffset, 0) }
@@ -2365,7 +2407,7 @@
                             }
                             inj += `
                             <div id="arrowTop" style="cursor: pointer; position: fixed; box-shadow: 0px 0px 5px var(--box-shadow-color); top: calc(100% - 148px); display: none; align-items: center; justify-content: center; background: var(--button-color); border-radius: 100px; height: 48px; width: 48px; user-select: none;">
-                                <span class="material-symbols-rounded">arrow_upward</span>
+                                <span class="material-symbols-rounded icoGo">arrow_upward</span>
                             </div>`
                             UI.header({
                                 textCenter: `оценки на ${data['DATE']}`, 

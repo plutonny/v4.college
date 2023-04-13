@@ -73,7 +73,7 @@ iframe { background-color: #f5f5f5; }
 @media (min-width: 541px) {
     .pageble { width: 100vw; display: flex; justify-content: center; }
     .page { width: 440px; }
-    .navbar { width: 440px !important; }
+    .navbar { width: 440px !important; border-radius: 24px 24px 0 0; }
     .mobSubBut { display: none !important; }
     .max-modal { width: 440px !important; }
 }
