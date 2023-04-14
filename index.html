@@ -15,10 +15,12 @@
         <link   rel="manifest"                      href="manifest.json">
 
         <script id="ImLo" type="text/javascript">
-            async function clgenld() { 
-                try { 
-                    document.getElementById('genload').remove() 
-                } catch {}
+            function clgenld() { 
+                let clengl = setInterval(function() {
+                    try { 
+                        document.getElementById('genload').remove() 
+                    } catch {}
+                }, 1); 
             }
         </script>
         
@@ -55,17 +57,17 @@
         <link   rel="preload prefetch"              href="https://fonts.gstatic.com/s/materialsymbolsrounded/v74/sykg-zNym6YjUruM-QrEh7-nyTnjDwKNJ_190Fjzag.woff2" as="font" type="font/woff2" crossorigin onload="clgenld()">
         
         <!-- CSS and icon site -->
-        <link   rel="preload prefetch stylesheet"   href="https://lib.plutonny.ru/viewer.css?cache=13.04.2023-v410-b42" as="style">
-        <link   rel="preload prefetch stylesheet"   href="static/load.css?cache=13.04.2023-v410-b42" as="style">
-        <link   rel="preload prefetch stylesheet"   href="static/main.css?cache=13.04.2023-v410-b42" as="style">
-        <link   rel="icon"                          href="static/g-icon.png?cache=13.04.2023-v410-b42">
+        <link   rel="preload prefetch stylesheet"   href="https://lib.plutonny.ru/viewer.css?cache=14.04.2023-v410-b43" as="style">
+        <link   rel="preload prefetch stylesheet"   href="static/load.css?cache=14.04.2023-v410-b43" as="style">
+        <link   rel="preload prefetch stylesheet"   href="static/main.css?cache=14.04.2023-v410-b43" as="style">
+        <link   rel="icon"                          href="static/g-icon.png?cache=14.04.2023-v410-b43">
         <link   rel="apple-touch-icon"              href="pwa-icon-apple.png">
 
         <!-- JS files -->
-        <script type="text/javascript"              src="https://lib.plutonny.ru/plutonny.js/v1.0.js?cache=13.04.2023-v410-b42"></script>
-        <script type="text/javascript"              src="https://lib.plutonny.ru/luxon.js?cache=13.04.2023-v410-b42"></script>
-        <script type="text/javascript"              src="https://lib.plutonny.ru/solar.js?cache=13.04.2023-v410-b42"></script>
-        <script type="text/javascript"              src="https://lib.plutonny.ru/viewer.js?cache=13.04.2023-v410-b42"></script>
+        <script type="text/javascript"              src="https://lib.plutonny.ru/plutonny.js/v1.0.js?cache=14.04.2023-v410-b43"></script>
+        <script type="text/javascript"              src="https://lib.plutonny.ru/luxon.js?cache=14.04.2023-v410-b43"></script>
+        <script type="text/javascript"              src="https://lib.plutonny.ru/solar.js?cache=14.04.2023-v410-b43"></script>
+        <script type="text/javascript"              src="https://lib.plutonny.ru/viewer.js?cache=14.04.2023-v410-b43"></script>
         
         <style  id="root-colors-theme"              >#thMoon, #thSun { display: none; }</style>
 
@@ -95,7 +97,7 @@
             "use strict";
             
             var siteVersion = '4.1.0'
-            var siteBuild = '42'
+            var siteBuild = '43'
 
             var CURRDATE = new Date()
             var NEXTDAY = new Date(); NEXTDAY.setDate(CURRDATE.getDay() == 6 ? CURRDATE.getDate() + 2 : CURRDATE.getDate() + 1)
@@ -814,66 +816,66 @@
                                 else {
                                     let de = `${date.getFullYear()}-${(date.getMonth() + 1) < 10 ? `0${date.getMonth() + 1}` : date.getMonth() + 1}-${(date.getDate()) < 10 ? `0${date.getDate()}` : date.getDate()}T`
                                     if (date.getDay() == 1) {
-                                        if (UX.timetable.currentPairAddit() == '0f') { let x = new Date(`${de}${UX.timetable.alert.UIed.monday[0][1]}:00`); plutonny.output('pairTimerHTML', `до конца КЧ<br>${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)}`) }
+                                        if (UX.timetable.currentPairAddit() == '0f') { let x = new Date(`${de}${UX.timetable.alert.UIed.monday[0][1]}:00`); plutonny.output('pairTimerHTML', `${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)} до конца КЧ`) }
                                         
-                                        if (UX.timetable.currentPairAddit() == '1a') { let x = new Date(`${de}${UX.timetable.alert.UIed.monday[1][0]}:00`); plutonny.output('pairTimerHTML', `до начала 1&nbsp;пары<br>${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)}`) }
-                                        if (UX.timetable.currentPairAddit() == '1f') { let x = new Date(`${de}${UX.timetable.alert.UIed.monday[1][1]}:00`); plutonny.output('pairTimerHTML', `до конца 1&nbsp;пол.<br>${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)}`) }
-                                        if (UX.timetable.currentPairAddit() == '1p') { let x = new Date(`${de}${UX.timetable.alert.UIed.monday[1][2]}:00`); plutonny.output('pairTimerHTML', `до конца 10м-ки<br>${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)}`) }
-                                        if (UX.timetable.currentPairAddit() == '1s') { let x = new Date(`${de}${UX.timetable.alert.UIed.monday[1][3]}:00`); plutonny.output('pairTimerHTML', `до конца 2&nbsp;пол.<br>${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)}`) }
+                                        if (UX.timetable.currentPairAddit() == '1a') { let x = new Date(`${de}${UX.timetable.alert.UIed.monday[1][0]}:00`); plutonny.output('pairTimerHTML', `${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)} до 1&nbsp;пары`) }
+                                        if (UX.timetable.currentPairAddit() == '1f') { let x = new Date(`${de}${UX.timetable.alert.UIed.monday[1][1]}:00`); plutonny.output('pairTimerHTML', `${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)} до 10м-ки`) }
+                                        if (UX.timetable.currentPairAddit() == '1p') { let x = new Date(`${de}${UX.timetable.alert.UIed.monday[1][2]}:00`); plutonny.output('pairTimerHTML', `${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)} до конца 10м-ки`) }
+                                        if (UX.timetable.currentPairAddit() == '1s') { let x = new Date(`${de}${UX.timetable.alert.UIed.monday[1][3]}:00`); plutonny.output('pairTimerHTML', `${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)} до конца пары`) }
 
-                                        if (UX.timetable.currentPairAddit() == '2a') { let x = new Date(`${de}${UX.timetable.alert.UIed.monday[2][0]}:00`); plutonny.output('pairTimerHTML', `до начала 2&nbsp;пары<br>${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)}`) }
-                                        if (UX.timetable.currentPairAddit() == '2f') { let x = new Date(`${de}${UX.timetable.alert.UIed.monday[2][1]}:00`); plutonny.output('pairTimerHTML', `до конца 1&nbsp;пол.<br>${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)}`) }
-                                        if (UX.timetable.currentPairAddit() == '2p') { let x = new Date(`${de}${UX.timetable.alert.UIed.monday[2][2]}:00`); plutonny.output('pairTimerHTML', `до конца 10м-ки<br>${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)}`) }
-                                        if (UX.timetable.currentPairAddit() == '2s') { let x = new Date(`${de}${UX.timetable.alert.UIed.monday[2][3]}:00`); plutonny.output('pairTimerHTML', `до конца 2&nbsp;пол.<br>${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)}`) }
+                                        if (UX.timetable.currentPairAddit() == '2a') { let x = new Date(`${de}${UX.timetable.alert.UIed.monday[2][0]}:00`); plutonny.output('pairTimerHTML', `${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)} до 2&nbsp;пары`) }
+                                        if (UX.timetable.currentPairAddit() == '2f') { let x = new Date(`${de}${UX.timetable.alert.UIed.monday[2][1]}:00`); plutonny.output('pairTimerHTML', `${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)} до 10м-ки`) }
+                                        if (UX.timetable.currentPairAddit() == '2p') { let x = new Date(`${de}${UX.timetable.alert.UIed.monday[2][2]}:00`); plutonny.output('pairTimerHTML', `${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)} до конца 10м-ки`) }
+                                        if (UX.timetable.currentPairAddit() == '2s') { let x = new Date(`${de}${UX.timetable.alert.UIed.monday[2][3]}:00`); plutonny.output('pairTimerHTML', `${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)} до конца пары`) }
 
-                                        if (UX.timetable.currentPairAddit() == '3a') { let x = new Date(`${de}${UX.timetable.alert.UIed.monday[3][0]}:00`); plutonny.output('pairTimerHTML', `до начала 3&nbsp;пары<br>${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)}`) }
-                                        if (UX.timetable.currentPairAddit() == '3f') { let x = new Date(`${de}${UX.timetable.alert.UIed.monday[3][1]}:00`); plutonny.output('pairTimerHTML', `до конца 1&nbsp;пол.<br>${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)}`) }
-                                        if (UX.timetable.currentPairAddit() == '3p') { let x = new Date(`${de}${UX.timetable.alert.UIed.monday[3][2]}:00`); plutonny.output('pairTimerHTML', `до конца 10м-ки<br>${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)}`) }
-                                        if (UX.timetable.currentPairAddit() == '3s') { let x = new Date(`${de}${UX.timetable.alert.UIed.monday[3][3]}:00`); plutonny.output('pairTimerHTML', `до конца 2&nbsp;пол.<br>${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)}`) }
+                                        if (UX.timetable.currentPairAddit() == '3a') { let x = new Date(`${de}${UX.timetable.alert.UIed.monday[3][0]}:00`); plutonny.output('pairTimerHTML', `${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)} до 3&nbsp;пары`) }
+                                        if (UX.timetable.currentPairAddit() == '3f') { let x = new Date(`${de}${UX.timetable.alert.UIed.monday[3][1]}:00`); plutonny.output('pairTimerHTML', `${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)} до 10м-ки`) }
+                                        if (UX.timetable.currentPairAddit() == '3p') { let x = new Date(`${de}${UX.timetable.alert.UIed.monday[3][2]}:00`); plutonny.output('pairTimerHTML', `${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)} до конца 10м-ки`) }
+                                        if (UX.timetable.currentPairAddit() == '3s') { let x = new Date(`${de}${UX.timetable.alert.UIed.monday[3][3]}:00`); plutonny.output('pairTimerHTML', `${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)} до конца пары`) }
 
-                                        if (UX.timetable.currentPairAddit() == '4a') { let x = new Date(`${de}${UX.timetable.alert.UIed.monday[4][0]}:00`); plutonny.output('pairTimerHTML', `до начала 4&nbsp;пары<br>${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)}`) }
-                                        if (UX.timetable.currentPairAddit() == '4f') { let x = new Date(`${de}${UX.timetable.alert.UIed.monday[4][1]}:00`); plutonny.output('pairTimerHTML', `до конца 1&nbsp;пол.<br>${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)}`) }
-                                        if (UX.timetable.currentPairAddit() == '4p') { let x = new Date(`${de}${UX.timetable.alert.UIed.monday[4][2]}:00`); plutonny.output('pairTimerHTML', `до конца 10м-ки<br>${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)}`) }
-                                        if (UX.timetable.currentPairAddit() == '4s') { let x = new Date(`${de}${UX.timetable.alert.UIed.monday[4][3]}:00`); plutonny.output('pairTimerHTML', `до конца 2&nbsp;пол.<br>${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)}`) }
+                                        if (UX.timetable.currentPairAddit() == '4a') { let x = new Date(`${de}${UX.timetable.alert.UIed.monday[4][0]}:00`); plutonny.output('pairTimerHTML', `${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)} до 4&nbsp;пары`) }
+                                        if (UX.timetable.currentPairAddit() == '4f') { let x = new Date(`${de}${UX.timetable.alert.UIed.monday[4][1]}:00`); plutonny.output('pairTimerHTML', `${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)} до 10м-ки`) }
+                                        if (UX.timetable.currentPairAddit() == '4p') { let x = new Date(`${de}${UX.timetable.alert.UIed.monday[4][2]}:00`); plutonny.output('pairTimerHTML', `${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)} до конца 10м-ки`) }
+                                        if (UX.timetable.currentPairAddit() == '4s') { let x = new Date(`${de}${UX.timetable.alert.UIed.monday[4][3]}:00`); plutonny.output('pairTimerHTML', `${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)} до конца пары`) }
 
-                                        if (UX.timetable.currentPairAddit() == '5a') { let x = new Date(`${de}${UX.timetable.alert.UIed.monday[5][0]}:00`); plutonny.output('pairTimerHTML', `до начала 5&nbsp;пары<br>${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)}`) }
-                                        if (UX.timetable.currentPairAddit() == '5f') { let x = new Date(`${de}${UX.timetable.alert.UIed.monday[5][1]}:00`); plutonny.output('pairTimerHTML', `до конца 1&nbsp;пол.<br>${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)}`) }
-                                        if (UX.timetable.currentPairAddit() == '5p') { let x = new Date(`${de}${UX.timetable.alert.UIed.monday[5][2]}:00`); plutonny.output('pairTimerHTML', `до конца 10м-ки<br>${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)}`) }
-                                        if (UX.timetable.currentPairAddit() == '5s') { let x = new Date(`${de}${UX.timetable.alert.UIed.monday[5][3]}:00`); plutonny.output('pairTimerHTML', `до конца 2&nbsp;пол.<br>${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)}`) }
+                                        if (UX.timetable.currentPairAddit() == '5a') { let x = new Date(`${de}${UX.timetable.alert.UIed.monday[5][0]}:00`); plutonny.output('pairTimerHTML', `${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)} до 5&nbsp;пары`) }
+                                        if (UX.timetable.currentPairAddit() == '5f') { let x = new Date(`${de}${UX.timetable.alert.UIed.monday[5][1]}:00`); plutonny.output('pairTimerHTML', `${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)} до 10м-ки`) }
+                                        if (UX.timetable.currentPairAddit() == '5p') { let x = new Date(`${de}${UX.timetable.alert.UIed.monday[5][2]}:00`); plutonny.output('pairTimerHTML', `${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)} до конца 10м-ки`) }
+                                        if (UX.timetable.currentPairAddit() == '5s') { let x = new Date(`${de}${UX.timetable.alert.UIed.monday[5][3]}:00`); plutonny.output('pairTimerHTML', `${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)} до конца пары`) }
 
-                                        if (UX.timetable.currentPairAddit() == '6a') { let x = new Date(`${de}${UX.timetable.alert.UIed.monday[6][0]}:00`); plutonny.output('pairTimerHTML', `до начала 6&nbsp;пары<br>${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)}`) }
-                                        if (UX.timetable.currentPairAddit() == '6f') { let x = new Date(`${de}${UX.timetable.alert.UIed.monday[6][1]}:00`); plutonny.output('pairTimerHTML', `до конца 1&nbsp;пол.<br>${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)}`) }
-                                        if (UX.timetable.currentPairAddit() == '6p') { let x = new Date(`${de}${UX.timetable.alert.UIed.monday[6][2]}:00`); plutonny.output('pairTimerHTML', `до конца 10м-ки<br>${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)}`) }
-                                        if (UX.timetable.currentPairAddit() == '6s') { let x = new Date(`${de}${UX.timetable.alert.UIed.monday[6][3]}:00`); plutonny.output('pairTimerHTML', `до конца 2&nbsp;пол.<br>${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)}`) }
+                                        if (UX.timetable.currentPairAddit() == '6a') { let x = new Date(`${de}${UX.timetable.alert.UIed.monday[6][0]}:00`); plutonny.output('pairTimerHTML', `${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)} до 6&nbsp;пары`) }
+                                        if (UX.timetable.currentPairAddit() == '6f') { let x = new Date(`${de}${UX.timetable.alert.UIed.monday[6][1]}:00`); plutonny.output('pairTimerHTML', `${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)} до 10м-ки`) }
+                                        if (UX.timetable.currentPairAddit() == '6p') { let x = new Date(`${de}${UX.timetable.alert.UIed.monday[6][2]}:00`); plutonny.output('pairTimerHTML', `${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)} до конца 10м-ки`) }
+                                        if (UX.timetable.currentPairAddit() == '6s') { let x = new Date(`${de}${UX.timetable.alert.UIed.monday[6][3]}:00`); plutonny.output('pairTimerHTML', `${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)} до конца пары`) }
                                     } else {
-                                        if (UX.timetable.currentPairAddit() == '1f') { let x = new Date(`${de}${UX.timetable.alert.UIed.other[1][1]}:00`); plutonny.output('pairTimerHTML', `до конца 1&nbsp;пол.<br>${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)}`) }
-                                        if (UX.timetable.currentPairAddit() == '1p') { let x = new Date(`${de}${UX.timetable.alert.UIed.other[1][2]}:00`); plutonny.output('pairTimerHTML', `до конца 10м-ки<br>${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)}`) }
-                                        if (UX.timetable.currentPairAddit() == '1s') { let x = new Date(`${de}${UX.timetable.alert.UIed.other[1][3]}:00`); plutonny.output('pairTimerHTML', `до конца 2&nbsp;пол.<br>${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)}`) }
+                                        if (UX.timetable.currentPairAddit() == '1f') { let x = new Date(`${de}${UX.timetable.alert.UIed.other[1][1]}:00`); plutonny.output('pairTimerHTML', `${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)} до 10м-ки`) }
+                                        if (UX.timetable.currentPairAddit() == '1p') { let x = new Date(`${de}${UX.timetable.alert.UIed.other[1][2]}:00`); plutonny.output('pairTimerHTML', `${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)} до конца 10м-ки`) }
+                                        if (UX.timetable.currentPairAddit() == '1s') { let x = new Date(`${de}${UX.timetable.alert.UIed.other[1][3]}:00`); plutonny.output('pairTimerHTML', `${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)} до конца пары`) }
 
-                                        if (UX.timetable.currentPairAddit() == '2a') { let x = new Date(`${de}${UX.timetable.alert.UIed.other[2][0]}:00`); plutonny.output('pairTimerHTML', `до начала 2&nbsp;пары<br>${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)}`) }
-                                        if (UX.timetable.currentPairAddit() == '2f') { let x = new Date(`${de}${UX.timetable.alert.UIed.other[2][1]}:00`); plutonny.output('pairTimerHTML', `до конца 1&nbsp;пол.<br>${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)}`) }
-                                        if (UX.timetable.currentPairAddit() == '2p') { let x = new Date(`${de}${UX.timetable.alert.UIed.other[2][2]}:00`); plutonny.output('pairTimerHTML', `до конца 10м-ки<br>${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)}`) }
-                                        if (UX.timetable.currentPairAddit() == '2s') { let x = new Date(`${de}${UX.timetable.alert.UIed.other[2][3]}:00`); plutonny.output('pairTimerHTML', `до конца 2&nbsp;пол.<br>${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)}`) }
+                                        if (UX.timetable.currentPairAddit() == '2a') { let x = new Date(`${de}${UX.timetable.alert.UIed.other[2][0]}:00`); plutonny.output('pairTimerHTML', `${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)} до 2&nbsp;пары`) }
+                                        if (UX.timetable.currentPairAddit() == '2f') { let x = new Date(`${de}${UX.timetable.alert.UIed.other[2][1]}:00`); plutonny.output('pairTimerHTML', `${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)} до 10м-ки`) }
+                                        if (UX.timetable.currentPairAddit() == '2p') { let x = new Date(`${de}${UX.timetable.alert.UIed.other[2][2]}:00`); plutonny.output('pairTimerHTML', `${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)} до конца 10м-ки`) }
+                                        if (UX.timetable.currentPairAddit() == '2s') { let x = new Date(`${de}${UX.timetable.alert.UIed.other[2][3]}:00`); plutonny.output('pairTimerHTML', `${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)} до конца пары`) }
 
-                                        if (UX.timetable.currentPairAddit() == '3a') { let x = new Date(`${de}${UX.timetable.alert.UIed.other[3][0]}:00`); plutonny.output('pairTimerHTML', `до начала 3&nbsp;пары<br>${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)}`) }
-                                        if (UX.timetable.currentPairAddit() == '3f') { let x = new Date(`${de}${UX.timetable.alert.UIed.other[3][1]}:00`); plutonny.output('pairTimerHTML', `до конца 1&nbsp;пол.<br>${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)}`) }
-                                        if (UX.timetable.currentPairAddit() == '3p') { let x = new Date(`${de}${UX.timetable.alert.UIed.other[3][2]}:00`); plutonny.output('pairTimerHTML', `до конца 10м-ки<br>${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)}`) }
-                                        if (UX.timetable.currentPairAddit() == '3s') { let x = new Date(`${de}${UX.timetable.alert.UIed.other[3][3]}:00`); plutonny.output('pairTimerHTML', `до конца 2&nbsp;пол.<br>${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)}`) }
+                                        if (UX.timetable.currentPairAddit() == '3a') { let x = new Date(`${de}${UX.timetable.alert.UIed.other[3][0]}:00`); plutonny.output('pairTimerHTML', `${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)} до 3&nbsp;пары`) }
+                                        if (UX.timetable.currentPairAddit() == '3f') { let x = new Date(`${de}${UX.timetable.alert.UIed.other[3][1]}:00`); plutonny.output('pairTimerHTML', `${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)} до 10м-ки`) }
+                                        if (UX.timetable.currentPairAddit() == '3p') { let x = new Date(`${de}${UX.timetable.alert.UIed.other[3][2]}:00`); plutonny.output('pairTimerHTML', `${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)} до конца 10м-ки`) }
+                                        if (UX.timetable.currentPairAddit() == '3s') { let x = new Date(`${de}${UX.timetable.alert.UIed.other[3][3]}:00`); plutonny.output('pairTimerHTML', `${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)} до конца пары`) }
 
-                                        if (UX.timetable.currentPairAddit() == '4a') { let x = new Date(`${de}${UX.timetable.alert.UIed.other[4][0]}:00`); plutonny.output('pairTimerHTML', `до начала 4&nbsp;пары<br>${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)}`) }
-                                        if (UX.timetable.currentPairAddit() == '4f') { let x = new Date(`${de}${UX.timetable.alert.UIed.other[4][1]}:00`); plutonny.output('pairTimerHTML', `до конца 1&nbsp;пол.<br>${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)}`) }
-                                        if (UX.timetable.currentPairAddit() == '4p') { let x = new Date(`${de}${UX.timetable.alert.UIed.other[4][2]}:00`); plutonny.output('pairTimerHTML', `до конца 10м-ки<br>${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)}`) }
-                                        if (UX.timetable.currentPairAddit() == '4s') { let x = new Date(`${de}${UX.timetable.alert.UIed.other[4][3]}:00`); plutonny.output('pairTimerHTML', `до конца 2&nbsp;пол.<br>${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)}`) }
+                                        if (UX.timetable.currentPairAddit() == '4a') { let x = new Date(`${de}${UX.timetable.alert.UIed.other[4][0]}:00`); plutonny.output('pairTimerHTML', `${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)} до 4&nbsp;пары`) }
+                                        if (UX.timetable.currentPairAddit() == '4f') { let x = new Date(`${de}${UX.timetable.alert.UIed.other[4][1]}:00`); plutonny.output('pairTimerHTML', `${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)} до 10м-ки`) }
+                                        if (UX.timetable.currentPairAddit() == '4p') { let x = new Date(`${de}${UX.timetable.alert.UIed.other[4][2]}:00`); plutonny.output('pairTimerHTML', `${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)} до конца 10м-ки`) }
+                                        if (UX.timetable.currentPairAddit() == '4s') { let x = new Date(`${de}${UX.timetable.alert.UIed.other[4][3]}:00`); plutonny.output('pairTimerHTML', `${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)} до конца пары`) }
 
-                                        if (UX.timetable.currentPairAddit() == '5a') { let x = new Date(`${de}${UX.timetable.alert.UIed.other[5][0]}:00`); plutonny.output('pairTimerHTML', `до начала 5&nbsp;пары<br>${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)}`) }
-                                        if (UX.timetable.currentPairAddit() == '5f') { let x = new Date(`${de}${UX.timetable.alert.UIed.other[5][1]}:00`); plutonny.output('pairTimerHTML', `до конца 1&nbsp;пол.<br>${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)}`) }
-                                        if (UX.timetable.currentPairAddit() == '5p') { let x = new Date(`${de}${UX.timetable.alert.UIed.other[5][2]}:00`); plutonny.output('pairTimerHTML', `до конца 10м-ки<br>${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)}`) }
-                                        if (UX.timetable.currentPairAddit() == '5s') { let x = new Date(`${de}${UX.timetable.alert.UIed.other[5][3]}:00`); plutonny.output('pairTimerHTML', `до конца 2&nbsp;пол.<br>${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)}`) }
+                                        if (UX.timetable.currentPairAddit() == '5a') { let x = new Date(`${de}${UX.timetable.alert.UIed.other[5][0]}:00`); plutonny.output('pairTimerHTML', `${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)} до 5&nbsp;пары`) }
+                                        if (UX.timetable.currentPairAddit() == '5f') { let x = new Date(`${de}${UX.timetable.alert.UIed.other[5][1]}:00`); plutonny.output('pairTimerHTML', `${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)} до 10м-ки`) }
+                                        if (UX.timetable.currentPairAddit() == '5p') { let x = new Date(`${de}${UX.timetable.alert.UIed.other[5][2]}:00`); plutonny.output('pairTimerHTML', `${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)} до конца 10м-ки`) }
+                                        if (UX.timetable.currentPairAddit() == '5s') { let x = new Date(`${de}${UX.timetable.alert.UIed.other[5][3]}:00`); plutonny.output('pairTimerHTML', `${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)} до конца пары`) }
 
-                                        if (UX.timetable.currentPairAddit() == '6a') { let x = new Date(`${de}${UX.timetable.alert.UIed.other[6][0]}:00`); plutonny.output('pairTimerHTML', `до начала 6&nbsp;пары<br>${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)}`) }
-                                        if (UX.timetable.currentPairAddit() == '6f') { let x = new Date(`${de}${UX.timetable.alert.UIed.other[6][1]}:00`); plutonny.output('pairTimerHTML', `до конца 1&nbsp;пол.<br>${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)}`) }
-                                        if (UX.timetable.currentPairAddit() == '6p') { let x = new Date(`${de}${UX.timetable.alert.UIed.other[6][2]}:00`); plutonny.output('pairTimerHTML', `до конца 10м-ки<br>${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)}`) }
-                                        if (UX.timetable.currentPairAddit() == '6s') { let x = new Date(`${de}${UX.timetable.alert.UIed.other[6][3]}:00`); plutonny.output('pairTimerHTML', `до конца 2&nbsp;пол.<br>${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)}`) }
+                                        if (UX.timetable.currentPairAddit() == '6a') { let x = new Date(`${de}${UX.timetable.alert.UIed.other[6][0]}:00`); plutonny.output('pairTimerHTML', `${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)} до 6&nbsp;пары`) }
+                                        if (UX.timetable.currentPairAddit() == '6f') { let x = new Date(`${de}${UX.timetable.alert.UIed.other[6][1]}:00`); plutonny.output('pairTimerHTML', `${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)} до 10м-ки`) }
+                                        if (UX.timetable.currentPairAddit() == '6p') { let x = new Date(`${de}${UX.timetable.alert.UIed.other[6][2]}:00`); plutonny.output('pairTimerHTML', `${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)} до конца 10м-ки`) }
+                                        if (UX.timetable.currentPairAddit() == '6s') { let x = new Date(`${de}${UX.timetable.alert.UIed.other[6][3]}:00`); plutonny.output('pairTimerHTML', `${UI.rus('minuteS', Math.floor(((x - date) / 1000 / 60)) + 1)} до конца пары`) }
                                     }
                                 }
                             } pth()
@@ -916,7 +918,7 @@
                 <div class="header" id="header">
                     <script>
                         UI.header({
-                            textCenter: 'КСК-11', 
+                            textCenter: 'загрузка', 
                             buttonTheme: true, 
                             buttonBack: false, 
                             enableHR: false, 
