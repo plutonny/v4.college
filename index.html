@@ -928,6 +928,11 @@
                 </div>
                 <div class="content" id="content"></div>
                 <div class="navbar" id="navbar">
+                    <style id="NaCl">
+                        p.iconNavbar {
+                            padding: 3px 0px !important;
+                        }
+                    </style>
                     <style id="navbarActiveButton"></style>
                     <style>
                         #navbar {
@@ -3163,7 +3168,8 @@
                     'SeWo', 
                     'TiSc', 
                     'MaSh', 
-                    'PcFu'
+                    'PcFu',
+                    'NaCl'
                 ]
                 for (let i in deleteList) {
                     try { document.getElementById(deleteList[i]).remove() } catch {} 
