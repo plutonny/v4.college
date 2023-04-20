@@ -112,7 +112,8 @@
             "offset": true,
             "exam": false,
             "color": "blue",
-            "icon": "construction"
+            "icon": "construction",
+            "teacher_warning": "red"
         },
         "2": {
             "name": "Прикладная электроника",
@@ -124,7 +125,8 @@
             "offset": true,
             "exam": false,
             "color": "blue",
-            "icon": "microwave"
+            "icon": "microwave",
+            "teacher_warning": "yellow"
         },
         "3": {
             "name": "ПМ.04",
@@ -136,7 +138,8 @@
             "offset": false,
             "exam": true,
             "color": "neutral",
-            "icon": "school"
+            "icon": "school",
+            "teacher_warning": "none"
         },
         "4": {
             "name": "ОС и С",
@@ -148,7 +151,8 @@
             "offset": false,
             "exam": true,
             "color": "green",
-            "icon": "devices"
+            "icon": "devices",
+            "teacher_warning": "green"
         },
         "5": {
             "name": "ЭВМ",
@@ -160,7 +164,8 @@
             "offset": false,
             "exam": true,
             "color": "red",
-            "icon": "function"
+            "icon": "function",
+            "teacher_warning": "green"
         },
         "6": {
             "name": "МДК.04.01",
@@ -172,7 +177,8 @@
             "offset": true,
             "exam": false,
             "color": "yellow",
-            "icon": "brush"
+            "icon": "brush",
+            "teacher_warning": "green"
         },
         "7": {
             "name": "ТВ и МС",
@@ -184,7 +190,8 @@
             "offset": true,
             "exam": false,
             "color": "red",
-            "icon": "functions"
+            "icon": "functions",
+            "teacher_warning": "yellow"
         },
         "8": {
             "name": "УП.04.01",
@@ -196,7 +203,8 @@
             "offset": true,
             "exam": false,
             "color": "neutral",
-            "icon": "school"
+            "icon": "school",
+            "teacher_warning": "none"
         },
         "9": {
             "name": "ИГ",
@@ -208,7 +216,8 @@
             "offset": true,
             "exam": false,
             "color": "violet",
-            "icon": "design_services"
+            "icon": "design_services",
+            "teacher_warning": "green"
         },
         "10": {
             "name": "Английский язык",
@@ -220,7 +229,8 @@
             "offset": true,
             "exam": false,
             "color": "violet",
-            "icon": "translate"
+            "icon": "translate",
+            "teacher_warning": "yellow"
         },
         "11": {
             "name": "МДК.01.02",
@@ -232,7 +242,8 @@
             "offset": false,
             "exam": false,
             "color": "yellow",
-            "icon": "architecture"
+            "icon": "architecture",
+            "teacher_warning": "green"
         },
         "12": {
             "name": "Физ-ра",
@@ -244,7 +255,8 @@
             "offset": false,
             "exam": false,
             "color": "green",
-            "icon": "directions_walk"
+            "icon": "directions_walk",
+            "teacher_warning": "green"
         },
         "13": {
             "name": "ПП.04.01",
@@ -256,7 +268,8 @@
             "offset": true,
             "exam": false,
             "color": "neutral",
-            "icon": "school"
+            "icon": "school",
+            "teacher_warning": "none"
         },
         "14": {
             "name": "Классный час",
@@ -268,7 +281,8 @@
             "offset": false,
             "exam": false,
             "color": "neutral",
-            "icon": "school"
+            "icon": "school",
+            "teacher_warning": "none"
         },
         "count": 14
     }

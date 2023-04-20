@@ -18,7 +18,7 @@
             function clgenld() { 
                 let clengl = setInterval(function() {
                     try { 
-                        document.getElementById('genload').remove() 
+                        document.getElementById('genload').remove()
                     } catch {}
                 }, 1); 
             }
@@ -57,17 +57,17 @@
         <link   rel="preload prefetch"              href="https://fonts.gstatic.com/s/materialsymbolsrounded/v74/sykg-zNym6YjUruM-QrEh7-nyTnjDwKNJ_190Fjzag.woff2" as="font" type="font/woff2" crossorigin onload="clgenld()">
         
         <!-- CSS and icon site -->
-        <link   rel="preload prefetch stylesheet"   href="https://lib.plutonny.ru/viewer.css?cache=14.04.2023-v410-b43" as="style">
-        <link   rel="preload prefetch stylesheet"   href="static/load.css?cache=14.04.2023-v410-b43" as="style">
-        <link   rel="preload prefetch stylesheet"   href="static/main.css?cache=14.04.2023-v410-b43" as="style">
-        <link   rel="icon"                          href="static/g-icon.png?cache=14.04.2023-v410-b43">
+        <link   rel="preload prefetch stylesheet"   href="https://lib.plutonny.ru/viewer.css?cache=20.04.2023-v410-b44" as="style">
+        <link   rel="preload prefetch stylesheet"   href="static/load.css?cache=20.04.2023-v410-b44" as="style">
+        <link   rel="preload prefetch stylesheet"   href="static/main.css?cache=20.04.2023-v410-b44" as="style">
+        <link   rel="icon"                          href="static/g-icon.png?cache=20.04.2023-v410-b44">
         <link   rel="apple-touch-icon"              href="pwa-icon-apple.png">
 
         <!-- JS files -->
-        <script type="text/javascript"              src="https://lib.plutonny.ru/plutonny.js/v1.0.js?cache=14.04.2023-v410-b43"></script>
-        <script type="text/javascript"              src="https://lib.plutonny.ru/luxon.js?cache=14.04.2023-v410-b43"></script>
-        <script type="text/javascript"              src="https://lib.plutonny.ru/solar.js?cache=14.04.2023-v410-b43"></script>
-        <script type="text/javascript"              src="https://lib.plutonny.ru/viewer.js?cache=14.04.2023-v410-b43"></script>
+        <script type="text/javascript"              src="https://lib.plutonny.ru/plutonny.js/v1.0.js?cache=20.04.2023-v410-b44"></script>
+        <script type="text/javascript"              src="https://lib.plutonny.ru/luxon.js?cache=20.04.2023-v410-b44"></script>
+        <script type="text/javascript"              src="https://lib.plutonny.ru/solar.js?cache=20.04.2023-v410-b44"></script>
+        <script type="text/javascript"              src="https://lib.plutonny.ru/viewer.js?cache=20.04.2023-v410-b44"></script>
         
         <style  id="root-colors-theme"              >#thMoon, #thSun { display: none; }</style>
 
@@ -97,7 +97,7 @@
             "use strict";
             
             var siteVersion = '4.1.0'
-            var siteBuild = '43'
+            var siteBuild = '44'
 
             var CURRDATE = new Date()
             var NEXTDAY = new Date(); NEXTDAY.setDate(CURRDATE.getDay() == 6 ? CURRDATE.getDate() + 2 : CURRDATE.getDate() + 1)
@@ -930,7 +930,7 @@
                 <div class="navbar" id="navbar">
                     <style id="NaCl">
                         p.iconNavbar {
-                            padding: 3px 0px !important;
+                            padding: 3px 3px !important;
                         }
                     </style>
                     <style id="navbarActiveButton"></style>
@@ -1649,43 +1649,47 @@
             }
             
             function tableLoad() {
-                plutonny.output('genload', `
-                <style>
-                    .genload {
-                        backdrop-filter: blur(10px);
-                        -webkit-backdrop-filter: blur(10px);
-                        position: absolute;
-                        z-index: 100;
-                        display: flex;
-                        align-items: center;
-                        justify-content: center;
-                        align-content: center;
-                        height: 100vh;
-                        width: 100vw;
-                    }
-                    .loader_box {
-                        border-radius: 28px;
-                        background-color: var(--bg-color-header);
-                        height: 120px;
-                        width: 120px;
-                        display: flex;
-                        align-items: center;
-                        justify-content: center;
-                        align-content: center;
-                    }
-                    html, body { margin: 0; overflow-y: hidden; }
-                </style>
-                <div class="loader_box">
-                    <div class="loader"><svg viewBox="0 0 80 80"><circle cx="40" cy="40" r="32"></circle></svg></div>
-                </div>
-                `)
+                try {
+                    plutonny.output('genload', `
+                    <style>
+                        .genload {
+                            backdrop-filter: blur(10px);
+                            -webkit-backdrop-filter: blur(10px);
+                            position: absolute;
+                            z-index: 100;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            align-content: center;
+                            height: 100vh;
+                            width: 100vw;
+                        }
+                        .loader_box {
+                            border-radius: 28px;
+                            background-color: var(--bg-color-header);
+                            height: 120px;
+                            width: 120px;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            align-content: center;
+                        }
+                        html, body { margin: 0; overflow-y: hidden; }
+                    </style>
+                    <div class="loader_box">
+                        <div class="loader"><svg viewBox="0 0 80 80"><circle cx="40" cy="40" r="32"></circle></svg></div>
+                    </div>
+                    `)
+                } catch {}
             }
             async function homeLoad() {
-                plutonny.output('fcoPAIR',`
-                    <div style="width: calc(100% - 16px); height: 68px; background: var(--button-color); border-radius: 18px 18px 8px 8px; margin: 0 0 16px 0; padding: 0 8px;"></div>
-                    <div style="width: calc(100% - 16px); height: 68px; background: var(--button-color); border-radius: 8px; margin: 0 0 16px 0; padding: 0 8px;"></div>
-                    <div style="width: calc(100% - 16px); height: 68px; background: var(--button-color); border-radius: 8px 8px 18px 18px; margin: 0 0 16px 0; padding: 0 8px;"></div>
-                `)
+                try {
+                    plutonny.output('fcoPAIR',`
+                        <div style="width: calc(100% - 16px); height: 68px; background: var(--button-color); border-radius: 18px 18px 8px 8px; margin: 0 0 16px 0; padding: 0 8px;"></div>
+                        <div style="width: calc(100% - 16px); height: 68px; background: var(--button-color); border-radius: 8px; margin: 0 0 16px 0; padding: 0 8px;"></div>
+                        <div style="width: calc(100% - 16px); height: 68px; background: var(--button-color); border-radius: 8px 8px 18px 18px; margin: 0 0 16px 0; padding: 0 8px;"></div>
+                    `)
+                } catch {}
                 await plutonny.sleep(300)
             }
 
@@ -2336,7 +2340,7 @@
                                         <div style="height: 8px;"></div>
                                         <hr style="width: 100%; opacity: 0.1; margin: 2px 0; background-color: var(--icon-color);">
                                         <div style="height: 8px;"></div>
-                                        <p style="margin: 4px 0; font-family: 'Montserrat';">преподаватель: ${data[NUMSEMESTR][URLDIR[2]]['teacher']}</p>
+                                        <p style="margin: 4px 0; font-family: 'Montserrat';">преподаватель: <b style="font-family: 'Montserrat'; background: var(--teacher-${data[NUMSEMESTR][URLDIR[2]]['teacher_warning']}); border-radius: 8px; line-height: 25px; padding: ${data[NUMSEMESTR][URLDIR[2]]['teacher_warning'] == 'none' ? '0' : '3px 8px'};">${data[NUMSEMESTR][URLDIR[2]]['teacher']}</b></p>
                                         <div style="height: 8px;"></div>
                                         <hr style="width: 100%; opacity: 0.1; margin: 2px 0; background-color: var(--icon-color);">
                                         <div style="height: 8px;"></div>
@@ -3011,11 +3015,10 @@
                             UI.navbar('other')
                             plutonny.output('content', `
                             <p style="font-family: 'Montserrat';">важная информация перед использованием сайта</p>
-                            <div style="display: flex; justify-content: center;">
+                            <div style="display: flex; justify-content: center; margin-bottom: 12px;">
                                 <button onclick="window.location.href = '/?/support/important/'">прочитать</button>
                             </div>
 
-                            <div style="height: 12px;"></div>
                             <hr style="width: 100%; opacity: 0.1; margin: 2px 0; background-color: var(--icon-color);">
 
                             <div style="height: 12px;"></div>
@@ -3024,41 +3027,41 @@
 
                             <hr style="width: 100%; opacity: 0.1; margin: 2px 0; background-color: var(--icon-color);">
                             
-                            <p style="font-family: 'Montserrat';">теперь на странице всех пар предметы делятся на те, по которым сдавать экзамен или зачет</p>
-                            <div style="display: flex; justify-content: center; margin: 0 0 6px 0;"><img src="/static/updates/410-1.png" style="width: 80%; margin-bottom: 6px; border-radius: 12px;"></div>
+                            <p style="font-family: 'Montserrat';">все предметы делятся на те, по которым надо сдавать зачет, экзамен или ничего</p>
+                            <div style="display: flex; justify-content: center; margin: 0 0 18px 0;"><img src="/static/updates/410-1.png" style="width: 80%; margin-bottom: 6px; border-radius: 12px;"></div>
 
-                            <div style="height: 12px;"></div>
                             <hr style="width: 100%; opacity: 0.1; margin: 2px 0; background-color: var(--icon-color);">
 
-                            <div style="height: 12px;"></div>
-                            <b style="font-family: 'Montserrat';">комфортное отображение на ПК</b>
-                            <div style="height: 12px;"></div>
+                            <p style="font-family: 'Montserrat';">больше подробностей на странице предмета</p>
+                            <div style="display: flex; justify-content: center; margin: 0 0 18px 0;"><img src="/static/updates/410-3.png" style="width: 80%; margin-bottom: 6px; border-radius: 12px;"></div>
+
+                            <hr style="width: 100%; opacity: 0.1; margin: 2px 0; background-color: var(--icon-color);">
+
+                            <p style="font-family: 'Montserrat';">комфортное отображение на ПК</p>
+                            <div style="display: flex; justify-content: center; margin: 0 0 18px 0;"><img src="/static/updates/410-4.png" style="width: 80%; margin-bottom: 6px; border-radius: 12px;"></div>
 
                             <hr style="width: 100%; opacity: 0.1; margin: 2px 0; background-color: var(--icon-color);">
 
                             <p style="font-family: 'Montserrat';">интересующие тебя вопросы в поддержке</p>
-                            <div style="display: flex; justify-content: center;">
+                            <div style="display: flex; justify-content: center; margin-bottom: 12px;">
                                 <button onclick="window.location.href = '/?/support/'">перейти</button>
                             </div>
 
-                            <div style="height: 12px;"></div>
                             <hr style="width: 100%; opacity: 0.1; margin: 2px 0; background-color: var(--icon-color);">
 
                             <p style="font-family: 'Montserrat';">есть полезные ссылки: можно быстро найти нужную информацию на сайте колледжа</p>
                             <div style="display: flex; justify-content: center; margin: 0 0 6px 0;"><img src="/static/updates/410-2.png" style="width: 80%; margin-bottom: 6px; border-radius: 12px;"></div>
-                            <div style="display: flex; justify-content: center;">
+                            <div style="display: flex; justify-content: center; margin-bottom: 12px;">
                                 <button onclick="window.location.href = '/?/other/links/'">перейти</button>
                             </div>
 
-                            <div style="height: 12px;"></div>
                             <hr style="width: 100%; opacity: 0.1; margin: 2px 0; background-color: var(--icon-color);">
 
                             <p style="font-family: 'Montserrat';">загляни в настройки, там можно редактировать главную или настроить под себя тему</p>
-                            <div style="display: flex; justify-content: center;">
+                            <div style="display: flex; justify-content: center; margin-bottom: 12px;">
                                 <button onclick="window.location.href = '/?/settings/'">перейти</button>
                             </div>
 
-                            <div style="height: 12px;"></div>
                             <hr style="width: 100%; opacity: 0.1; margin: 2px 0; background-color: var(--icon-color);">
 
                             <div style="display: flex; justify-content: center;">
@@ -3157,6 +3160,7 @@
         <script id="ClLo" type="text/javascript">
             window.addEventListener('load', function() { 
                 let deleteList = [
+                    'NaCl',
                     'genload', 
                     'ImLo', 
                     'PaCr', 
@@ -3168,8 +3172,7 @@
                     'SeWo', 
                     'TiSc', 
                     'MaSh', 
-                    'PcFu',
-                    'NaCl'
+                    'PcFu'
                 ]
                 for (let i in deleteList) {
                     try { document.getElementById(deleteList[i]).remove() } catch {} 

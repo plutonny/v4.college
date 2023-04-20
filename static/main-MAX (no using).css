@@ -40,6 +40,10 @@
     --UI-icon-breeze-op:          #00ffff40;
     --UI-icon-dark:               #909090  ;
     --UI-icon-dark-op:            #90909040;
+
+    --teacher-red:                #ff000060;
+    --teacher-yellow:             #ffff0060;
+    --teacher-green:              #00ff0060;
 }
 
 /* Scrollbar disable only to Chrome users */
