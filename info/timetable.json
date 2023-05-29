@@ -33,12 +33,11 @@
     },
     "4": {
         "1": {
-            "count": 4,
-            "1": { "num": 0, "cab": "418", "id": "14", "color": "default" },
-            "2": { "num": 1, "cab": "0204", "id": "1", "color": "default" },
-            "3": { "num": 2, "cab": "409", "id": "5", "color": "default" },
-            "4": { "num": 3, "cab": "0305", "id": "4", "color": "yellow" },
-            "5": { "num": 3, "cab": "401", "id": "4", "color": "green" }
+            "count": 3,
+            "1": { "num": 1, "cab": "0204", "id": "1", "color": "default" },
+            "2": { "num": 2, "cab": "409", "id": "5", "color": "default" },
+            "3": { "num": 3, "cab": "0305", "id": "4", "color": "yellow" },
+            "4": { "num": 3, "cab": "401", "id": "4", "color": "green" }
         },
         "2": {
             "count": 3,
