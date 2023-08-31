@@ -71,5 +71,48 @@
             "3": { "num": 3, "cab": "309", "id": "2", "color": "default" }
         }
     },
+    "5": {
+        "1": {
+            "count": 3,
+            "1": { "num": 0, "cab": "418", "id": "12", "color": "default" },
+            "2": { "num": 1, "cab": "-", "id": "1", "color": "yellow" },
+            "3": { "num": 1, "cab": "0205", "id": "3", "color": "green" },
+            "4": { "num": 2, "cab": "0205", "id": "3", "color": "default" },
+            "5": { "num": 3, "cab": "- (1п/гр)", "id": "2", "color": "default" }
+        },
+        "2": {
+            "count": 4,
+            "1": { "num": 1, "cab": "230", "id": "4", "color": "default" },
+            "2": { "num": 2, "cab": "-", "id": "3", "color": "default" },
+            "3": { "num": 3, "cab": "-", "id": "5", "color": "default" },
+            "4": { "num": 4, "cab": "- (2п/гр)", "id": "2", "color": "default" }
+        },
+        "3": {
+            "count": 3,
+            "1": { "num": 1, "cab": "0205", "id": "1", "color": "yellow" },
+            "2": { "num": 1, "cab": "230", "id": "4", "color": "green" },
+            "3": { "num": 2, "cab": "-", "id": "1", "color": "default" },
+            "4": { "num": 3, "cab": "0200", "id": "3", "color": "default" }
+        },
+        "4": {
+            "count": 3,
+            "1": { "num": 1, "cab": "404а/311", "id": "6", "color": "default" },
+            "2": { "num": 2, "cab": "0205", "id": "3", "color": "default" },
+            "3": { "num": 3, "cab": "-", "id": "2", "color": "default" }
+        },
+        "5": {
+            "count": 4,
+            "1": { "num": 1, "cab": "- (1п/гр)", "id": "2", "color": "default" },
+            "2": { "num": 2, "cab": "-", "id": "1", "color": "default" },
+            "3": { "num": 3, "cab": "-", "id": "1", "color": "default" },
+            "4": { "num": 4, "cab": "- (2п/гр)", "id": "2", "color": "default" }
+        },
+        "6": {
+            "count": 3,
+            "1": { "num": 1, "cab": "230", "id": "4", "color": "default" },
+            "2": { "num": 2, "cab": "0100", "id": "7", "color": "default" },
+            "3": { "num": 3, "cab": "-", "id": "5", "color": "default" }
+        }
+    },
     "additional": "color of pair: first - YELLOW, after - GREEN"
 }
