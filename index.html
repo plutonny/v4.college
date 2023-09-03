@@ -1106,7 +1106,7 @@
                     fco(CURRDATE.getDay(), 'active')
                 }
                 if (c == 1) {
-                    CURRDATE.getDay() == 6 ? fco(1, 'noactive') : fco(NEXTDAY.getDay(), 'noactive')
+                    fco(CURRDATE.getDay() == 6 ? 1 : NEXTDAY.getDay(), 'noactive')
                 }
                 function fco(i, a) {
                     fetch(`/info/timetable.json?t=${CURRDATE.getTime()}`).then(function (response) { return response.json() }).then(function (tim) { 
@@ -1171,7 +1171,7 @@
                                     }
                                 }
                             }
-                            if (i == 0) {
+                            else if (i == 0) {
                                 inj = `
                                 <div style="display: flex; flex-direction: column; align-items: center;">
                                     <div style="height: 36px;"></div>
